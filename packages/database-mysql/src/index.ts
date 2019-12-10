@@ -11,12 +11,10 @@ type DatabaseEngine = import('@synor/core').DatabaseEngine
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory
 type MigrationSource = import('@synor/core').MigrationSource
 
-type MySQLDatabaseEngine = DatabaseEngine
-
 export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   uri,
   { baseVersion, getAdvisoryLockId, getUserInfo }
-): MySQLDatabaseEngine => {
+): DatabaseEngine => {
   const engineConfig = getEngineConfig(uri)
   const mysqlConfig = getMySQLConfig(uri)
 
@@ -35,36 +33,36 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
 
   let appliedBy = ''
 
-  const open: MySQLDatabaseEngine['open'] = async () => {
+  const open: DatabaseEngine['open'] = async () => {
     appliedBy = await getUserInfo()
     await queryStore.openConnection()
     await ensureMigrationRecordTable(queryStore, baseVersion)
   }
 
-  const close: MySQLDatabaseEngine['close'] = async () => {
+  const close: DatabaseEngine['close'] = async () => {
     await queryStore.closeConnection()
   }
 
-  const lock: MySQLDatabaseEngine['lock'] = async () => {
+  const lock: DatabaseEngine['lock'] = async () => {
     const lockResult = await queryStore.getLock()
     if ([0, null].includes(lockResult)) {
       throw new SynorError('Failed to Get Lock', { lockId: advisoryLockId })
     }
   }
 
-  const unlock: MySQLDatabaseEngine['unlock'] = async () => {
+  const unlock: DatabaseEngine['unlock'] = async () => {
     const lockResult = await queryStore.releaseLock()
     if ([0, null].includes(lockResult)) {
       throw new SynorError('Failed to Release Lock', { lockId: advisoryLockId })
     }
   }
 
-  const drop: MySQLDatabaseEngine['drop'] = async () => {
+  const drop: DatabaseEngine['drop'] = async () => {
     const tableNames = await queryStore.getTableNames()
     await queryStore.dropTables(tableNames)
   }
 
-  const run: MySQLDatabaseEngine['run'] = async ({
+  const run: DatabaseEngine['run'] = async ({
     version,
     type,
     title,
@@ -97,7 +95,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     }
   }
 
-  const repair: MySQLDatabaseEngine['repair'] = async records => {
+  const repair: DatabaseEngine['repair'] = async records => {
     await queryStore.deleteDirtyRecords()
 
     for (const { id, hash } of records) {
@@ -105,7 +103,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     }
   }
 
-  const records: MySQLDatabaseEngine['records'] = async startId => {
+  const records: DatabaseEngine['records'] = async startId => {
     return queryStore.getRecords(startId)
   }
 
@@ -120,3 +118,5 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     records
   }
 }
+
+export default MySQLDatabaseEngine
