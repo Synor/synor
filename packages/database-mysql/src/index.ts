@@ -18,6 +18,14 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   const engineConfig = getEngineConfig(uri)
   const mysqlConfig = getMySQLConfig(uri)
 
+  if (typeof getAdvisoryLockId !== 'function') {
+    throw new SynorError(`Missing: getAdvisoryLockId`)
+  }
+
+  if (typeof getUserInfo !== 'function') {
+    throw new SynorError(`Missing: getUserInfo`)
+  }
+
   const advisoryLockId = getAdvisoryLockId(
     mysqlConfig.database,
     engineConfig.migrationTableName

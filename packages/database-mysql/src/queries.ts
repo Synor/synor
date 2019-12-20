@@ -234,7 +234,7 @@ export function getQueryStore(
     appliedAt,
     appliedBy,
     executionTime,
-    dirty = false
+    dirty
   }) => {
     return QueryRunner(
       `

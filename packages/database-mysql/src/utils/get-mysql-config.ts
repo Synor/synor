@@ -1,3 +1,5 @@
+import { SynorError } from '@synor/core'
+
 type ConnectionConfig = import('mysql').ConnectionConfig
 
 type MySQLDatabaseConfig = Pick<ConnectionConfig, 'ssl'> &
@@ -10,6 +12,7 @@ type MySQLDatabaseConfig = Pick<ConnectionConfig, 'ssl'> &
 
 export function getMySQLConfig(uri: string): MySQLDatabaseConfig {
   const {
+    protocol,
     pathname,
     hostname,
     port,
@@ -18,15 +21,20 @@ export function getMySQLConfig(uri: string): MySQLDatabaseConfig {
     searchParams
   } = new URL(uri)
 
+  if (protocol !== 'mysql:') {
+    throw new SynorError(`Invalid DatabaseURI`)
+  }
+
   let ssl: ConnectionConfig['ssl']
 
   if (searchParams.has('ssl')) {
-    const sslRaw = searchParams.get('ssl')
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const sslRaw = searchParams.get('ssl')!
 
     try {
-      ssl = JSON.parse(sslRaw!)
+      ssl = JSON.parse(sslRaw)
     } catch {
-      ssl = sslRaw!
+      ssl = sslRaw
     }
   }
 
