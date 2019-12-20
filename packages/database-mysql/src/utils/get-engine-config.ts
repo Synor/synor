@@ -1,4 +1,5 @@
 import { SynorError } from '@synor/core'
+import { URL } from 'url'
 
 type MySQLDatabaseEngineConfig = {
   migrationTableName: string

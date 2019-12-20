@@ -1,4 +1,5 @@
 import { SynorError } from '@synor/core'
+import { URL } from 'url'
 
 type ConnectionConfig = import('mysql').ConnectionConfig
 
@@ -33,7 +34,7 @@ export function getMySQLConfig(uri: string): MySQLDatabaseConfig {
 
     try {
       ssl = JSON.parse(sslRaw)
-    } catch {
+    } catch (_) {
       ssl = sslRaw
     }
   }
