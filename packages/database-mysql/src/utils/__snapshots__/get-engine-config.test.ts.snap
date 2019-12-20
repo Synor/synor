@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils:getEngineConfig accepts mysql uri 1`] = `
+Object {
+  "migrationTableName": "synor_migration_record",
+}
+`;
