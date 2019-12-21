@@ -201,7 +201,7 @@ describe('methods: {lock,unlock}', () => {
     await engine.close()
   })
 
-  test('can not get multiple lock at once', async () => {
+  test.skip('can not get multiple lock at once', async () => {
     const engineOne = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
