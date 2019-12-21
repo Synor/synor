@@ -1,21 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`utils:runQuery can execute multiple query 1`] = `
-Array [
-  Array [
-    RowDataPacket {
-      "1": 1,
-    },
-  ],
-  Array [
-    RowDataPacket {
-      "2": 2,
-    },
-  ],
-]
-`;
-
-exports[`utils:runQuery can execute single query 1`] = `
+exports[`utils:runQuery can execute query 1`] = `
 Array [
   RowDataPacket {
     "1": 1,
