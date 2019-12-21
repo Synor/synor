@@ -9,7 +9,7 @@ type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId
 type GetUserInfo = import('@synor/core').GetUserInfo
 type MigrationSource = import('@synor/core').MigrationSource
 
-jest.setTimeout(120 * 1000)
+jest.setTimeout(30 * 1000)
 
 jest.mock('perf_hooks')
 
@@ -129,13 +129,12 @@ describe('methods: {open,close}', () => {
 
   beforeAll(async () => {
     connection = createConnection(getMySQLConfig(uri))
-    connection.connect()
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })
 
   afterAll(() => {
-    connection.end()
+    connection.destroy()
   })
 
   beforeEach(() => {
@@ -148,7 +147,7 @@ describe('methods: {open,close}', () => {
 
   let recordColumnCount: number
 
-  test('open (first run)', async () => {
+  test('can open & close (first run)', async () => {
     recordColumnCount = await getTableColumnCount(
       connection,
       tableName,
@@ -166,9 +165,11 @@ describe('methods: {open,close}', () => {
     )
 
     expect(recordColumnCount).toBeGreaterThan(0)
+
+    await expect(engine.close()).resolves.toBeUndefined()
   })
 
-  test('open (after first run)', async () => {
+  test('can open & close (after first run)', async () => {
     await expect(
       getTableColumnCount(connection, tableName, databaseName)
     ).resolves.toBe(recordColumnCount)
@@ -178,9 +179,7 @@ describe('methods: {open,close}', () => {
     await expect(
       getTableColumnCount(connection, tableName, databaseName)
     ).resolves.toBe(recordColumnCount)
-  })
 
-  test('close', async () => {
     await expect(engine.close()).resolves.toBeUndefined()
   })
 })
@@ -293,13 +292,12 @@ describe('methods', () => {
     } as typeof global.Date
 
     connection = createConnection(getMySQLConfig(uri))
-    connection.connect()
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })
 
   afterAll(() => {
-    connection.end()
+    connection.destroy()
 
     global.Date = OriginalDate
   })
