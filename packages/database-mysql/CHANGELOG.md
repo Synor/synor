@@ -4,6 +4,10 @@
 
 - ...
 
+## [0.2.0] - 2019-12-21
+
+- Add some validation at initialization
+
 ## [0.1.1] - 2019-12-11
 
 - Add default export
@@ -12,5 +16,6 @@
 
 - Initial release
 
-[unreleased]: https://github.com/Synor/database-mysql/compare/0.1.1...HEAD
+[unreleased]: https://github.com/Synor/database-mysql/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/Synor/database-mysql/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/Synor/database-mysql/compare/0.1.0...0.1.1
