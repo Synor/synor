@@ -9,7 +9,7 @@ type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId
 type GetUserInfo = import('@synor/core').GetUserInfo
 type MigrationSource = import('@synor/core').MigrationSource
 
-jest.setTimeout(30 * 1000)
+jest.setTimeout(120 * 1000)
 
 jest.mock('perf_hooks')
 
