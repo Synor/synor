@@ -3,8 +3,7 @@ import { createConnection } from 'mysql'
 import { performance } from 'perf_hooks'
 import { getQueryStore } from './queries'
 import { ensureMigrationRecordTable } from './utils/ensure-migration-record-table'
-import { getEngineConfig } from './utils/get-engine-config'
-import { getMySQLConfig } from './utils/get-mysql-config'
+import { getConfig } from './utils/get-config'
 import { runQuery } from './utils/run-query'
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine
@@ -15,8 +14,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   uri,
   { baseVersion, getAdvisoryLockId, getUserInfo }
 ): DatabaseEngine => {
-  const engineConfig = getEngineConfig(uri)
-  const mysqlConfig = getMySQLConfig(uri)
+  const { databaseConfig, engineConfig } = getConfig(uri)
 
   if (typeof getAdvisoryLockId !== 'function') {
     throw new SynorError(`Missing: getAdvisoryLockId`)
@@ -27,15 +25,15 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   }
 
   const advisoryLockId = getAdvisoryLockId(
-    mysqlConfig.database,
-    engineConfig.migrationTableName
+    databaseConfig.database,
+    engineConfig.migrationRecordTable
   ).join(':')
 
-  const connection = createConnection(mysqlConfig)
+  const connection = createConnection(databaseConfig)
 
   const queryStore = getQueryStore(connection, {
-    migrationTableName: engineConfig.migrationTableName,
-    databaseName: mysqlConfig.database,
+    migrationRecordTable: engineConfig.migrationRecordTable,
+    databaseName: databaseConfig.database,
     advisoryLockId
   })
 

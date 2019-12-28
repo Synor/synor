@@ -1,6 +1,5 @@
 import { createConnection } from 'mysql'
 import MySQLEngine, { MySQLDatabaseEngine } from './index'
-import { getMySQLConfig } from './utils/get-mysql-config'
 import { runQuery } from './utils/run-query'
 
 type Connection = import('mysql').Connection
@@ -47,6 +46,11 @@ const getAdvisoryLockId: GetAdvisoryLockId = (databaseName, ...names) => {
 }
 const getUserInfo: GetUserInfo = () => Promise.resolve(`Jest`)
 
+const databaseName = 'synor'
+const tableName = 'test_record'
+const params = `synor_migration_record_table=${tableName}`
+const uri = `mysql://root:root@127.0.0.1:3306/${databaseName}?${params}`
+
 describe('module exports', () => {
   test('default export exists', () => {
     expect(typeof MySQLEngine).toBe('function')
@@ -62,7 +66,7 @@ describe('module exports', () => {
 })
 
 describe('initialization', () => {
-  let uri: Parameters<typeof MySQLDatabaseEngine>[0]
+  let dbUri: Parameters<typeof MySQLDatabaseEngine>[0]
   const helpers: Parameters<typeof MySQLDatabaseEngine>[1] = {
     baseVersion,
     getAdvisoryLockId,
@@ -70,7 +74,7 @@ describe('initialization', () => {
   }
 
   beforeEach(() => {
-    uri = 'mysql://root:root@127.0.0.1:3306/synor'
+    dbUri = uri
     helpers.baseVersion = baseVersion
     helpers.getAdvisoryLockId = getAdvisoryLockId
     helpers.getUserInfo = getUserInfo
@@ -81,8 +85,8 @@ describe('initialization', () => {
   })
 
   test('throws if uri is empty', () => {
-    uri = ' '
-    expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+    dbUri = ' '
+    expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
   })
 
   describe('helpers validation', () => {
@@ -93,34 +97,29 @@ describe('initialization', () => {
 
     test(`throws if getAdvisoryLockId is missing`, () => {
       delete helpers.getAdvisoryLockId
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
     })
 
     test(`throws if getAdvisoryLockId is not function`, () => {
       helpers.getAdvisoryLockId = '' as any
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
       helpers.getAdvisoryLockId = null as any
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
     })
 
     test(`throws if getUserInfo is missing`, () => {
       delete helpers.getUserInfo
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
     })
 
     test(`throws if getUserInfo is not function`, () => {
       helpers.getUserInfo = '' as any
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
       helpers.getUserInfo = null as any
-      expect(() => MySQLDatabaseEngine(uri, helpers)).toThrow()
+      expect(() => MySQLDatabaseEngine(dbUri, helpers)).toThrow()
     })
   })
 })
-
-const databaseName = 'synor'
-const tableName = 'test_record'
-const params = `synor-migration-record-table=${tableName}`
-const uri = `mysql://root:root@127.0.0.1:3306/${databaseName}?${params}`
 
 describe('methods: {open,close}', () => {
   let connection: Connection
@@ -128,7 +127,7 @@ describe('methods: {open,close}', () => {
   let engine: ReturnType<typeof MySQLDatabaseEngine>
 
   beforeAll(async () => {
-    connection = createConnection(getMySQLConfig(uri))
+    connection = createConnection(uri)
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })
@@ -291,7 +290,7 @@ describe('methods', () => {
       }
     } as typeof global.Date
 
-    connection = createConnection(getMySQLConfig(uri))
+    connection = createConnection(uri)
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })

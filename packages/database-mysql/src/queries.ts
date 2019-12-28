@@ -44,7 +44,7 @@ export type QueryStore = {
 }
 
 type QueryStoreOptions = {
-  migrationTableName: string
+  migrationRecordTable: string
   databaseName: string
   advisoryLockId: string
 }
@@ -52,7 +52,7 @@ type QueryStoreOptions = {
 export function getQueryStore(
   connection: Connection,
   {
-    migrationTableName: tableName,
+    migrationRecordTable: tableName,
     databaseName,
     advisoryLockId
   }: QueryStoreOptions

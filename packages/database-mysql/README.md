@@ -20,20 +20,35 @@ npm install --save @synor/database-mysql
 
 ## URI
 
-**Format**: `mysql://username:password@hostname:port/database[?params]`
+**Format**: `mysql://[user[:password]@][hostname][:port]/database[?param=value&...]`
 
 **Params**:
 
 | Name                           | Description                                                                   | Default Value            |
 | ------------------------------ | ----------------------------------------------------------------------------- | ------------------------ |
-| `synor-migration-record-table` | Name for Migration Record Table                                               | `synor_migration_record` |
 | `ssl`                          | [MySQL SSL Options](https://www.npmjs.com/package/mysql/v/2.17.1#ssl-options) | `undefined`              |
+| `synor_migration_record_table` | Name for Migration Record Table                                               | `synor_migration_record` |
 
 **Examples**:
 
-- `mysql://root:root@127.0.0.1:3306/synor?synor-migration-record-table=migration_record`
-- `mysql://root:root@127.0.0.1:3306/synor?ssl=Amazon RDS`
-- `mysql://root:root@127.0.0.1:3306/synor?ssl={"ca":"/mysql-ca.crt"}`
+- `mysql://root:root@127.0.0.1:3306/synor?synor_migration_record_table=migration_record`
+
+```js
+// SSL Example
+
+const ssl = JSON.stringify({
+  ca: '<path-to-file>',
+  cert: '<path-to-file>',
+  ciphers: '<string>',
+  key: '<path-to-file>',
+  passphrase: '<string>',
+  rejectUnauthorized: '<boolean>'
+}) // 'Amazon RDS'
+
+const uri = `mysql://root:root@127.0.0.1:3306/synor?ssl=${encodeURIComponent(
+  ssl
+)}`
+```
 
 ## License
 

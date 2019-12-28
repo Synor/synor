@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils:getMySQLConfig accepts mysql uri 1`] = `
+Object {
+  "databaseConfig": Object {
+    "database": "synor",
+    "host": "127.0.0.1",
+    "multipleStatements": true,
+    "password": "root",
+    "port": 3306,
+    "ssl": undefined,
+    "user": "root",
+  },
+  "engineConfig": Object {
+    "migrationRecordTable": "synor_migration_record",
+  },
+}
+`;
