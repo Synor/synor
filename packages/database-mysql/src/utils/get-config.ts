@@ -44,7 +44,7 @@ export function getConfig(
       user,
       password,
       path,
-      params = {}
+      params
     } = new ConnectionString(uri, {
       params: {
         synor_migration_record_table: 'synor_migration_record'
@@ -65,11 +65,13 @@ export function getConfig(
       throw new Error('[URI] missing: database!')
     }
 
-    let ssl: undefined | string | SSLConfig
+    let ssl: string | SSLConfig | undefined
 
-    if (params.ssl) {
+    const sslRaw: string | undefined = params!.ssl
+
+    if (sslRaw) {
       try {
-        const sslParams: SSLParams = JSON.parse(params.ssl)
+        const sslParams: SSLParams = JSON.parse(sslRaw)
 
         ssl = {
           ciphers: sslParams.ciphers,
@@ -87,7 +89,7 @@ export function getConfig(
           ssl.key = readFileSync(resolvePath(sslParams.key))
         }
       } catch (_) {
-        ssl = params.ssl
+        ssl = sslRaw
       }
     }
 
@@ -102,7 +104,7 @@ export function getConfig(
     }
 
     const engineConfig: MySQLEngineConfig = {
-      migrationRecordTable: params.synor_migration_record_table
+      migrationRecordTable: params!.synor_migration_record_table
     }
 
     return {
