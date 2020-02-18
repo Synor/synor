@@ -1,6 +1,6 @@
 {
   "name": "@synor/database-sqlite",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Synor Database Engine - SQLite",
   "keywords": [
     "synor",
