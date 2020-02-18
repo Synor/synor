@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`methods records 2`] = `
+Array [
+  Object {
+    "appliedAt": "2020-01-01T00:00:00.000Z",
+    "appliedBy": "Synor",
+    "dirty": false,
+    "executionTime": 0,
+    "hash": "",
+    "id": 1,
+    "title": "Base Migration",
+    "type": "do",
+    "version": "0",
+  },
+  Object {
+    "appliedAt": "2020-01-01T00:00:00.000Z",
+    "appliedBy": "Jest",
+    "dirty": false,
+    "executionTime": 0,
+    "hash": "hash-01-do",
+    "id": 2,
+    "title": "Test One",
+    "type": "do",
+    "version": "01",
+  },
+  Object {
+    "appliedAt": "2020-01-01T00:00:00.000Z",
+    "appliedBy": "Jest",
+    "dirty": true,
+    "executionTime": 0,
+    "hash": "hash-01-undo",
+    "id": 3,
+    "title": "Test One",
+    "type": "undo",
+    "version": "01",
+  },
+]
+`;
+
+exports[`methods repair 2`] = `
+Array [
+  Object {
+    "applied_at": "2020-01-01T00:00:00.000Z",
+    "applied_by": "Synor",
+    "dirty": 0,
+    "execution_time": 0,
+    "hash": "",
+    "id": 1,
+    "title": "Base Migration",
+    "type": "do",
+    "version": "0",
+  },
+  Object {
+    "applied_at": "2020-01-01T00:00:00.000Z",
+    "applied_by": "Jest",
+    "dirty": 0,
+    "execution_time": 0,
+    "hash": "hash-01-do-repaired",
+    "id": 2,
+    "title": "Test One",
+    "type": "do",
+    "version": "01",
+  },
+]
+`;
+
+exports[`methods run 2`] = `
+Array [
+  Object {
+    "applied_at": "2020-01-01T00:00:00.000Z",
+    "applied_by": "Synor",
+    "dirty": 0,
+    "execution_time": 0,
+    "hash": "",
+    "id": 1,
+    "title": "Base Migration",
+    "type": "do",
+    "version": "0",
+  },
+  Object {
+    "applied_at": "2020-01-01T00:00:00.000Z",
+    "applied_by": "Jest",
+    "dirty": 0,
+    "execution_time": 0,
+    "hash": "hash-01-do",
+    "id": 2,
+    "title": "Test One",
+    "type": "do",
+    "version": "01",
+  },
+  Object {
+    "applied_at": "2020-01-01T00:00:00.000Z",
+    "applied_by": "Jest",
+    "dirty": 1,
+    "execution_time": 0,
+    "hash": "hash-01-undo",
+    "id": 3,
+    "title": "Test One",
+    "type": "undo",
+    "version": "01",
+  },
+]
+`;
