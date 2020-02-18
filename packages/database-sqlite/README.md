@@ -37,7 +37,7 @@ npm install --save @synor/database-sqlite
 
 - `sqlite:///path/to/sqlite.db` (Absolute path)
 - `sqlite://./path/to/sqlite.db` (Relative path)
-- `sqlite://?memory=false` (Open an in-memory database)
+- `sqlite://?memory=true` (Open an in-memory database)
 
 ## License
 
