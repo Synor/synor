@@ -10,6 +10,8 @@ type DatabaseEngine = import('@synor/core').DatabaseEngine
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory
 type MigrationSource = import('@synor/core').MigrationSource
 
+export type MigrationSourceContentRunner = (client: Database) => Promise<void>
+
 export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
   uri,
   { baseVersion, getUserInfo }
@@ -61,14 +63,19 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
     type,
     title,
     hash,
-    body
+    body,
+    run
   }: MigrationSource) => {
     let dirty = false
 
     const startTime = performance.now()
 
     try {
-      database.exec(body)
+      if (body) {
+        database.exec(body)
+      } else {
+        await (run as MigrationSourceContentRunner)(database)
+      }
     } catch (err) {
       dirty = true
 
