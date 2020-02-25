@@ -1,12 +1,16 @@
 {
-  "name": "@synor/database-mongo",
-  "version": "0.0.1",
-  "description": "Mongo db engine for synor migration tool",
+  "name": "@synor/database-mongodb",
+  "version": "0.0.0",
+  "description": "Synor Database Engine - MongoDB",
   "keywords": [
     "synor",
-    "synor-mongo",
-    "database migration"
+    "synor-database",
+    "synor-mongodb",
+    "mongodb",
+    "mongo"
   ],
+  "homepage": "https://github.com/Synor/database-mongodb#readme",
+  "bugs": "https://github.com/Synor/database-mongodb/issues",
   "license": "MIT",
   "author": "Tahmid Sadik",
   "files": [
@@ -15,23 +19,23 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
-  "repository": "https://github.com/Synor/core",
+  "repository": "https://github.com/Synor/database-mongodb",
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "bili",
     "clean": "rimraf lib/*",
     "prepack": "npm run build",
     "test": "jest",
-    "watch": "bili --format cjs --watch",
-    "prepare": "npm run build"
+    "watch": "bili --format cjs --watch"
   },
   "dependencies": {
-    "@synor/core": "^0.9.1",
     "connection-string": "^3.1.1",
-    "date-fns": "^2.9.0",
+    "debug": "^4.1.1",
     "mongodb": "^3.5.3"
   },
   "devDependencies": {
+    "@synor/core": "^0.9.1",
+    "@types/debug": "^4.1.5",
     "@types/jest": "^25.1.2",
     "@types/mongodb": "^3.3.16",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
@@ -56,7 +60,7 @@
     "typescript": "^3.8.2"
   },
   "peerDependencies": {
-    "@synor/core": "0.9.1"
+    "@synor/core": "^0.9.1"
   },
   "publishConfig": {
     "access": "public"

@@ -1047,10 +1047,10 @@
   dependencies:
     type-detect "4.0.8"
 
-"@synor/core@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@synor/core/-/core-0.9.0.tgz#f05bf65ec4f86eb85c01e774ae0f13e6116e59fe"
-  integrity sha512-ZKR1Zulm2DUWu5CdJs+T08lRIBsLdg8K+K5rR+LBOZwml+u4a5WqAIVPA4BbulyFrNIWjjwaDO7gHq9KB/iKxQ==
+"@synor/core@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@synor/core/-/core-0.9.1.tgz#bc04df39b33212731203c8f2d3bf2d0833b85805"
+  integrity sha512-BrdbgBX8yuxgt3+uK1DB2w8+sB//EKH/zhJQiVS2EjJxYxqjkrNnTTmraGOljRZbqdVhjyy7hB+jTba1qfi0Ow==
   dependencies:
     debug "^4.1.1"
     lodash.defaultsdeep "^4.6.1"
@@ -1099,6 +1099,11 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+
+"@types/debug@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
+  integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -2224,11 +2229,6 @@ date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
-
-date-fns@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.9.0.tgz#d0b175a5c37ed5f17b97e2272bbc1fa5aec677d2"
-  integrity sha512-khbFLu/MlzLjEzy9Gh8oY1hNt/Dvxw3J6Rbc28cVoYWQaC1S3YI4xwkF9ZWcjDLscbZlY9hISMr66RFzZagLsA==
 
 debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"

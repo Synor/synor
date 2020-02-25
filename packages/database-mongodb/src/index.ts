@@ -1,11 +1,14 @@
-import { SynorError, MigrationRecord } from '@synor/core';
-import { performance } from 'perf_hooks';
-import { MongoClient, Db } from 'mongodb';
+import { MigrationRecord, SynorError } from '@synor/core';
 import { ConnectionString } from 'connection-string';
+import Debug from 'debug';
+import { Db, MongoClient } from 'mongodb';
+import { performance } from 'perf_hooks';
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
 type MigrationSource = import('@synor/core').MigrationSource;
+
+const debug = Debug('@synor/database-mongodb');
 
 async function noOp(): Promise<null> {
   await Promise.resolve(null);
@@ -23,7 +26,7 @@ function parseConnectionString(
   database: string;
   migrationRecordTable: string;
 } {
-  console.log(cn);
+  debug(cn);
   const { protocol, hostname: host, port, path, params } = new ConnectionString(
     cn,
     {
@@ -33,13 +36,11 @@ function parseConnectionString(
     }
   );
 
-  console.log(cn);
-
-  console.log('host ', host);
-  console.log('port ', port);
-  console.log('protocol ', protocol);
-  console.log('path ', path);
-  console.log('params ', params);
+  debug('host ', host);
+  debug('port ', port);
+  debug('protocol ', protocol);
+  debug('path ', path);
+  debug('params ', params);
 
   if (!host || !protocol || !port || !path || !params) {
     throw new SynorError('Invalid connection uri');
@@ -96,9 +97,9 @@ async function ensureMigrationRecordTableExists(
   mgCollName: string,
   version: string
 ): Promise<void> {
-  console.log('in ensure function, col name =', mgCollName);
+  debug('in ensure function, col name =', mgCollName);
   if (!(await doesMigrationRecordTableExists(db, mgCollName))) {
-    console.log('adding base level entry');
+    debug('adding base level entry');
     await db.createCollection(mgCollName);
     await db?.collection(mgCollName).insertOne({
       version,
@@ -137,7 +138,7 @@ async function updateRecord(
   );
 }
 
-export const MongoDbEngine: DatabaseEngineFactory = (
+export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
   uri,
   { baseVersion, getAdvisoryLockId, getUserInfo }
 ): DatabaseEngine => {
@@ -156,7 +157,7 @@ export const MongoDbEngine: DatabaseEngineFactory = (
 
   return {
     async open() {
-      console.log('in open function');
+      debug('in open function');
       client = await MongoClient.connect(uri);
       db = await client.db(database);
       await ensureMigrationRecordTableExists(
@@ -166,21 +167,21 @@ export const MongoDbEngine: DatabaseEngineFactory = (
       );
     },
     async close() {
-      console.log('in close function');
+      debug('in close function');
       if (client) {
         await client.close();
       }
     },
     async lock() {
-      console.log('in lock function');
+      debug('in lock function');
       await noOp();
     },
     async unlock() {
-      console.log('in unlock function');
+      debug('in unlock function');
       await noOp();
     },
     async drop() {
-      console.log('in drop function');
+      debug('in drop function');
       if (!db) {
         throw new SynorError('Database connection is null');
       }
@@ -202,7 +203,7 @@ export const MongoDbEngine: DatabaseEngineFactory = (
       );
     },
     async run({ version, type, title, hash, run }: MigrationSource) {
-      console.log('in run function');
+      debug('in run function');
       let dirty = false;
 
       const startTime = performance.now();
@@ -238,7 +239,7 @@ export const MongoDbEngine: DatabaseEngineFactory = (
       }
     },
     async repair(records) {
-      console.log('in repair function');
+      debug('in repair function');
       if (!db) {
         throw new SynorError('Database connection is null');
       }
@@ -249,7 +250,7 @@ export const MongoDbEngine: DatabaseEngineFactory = (
       }
     },
     async records(startid: number) {
-      console.log('in records function');
+      debug('in records function');
       if (!db) {
         throw new SynorError('Database connection is null');
       }
@@ -261,8 +262,10 @@ export const MongoDbEngine: DatabaseEngineFactory = (
           }
         })
       ).toArray()) as MigrationRecord[];
-      console.log(records);
+      debug(records);
       return records;
     }
   };
 };
+
+export default MongoDBDatabaseEngine;
