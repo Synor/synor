@@ -20,7 +20,7 @@ function parseConnectionString(
 ): {
   protocol: string;
   host: string;
-  port: number;
+  port: number | undefined;
   path: string[];
   params: Record<string, any>;
   database: string;
@@ -42,7 +42,7 @@ function parseConnectionString(
   debug('path ', path);
   debug('params ', params);
 
-  if (!host || !protocol || !port || !path || !params) {
+  if (!host || !protocol || !path || !params) {
     throw new SynorError('Invalid connection uri');
   }
   const database = path?.[0];
