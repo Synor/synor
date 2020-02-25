@@ -23,7 +23,10 @@ const getTableColumnCount = async (
     [tableName, databaseName]
   ).then(rows => rows.length)
 
-const migrationSource: Record<'01.do' | '01.undo', MigrationSource> = {
+const migrationSource: Record<
+  '01.do' | '01.undo' | '02.do',
+  MigrationSource
+> = {
   '01.do': {
     version: '01',
     type: 'do',
@@ -37,6 +40,19 @@ const migrationSource: Record<'01.do' | '01.undo', MigrationSource> = {
     title: 'Test One',
     body: 'SELEC -1;',
     hash: 'hash-01-undo'
+  },
+  '02.do': {
+    version: '02',
+    type: 'do',
+    title: 'Test Two',
+    hash: 'hash-02-do',
+    run: (client: Connection) => {
+      return new Promise((resolve, reject) => {
+        client.query(`SELECT 2;`, err => {
+          return err ? reject(err) : resolve()
+        })
+      })
+    }
   }
 }
 
@@ -325,9 +341,19 @@ describe('methods', () => {
     ).resolves.toBe(0)
   })
 
-  test('run', async () => {
+  test('run (with body)', async () => {
     await expect(engine.run(migrationSource['01.do'])).resolves.toBeUndefined()
     await expect(engine.run(migrationSource['01.undo'])).rejects.toThrow()
+
+    await expect(
+      runQuery(connection, `SELECT * FROM ??;`, [tableName])
+    ).resolves.toMatchSnapshot()
+
+    await engine.drop()
+  })
+
+  test('run (with run)', async () => {
+    await expect(engine.run(migrationSource['02.do'])).resolves.toBeUndefined()
 
     await expect(
       runQuery(connection, `SELECT * FROM ??;`, [tableName])

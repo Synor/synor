@@ -6,9 +6,12 @@ import { ensureMigrationRecordTable } from './utils/ensure-migration-record-tabl
 import { getConfig } from './utils/get-config'
 import { runQuery } from './utils/run-query'
 
+type Connection = import('mysql').Connection
 type DatabaseEngine = import('@synor/core').DatabaseEngine
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory
 type MigrationSource = import('@synor/core').MigrationSource
+
+export type MigrationSourceContentRunner = (client: Connection) => Promise<void>
 
 export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   uri,
@@ -73,14 +76,19 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     type,
     title,
     hash,
-    body
+    body,
+    run
   }: MigrationSource) => {
     let dirty = false
 
     const startTime = performance.now()
 
     try {
-      await runQuery(connection, body)
+      if (body) {
+        await runQuery(connection, body)
+      } else {
+        await (run as MigrationSourceContentRunner)(connection)
+      }
     } catch (err) {
       dirty = true
 
