@@ -202,18 +202,24 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         })
       );
     },
-    async run({ version, type, title, hash, run }: MigrationSource) {
+    async run({ version, type, title, hash, body, run }: MigrationSource) {
       debug('in run function');
       let dirty = false;
 
       const startTime = performance.now();
       try {
-        if (run && db) {
-          await run({
-            db
-          });
+        if (body) {
+          const parsedBody = JSON.parse(body);
+          const commands = Array.isArray(parsedBody)
+            ? parsedBody
+            : [parsedBody];
+          for (const command of commands) {
+            await db?.command(command);
+          }
+        } else if (run) {
+          await run({ db });
         } else {
-          throw new SynorError('Run function is null');
+          throw new SynorError('invalid migration source');
         }
       } catch (err) {
         dirty = true;
