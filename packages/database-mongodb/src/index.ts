@@ -54,8 +54,8 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const { databaseConfig, engineConfig } = getConfig(uri);
 
-  let client: MongoClient | null = null;
-  let db: Db | null = null;
+  let client: MongoClient;
+  let db: Db;
 
   return {
     async open() {
@@ -87,9 +87,6 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     },
     async drop() {
       debug('in drop function');
-      if (!db) {
-        throw new SynorError('Database connection is null');
-      }
       const collections = await (
         await db.listCollections(
           {},
@@ -101,9 +98,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
       await Promise.all(
         collections.map(async c => {
-          if (db) {
-            await db.dropCollection(c);
-          }
+          await db.dropCollection(c);
         })
       );
     },
@@ -119,7 +114,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
             ? parsedBody
             : [parsedBody];
           for (const command of commands) {
-            await db?.command(command);
+            await db.command(command);
           }
         } else if (run) {
           await run({ db });
@@ -133,10 +128,10 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
       } finally {
         const endTime = performance.now();
         const nextId = await getNextRecordId(
-          db!,
+          db,
           engineConfig.migrationRecordCollection
         );
-        await db?.collection(engineConfig.migrationRecordCollection).insert({
+        await db.collection(engineConfig.migrationRecordCollection).insert({
           id: nextId,
           version,
           type,
@@ -151,9 +146,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     },
     async repair(records) {
       debug('in repair function');
-      if (!db) {
-        throw new SynorError('Database connection is null');
-      }
+
       await deleteDirtyRecords(db, engineConfig.migrationRecordCollection);
 
       for (const { id, hash } of records) {
@@ -165,9 +158,6 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     },
     async records(startid: number) {
       debug('in records function');
-      if (!db) {
-        throw new SynorError('Database connection is null');
-      }
 
       const records = (await (
         await db.collection(engineConfig.migrationRecordCollection).find({
