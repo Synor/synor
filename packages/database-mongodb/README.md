@@ -20,17 +20,17 @@ npm install --save @synor/database-mongodb
 
 ## URI
 
-**Format**: `mongodb://[user[:password]@][hostname][:port]/database[?param=value&...]`
+**Format**: `mongodb[+srv]://[username:password@]hostname[:port]/database[?param=value&...]`
 
 **Params**:
 
-| Name                           | Description                     | Default Value            |
-| ------------------------------ | ------------------------------- | ------------------------ |
-| `synor_migration_record_table` | Name for Migration Record Table | `synor_migration_record` |
+| Name                                | Description                          | Default Value            |
+| ----------------------------------- | ------------------------------------ | ------------------------ |
+| `synor_migration_record_collection` | Name for Migration Record Collection | `synor_migration_record` |
 
 **Examples**:
 
-- `mongodb://root:root@127.0.0.1:27017/synor?synor_migration_record_table=migration_record`
+- `mongodb://mongo:mongo@127.0.0.1:27017/synor?synor_migration_record_collection=migration_record`
 
 ## License
 

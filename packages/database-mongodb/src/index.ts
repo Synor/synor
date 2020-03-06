@@ -1,8 +1,8 @@
 import { MigrationRecord, SynorError } from '@synor/core';
-import { ConnectionString } from 'connection-string';
 import Debug from 'debug';
 import { Db, MongoClient } from 'mongodb';
 import { performance } from 'perf_hooks';
+import { getConfig } from './utils/get-config';
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
@@ -13,50 +13,6 @@ const debug = Debug('@synor/database-mongodb');
 async function noOp(): Promise<null> {
   await Promise.resolve(null);
   return null;
-}
-
-function parseConnectionString(
-  cn: string
-): {
-  protocol: string;
-  host: string;
-  port: number | undefined;
-  path: string[];
-  params: Record<string, any>;
-  database: string;
-  migrationRecordTable: string;
-} {
-  debug(cn);
-  const { protocol, hostname: host, port, path, params } = new ConnectionString(
-    cn,
-    {
-      params: {
-        synor_migration_record_table: 'synor_migration_record'
-      }
-    }
-  );
-
-  debug('host ', host);
-  debug('port ', port);
-  debug('protocol ', protocol);
-  debug('path ', path);
-  debug('params ', params);
-
-  if (!host || !protocol || !path || !params) {
-    throw new SynorError('Invalid connection uri');
-  }
-  const database = path?.[0];
-  const migrationRecordTable = params.synor_migration_record_table;
-
-  return {
-    database,
-    host,
-    protocol,
-    port,
-    path,
-    params,
-    migrationRecordTable
-  };
 }
 
 async function doesMigrationRecordTableExists(
@@ -150,7 +106,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     throw new SynorError(`Missing: getUserInfo`);
   }
 
-  const { database, migrationRecordTable } = parseConnectionString(uri);
+  const { databaseConfig, engineConfig } = getConfig(uri);
 
   let client: MongoClient | null = null;
   let db: Db | null = null;
@@ -158,11 +114,14 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
   return {
     async open() {
       debug('in open function');
-      client = await MongoClient.connect(uri);
-      db = await client.db(database);
+      client = await MongoClient.connect(uri, {
+        appname: databaseConfig.appname,
+        poolSize: 1
+      });
+      db = await client.db();
       await ensureMigrationRecordTableExists(
         db,
-        migrationRecordTable,
+        engineConfig.migrationRecordCollection,
         baseVersion
       );
     },
@@ -229,9 +188,9 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         const endTime = performance.now();
         const newRecordId = await findNextAutoIncrementedId(
           db as Db,
-          migrationRecordTable
+          engineConfig.migrationRecordCollection
         );
-        await db?.collection(migrationRecordTable).insert({
+        await db?.collection(engineConfig.migrationRecordCollection).insert({
           id: newRecordId,
           version,
           type,
@@ -249,10 +208,13 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
       if (!db) {
         throw new SynorError('Database connection is null');
       }
-      await deleteDirtyRecords(db, migrationRecordTable);
+      await deleteDirtyRecords(db, engineConfig.migrationRecordCollection);
 
       for (const { id, hash } of records) {
-        await updateRecord(db, migrationRecordTable, { id, hash });
+        await updateRecord(db, engineConfig.migrationRecordCollection, {
+          id,
+          hash
+        });
       }
     },
     async records(startid: number) {
@@ -262,7 +224,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
       }
 
       const records = (await (
-        await db.collection(migrationRecordTable).find({
+        await db.collection(engineConfig.migrationRecordCollection).find({
           id: {
             $gte: startid
           }
