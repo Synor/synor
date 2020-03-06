@@ -2,7 +2,9 @@ import { MigrationRecord, SynorError } from '@synor/core';
 import Debug from 'debug';
 import { Db, MongoClient } from 'mongodb';
 import { performance } from 'perf_hooks';
+import { ensureMigrationRecordCollection } from './utils/ensure-migration-record-collection';
 import { getConfig } from './utils/get-config';
+import { getNextRecordId } from './utils/get-next-record-id';
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
@@ -13,62 +15,6 @@ const debug = Debug('@synor/database-mongodb');
 async function noOp(): Promise<null> {
   await Promise.resolve(null);
   return null;
-}
-
-async function doesMigrationRecordTableExists(
-  db: Db,
-  mgCollName: string
-): Promise<boolean> {
-  const collections = await (
-    await db.listCollections(
-      {},
-      {
-        nameOnly: true
-      }
-    )
-  ).toArray();
-  return collections.map(c => c.name).includes(mgCollName);
-}
-
-async function findNextAutoIncrementedId(
-  db: Db,
-  mgCollName: string
-): Promise<number> {
-  const cursor = await db
-    .collection(mgCollName)
-    .find()
-    .sort({ appliedAt: -1 })
-    .limit(1);
-
-  const lastEntry = await cursor.next();
-
-  if (lastEntry?.id) {
-    return (lastEntry.id as number) + 1;
-  }
-  return 1;
-}
-
-async function ensureMigrationRecordTableExists(
-  db: Db,
-  mgCollName: string,
-  version: string
-): Promise<void> {
-  debug('in ensure function, col name =', mgCollName);
-  if (!(await doesMigrationRecordTableExists(db, mgCollName))) {
-    debug('adding base level entry');
-    await db.createCollection(mgCollName);
-    await db?.collection(mgCollName).insertOne({
-      version,
-      id: 1,
-      type: 'do',
-      title: 'base entry',
-      hash: '',
-      appliedAt: new Date(),
-      appliedBy: '',
-      executionTime: 0,
-      dirty: false
-    });
-  }
 }
 
 async function deleteDirtyRecords(db: Db, mgCollName: string): Promise<void> {
@@ -119,7 +65,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         poolSize: 1
       });
       db = await client.db();
-      await ensureMigrationRecordTableExists(
+      await ensureMigrationRecordCollection(
         db,
         engineConfig.migrationRecordCollection,
         baseVersion
@@ -186,12 +132,12 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         throw err;
       } finally {
         const endTime = performance.now();
-        const newRecordId = await findNextAutoIncrementedId(
-          db as Db,
+        const nextId = await getNextRecordId(
+          db!,
           engineConfig.migrationRecordCollection
         );
         await db?.collection(engineConfig.migrationRecordCollection).insert({
-          id: newRecordId,
+          id: nextId,
           version,
           type,
           title,
