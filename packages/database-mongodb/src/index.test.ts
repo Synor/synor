@@ -1,15 +1,17 @@
-const MongoDBEngine = require('../').default;
-const { MongoDBDatabaseEngine } = require('../');
+import MongoDBEngine, { MongoDBDatabaseEngine } from './index';
+
+type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId;
+type GetUserInfo = import('@synor/core').GetUserInfo;
 
 jest.setTimeout(10 * 1000);
 
 jest.mock('perf_hooks');
 
 const baseVersion = '0';
-const getAdvisoryLockId = (databaseName, ...names) => {
+const getAdvisoryLockId: GetAdvisoryLockId = (databaseName, ...names) => {
   return [String(databaseName.length), String(names.join().length)];
 };
-const getUserInfo = () => Promise.resolve(`Jest`);
+const getUserInfo: GetUserInfo = () => Promise.resolve(`Jest`);
 
 const databaseName = 'synor';
 const collectionName = 'test_record';
@@ -31,8 +33,8 @@ describe('module exports', () => {
 });
 
 describe('initialization', () => {
-  let dbUri;
-  const helpers = {
+  let dbUri: Parameters<typeof MongoDBDatabaseEngine>[0];
+  const helpers: Parameters<typeof MongoDBDatabaseEngine>[1] = {
     baseVersion,
     getAdvisoryLockId,
     getUserInfo
@@ -46,7 +48,7 @@ describe('initialization', () => {
   });
 
   test.each([undefined, null, 0])('throws if uri is %s', uri => {
-    expect(() => MongoDBDatabaseEngine(uri, helpers)).toThrow();
+    expect(() => MongoDBDatabaseEngine(uri as any, helpers)).toThrow();
   });
 
   test('throws if uri is empty', () => {
@@ -66,9 +68,9 @@ describe('initialization', () => {
     });
 
     test(`throws if getAdvisoryLockId is not function`, () => {
-      helpers.getAdvisoryLockId = '';
+      helpers.getAdvisoryLockId = '' as any;
       expect(() => MongoDBDatabaseEngine(dbUri, helpers)).toThrow();
-      helpers.getAdvisoryLockId = null;
+      helpers.getAdvisoryLockId = null as any;
       expect(() => MongoDBDatabaseEngine(dbUri, helpers)).toThrow();
     });
 
@@ -78,9 +80,9 @@ describe('initialization', () => {
     });
 
     test(`throws if getUserInfo is not function`, () => {
-      helpers.getUserInfo = '';
+      helpers.getUserInfo = '' as any;
       expect(() => MongoDBDatabaseEngine(dbUri, helpers)).toThrow();
-      helpers.getUserInfo = null;
+      helpers.getUserInfo = null as any;
       expect(() => MongoDBDatabaseEngine(dbUri, helpers)).toThrow();
     });
   });
