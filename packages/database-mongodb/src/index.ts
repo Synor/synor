@@ -67,6 +67,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const lock: DatabaseEngine['lock'] = async () => {
     debug('lock');
+
     try {
       await queryStore.getLock();
     } catch (_) {
@@ -76,6 +77,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const unlock: DatabaseEngine['unlock'] = async () => {
     debug('unlock');
+
     try {
       await queryStore.releaseLock();
     } catch (_) {
@@ -85,7 +87,9 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const drop: DatabaseEngine['drop'] = async () => {
     debug('drop');
+
     const collectionNames = await queryStore.getCollectionNames();
+
     await queryStore.dropCollections(collectionNames);
   };
 
@@ -145,6 +149,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const records: DatabaseEngine['records'] = async startId => {
     debug('records');
+
     return queryStore.getRecords(startId);
   };
 
