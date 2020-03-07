@@ -1,5 +1,7 @@
+import { MongoClient } from 'mongodb';
 import MongoDBEngine, { MongoDBDatabaseEngine } from './index';
 
+type Db = import('mongodb').Db;
 type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId;
 type GetUserInfo = import('@synor/core').GetUserInfo;
 
@@ -17,6 +19,20 @@ const databaseName = 'synor';
 const collectionName = 'test_record';
 const params = `synor_migration_record_collection=${collectionName}`;
 const uri = `mongodb://mongo:mongo@127.0.0.1:27017/${databaseName}?${params}`;
+
+const getCollectionNames = async (db: Db): Promise<string[]> => {
+  const systemCollectionNameRegex = /^system\./;
+
+  const collections = await db
+    .listCollections({}, { nameOnly: true })
+    .toArray();
+
+  const collectionNames = collections
+    .map(collection => collection.name)
+    .filter(name => !systemCollectionNameRegex.test(name));
+
+  return collectionNames;
+};
 
 describe('module exports', () => {
   test('default export exists', () => {
@@ -85,5 +101,62 @@ describe('initialization', () => {
       helpers.getUserInfo = null as any;
       expect(() => MongoDBDatabaseEngine(dbUri, helpers)).toThrow();
     });
+  });
+});
+
+describe('methods: {open,close}', () => {
+  let client: MongoClient;
+  let db: Db;
+
+  let engine: ReturnType<typeof MongoDBDatabaseEngine>;
+
+  beforeAll(async () => {
+    client = await MongoClient.connect(uri);
+    db = client.db(databaseName);
+
+    const collectionNames = await getCollectionNames(db);
+    await Promise.all(collectionNames.map(name => db.dropCollection(name)));
+  });
+
+  afterAll(async () => {
+    await client.close();
+  });
+
+  beforeEach(() => {
+    engine = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+  });
+
+  let documentCount: number;
+
+  test('can open & close (first run)', async () => {
+    documentCount = await db.collection(collectionName).countDocuments();
+
+    expect(documentCount).toBe(0);
+
+    await expect(engine.open()).resolves.toBeUndefined();
+
+    documentCount = await db.collection(collectionName).countDocuments();
+
+    expect(documentCount).toBeGreaterThan(0);
+
+    await expect(engine.close()).resolves.toBeUndefined();
+  });
+
+  test('can open & close (after first run)', async () => {
+    await expect(db.collection(collectionName).countDocuments()).resolves.toBe(
+      documentCount
+    );
+
+    await expect(engine.open()).resolves.toBeUndefined();
+
+    await expect(db.collection(collectionName).countDocuments()).resolves.toBe(
+      documentCount
+    );
+
+    await expect(engine.close()).resolves.toBeUndefined();
   });
 });
