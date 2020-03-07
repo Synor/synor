@@ -156,13 +156,17 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         });
       }
     },
-    async records(startid: number) {
+    async records(startId: number) {
       debug('in records function');
+
+      if (startId < 0) {
+        throw new SynorError('Record ID must can not be negative!');
+      }
 
       const records = (await (
         await db.collection(engineConfig.migrationRecordCollection).find({
           id: {
-            $gte: startid
+            $gte: startId
           }
         })
       ).toArray()) as MigrationRecord[];

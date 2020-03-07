@@ -1,4 +1,5 @@
 import { performance } from 'perf_hooks';
+import { collectionExists } from './collection-exists';
 import { getNextRecordId } from './get-next-record-id';
 
 type Db = import('mongodb').Db;
@@ -8,10 +9,9 @@ export async function ensureMigrationRecordCollection(
   migrationRecordCollection: string,
   baseVersion: string
 ): Promise<void> {
-  const nextId = await getNextRecordId(db, migrationRecordCollection);
-  const hasBaseRecord = nextId > 1;
+  const exists = await collectionExists(db, migrationRecordCollection);
 
-  if (hasBaseRecord) {
+  if (exists) {
     return;
   }
 
@@ -21,7 +21,13 @@ export async function ensureMigrationRecordCollection(
 
   await db.createIndex(migrationRecordCollection, 'id', { unique: true });
 
+  await db
+    .collection(migrationRecordCollection)
+    .insertOne({ id: -1, nextRecordId: 1 });
+
   const endTime = performance.now();
+
+  const nextId = await getNextRecordId(db, migrationRecordCollection);
 
   await db.collection(migrationRecordCollection).insertOne({
     id: nextId,

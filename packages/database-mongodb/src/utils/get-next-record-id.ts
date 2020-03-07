@@ -4,6 +4,9 @@ export async function getNextRecordId(
   db: Db,
   migrationRecordCollection: string
 ): Promise<number> {
-  const count = await db.collection(migrationRecordCollection).countDocuments();
-  return count + 1;
+  const { value } = await db
+    .collection(migrationRecordCollection)
+    .findOneAndUpdate({ id: -1 }, { $inc: { nextRecordId: 1 } });
+
+  return value.nextRecordId;
 }
