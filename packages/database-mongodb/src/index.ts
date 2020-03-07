@@ -1,4 +1,4 @@
-import { MigrationRecord, SynorError } from '@synor/core';
+import { SynorError } from '@synor/core';
 import Debug from 'debug';
 import { Db, MongoClient } from 'mongodb';
 import { performance } from 'perf_hooks';
@@ -12,29 +12,6 @@ type MigrationSource = import('@synor/core').MigrationSource;
 type QueryStore = import('./queries').QueryStore;
 
 const debug = Debug('@synor/database-mongodb');
-
-async function deleteDirtyRecords(db: Db, mgCollName: string): Promise<void> {
-  await db.collection(mgCollName).deleteMany({
-    dirty: true
-  });
-}
-
-async function updateRecord(
-  db: Db,
-  mgCollName: string,
-  { id, hash }: { id: number; hash: string }
-): Promise<void> {
-  await db.collection(mgCollName).updateOne(
-    {
-      id
-    },
-    {
-      $set: {
-        hash
-      }
-    }
-  );
-}
 
 export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
   uri,
@@ -76,6 +53,21 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     } catch (_) {
       throw new SynorError(`Failed to Release Lock: ${advisoryLockId}`);
     }
+  };
+
+  const repair: DatabaseEngine['repair'] = async records => {
+    debug('repair');
+
+    await queryStore.deleteDirtyRecords();
+
+    for (const { id, hash } of records) {
+      await queryStore.updateRecord(id, { hash });
+    }
+  };
+
+  const records: DatabaseEngine['records'] = async startId => {
+    debug('records');
+    return queryStore.getRecords(startId);
   };
 
   return {
@@ -141,7 +133,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         }
       } catch (err) {
         dirty = true;
-        console.error('error trying to run migration');
+
         throw err;
       } finally {
         const endTime = performance.now();
@@ -158,35 +150,8 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         });
       }
     },
-    async repair(records) {
-      debug('in repair function');
-
-      await deleteDirtyRecords(db, engineConfig.migrationRecordCollection);
-
-      for (const { id, hash } of records) {
-        await updateRecord(db, engineConfig.migrationRecordCollection, {
-          id,
-          hash
-        });
-      }
-    },
-    async records(startId: number) {
-      debug('in records function');
-
-      if (startId < 0) {
-        throw new SynorError('Record ID must can not be negative!');
-      }
-
-      const records = (await (
-        await db.collection(engineConfig.migrationRecordCollection).find({
-          id: {
-            $gte: startId
-          }
-        })
-      ).toArray()) as MigrationRecord[];
-      debug(records);
-      return records;
-    }
+    repair,
+    records
   };
 };
 

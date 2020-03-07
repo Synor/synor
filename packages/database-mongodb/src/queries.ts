@@ -1,3 +1,5 @@
+import { SynorError } from '@synor/core';
+
 type Db = import('mongodb').Db;
 type MigrationRecord = import('@synor/core').MigrationRecord;
 
@@ -10,7 +12,14 @@ export type QueryStore = {
   getLock: () => Promise<void>;
   releaseLock: () => Promise<void>;
 
+  getRecords: (startId?: number) => Promise<MigrationRecord[]>;
+
   addRecord: (record: Omit<MigrationRecord, 'id'>) => Promise<void>;
+  deleteDirtyRecords: () => Promise<void>;
+  updateRecord: (
+    id: MigrationRecord['id'],
+    data: Pick<MigrationRecord, 'hash'>
+  ) => Promise<void>;
 };
 
 type QueryStoreOptions = {
@@ -85,6 +94,22 @@ export function getQueryStore(
       .updateOne({ id: -1 }, { $set: { [lockKey]: 0 } });
   };
 
+  const getRecords: QueryStore['getRecords'] = async (startId = 0) => {
+    if (startId < 0) {
+      throw new SynorError('Record ID must can not be negative!');
+    }
+
+    const records = await db
+      .collection(collectionName)
+      .find({
+        id: { $gte: startId }
+      })
+      .project({ _id: 0 })
+      .toArray();
+
+    return records;
+  };
+
   const addRecord: QueryStore['addRecord'] = async ({
     version,
     type,
@@ -110,6 +135,16 @@ export function getQueryStore(
     });
   };
 
+  const deleteDirtyRecords: QueryStore['deleteDirtyRecords'] = async () => {
+    await db.collection(collectionName).deleteMany({
+      dirty: true
+    });
+  };
+
+  const updateRecord: QueryStore['updateRecord'] = async (id, { hash }) => {
+    await db.collection(collectionName).updateOne({ id }, { $set: { hash } });
+  };
+
   return {
     getMigrationRecordCollectionInfo,
     createMigrationRecordCollection,
@@ -117,6 +152,10 @@ export function getQueryStore(
     getLock,
     releaseLock,
 
-    addRecord
+    getRecords,
+
+    addRecord,
+    deleteDirtyRecords,
+    updateRecord
   };
 }
