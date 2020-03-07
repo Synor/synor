@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils:getConfig accepts mongodb uri 1`] = `
+Object {
+  "databaseConfig": Object {
+    "appname": "@synor/database-mongodb",
+    "database": "synor",
+  },
+  "engineConfig": Object {
+    "migrationRecordCollection": "synor_migration_record",
+  },
+}
+`;
+
+exports[`utils:getConfig accepts mongodb+srv uri 1`] = `
+Object {
+  "databaseConfig": Object {
+    "appname": "@synor/database-mongodb",
+    "database": "synor",
+  },
+  "engineConfig": Object {
+    "migrationRecordCollection": "synor_migration_record",
+  },
+}
+`;
