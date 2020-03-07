@@ -1,5 +1,3 @@
-import { getNextRecordId } from './utils/get-next-record-id';
-
 type Db = import('mongodb').Db;
 type MigrationRecord = import('@synor/core').MigrationRecord;
 
@@ -53,6 +51,13 @@ export function getQueryStore(
     await db.collection(collectionName).insertOne({ id: -1, nextRecordId: 1 });
   };
 
+  const getNextRecordId = async (): Promise<number> => {
+    const { value } = await db
+      .collection(collectionName)
+      .findOneAndUpdate({ id: -1 }, { $inc: { nextRecordId: 1 } });
+    return value.nextRecordId;
+  };
+
   const getLock: QueryStore['getLock'] = async () => {
     let isLocked = true;
 
@@ -90,7 +95,7 @@ export function getQueryStore(
     executionTime,
     dirty
   }) => {
-    const nextId = await getNextRecordId(db, collectionName);
+    const nextId = await getNextRecordId();
 
     await db.collection(collectionName).insertOne({
       id: nextId,
