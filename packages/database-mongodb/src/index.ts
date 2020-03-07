@@ -37,6 +37,29 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   let queryStore: QueryStore;
 
+  const open: DatabaseEngine['open'] = async () => {
+    debug('open');
+
+    client = await MongoClient.connect(uri, {
+      appname: databaseConfig.appname,
+      poolSize: 1
+    });
+    db = client.db(databaseConfig.database);
+
+    queryStore = getQueryStore(db, {
+      migrationRecordCollection: engineConfig.migrationRecordCollection,
+      advisoryLockId
+    });
+
+    await ensureMigrationRecordCollection(queryStore, baseVersion);
+  };
+
+  const close: DatabaseEngine['close'] = async () => {
+    debug('close');
+
+    await client.close();
+  };
+
   const lock: DatabaseEngine['lock'] = async () => {
     debug('lock');
     try {
@@ -71,26 +94,8 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
   };
 
   return {
-    async open() {
-      debug('in open function');
-      client = await MongoClient.connect(uri, {
-        appname: databaseConfig.appname,
-        poolSize: 1
-      });
-      db = await client.db();
-      queryStore = getQueryStore(db, {
-        migrationRecordCollection: engineConfig.migrationRecordCollection,
-        advisoryLockId
-      });
-
-      await ensureMigrationRecordCollection(queryStore, baseVersion);
-    },
-    async close() {
-      debug('in close function');
-      if (client) {
-        await client.close();
-      }
-    },
+    open,
+    close,
 
     lock,
     unlock,
