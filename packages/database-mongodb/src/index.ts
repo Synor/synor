@@ -8,8 +8,9 @@ import { getConfig } from './utils/get-config';
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
-type MigrationSource = import('@synor/core').MigrationSource;
 type QueryStore = import('./queries').QueryStore;
+
+export type MigrationSourceContentRunner = (db: Db) => Promise<void>;
 
 const debug = Debug('@synor/database-mongodb');
 
@@ -37,8 +38,12 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   let queryStore: QueryStore;
 
+  let appliedBy = '';
+
   const open: DatabaseEngine['open'] = async () => {
     debug('open');
+
+    appliedBy = await getUserInfo();
 
     client = await MongoClient.connect(uri, {
       appname: databaseConfig.appname,
@@ -84,6 +89,50 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     await queryStore.dropCollections(collectionNames);
   };
 
+  const run: DatabaseEngine['run'] = async ({
+    version,
+    type,
+    title,
+    hash,
+    body,
+    run
+  }) => {
+    debug('run');
+
+    let dirty = false;
+
+    const startTime = performance.now();
+
+    try {
+      if (body) {
+        const parsedBody = JSON.parse(body);
+        const commands = Array.isArray(parsedBody) ? parsedBody : [parsedBody];
+        for (const command of commands) {
+          await db.command(command);
+        }
+      } else {
+        await (run as MigrationSourceContentRunner)(db);
+      }
+    } catch (err) {
+      dirty = true;
+
+      throw err;
+    } finally {
+      const endTime = performance.now();
+
+      await queryStore.addRecord({
+        version,
+        type,
+        title,
+        hash,
+        appliedAt: new Date(),
+        appliedBy,
+        executionTime: endTime - startTime,
+        dirty
+      });
+    }
+  };
+
   const repair: DatabaseEngine['repair'] = async records => {
     debug('repair');
 
@@ -105,44 +154,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     lock,
     unlock,
     drop,
-    async run({ version, type, title, hash, body, run }: MigrationSource) {
-      debug('in run function');
-      let dirty = false;
-
-      const startTime = performance.now();
-      try {
-        if (body) {
-          const parsedBody = JSON.parse(body);
-          const commands = Array.isArray(parsedBody)
-            ? parsedBody
-            : [parsedBody];
-          for (const command of commands) {
-            await db.command(command);
-          }
-        } else if (run) {
-          await run({ db });
-        } else {
-          throw new SynorError('invalid migration source');
-        }
-      } catch (err) {
-        dirty = true;
-
-        throw err;
-      } finally {
-        const endTime = performance.now();
-
-        await queryStore.addRecord({
-          version,
-          type,
-          title,
-          hash,
-          appliedAt: new Date(),
-          appliedBy: '',
-          executionTime: endTime - startTime,
-          dirty
-        });
-      }
-    },
+    run,
     repair,
     records
   };
