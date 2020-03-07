@@ -1,8 +1,13 @@
+import { getNextRecordId } from './utils/get-next-record-id';
+
 type Db = import('mongodb').Db;
+type MigrationRecord = import('@synor/core').MigrationRecord;
 
 export type QueryStore = {
   getLock: () => Promise<void>;
   releaseLock: () => Promise<void>;
+
+  addRecord: (record: Omit<MigrationRecord, 'id'>) => Promise<void>;
 };
 
 type QueryStoreOptions = {
@@ -49,8 +54,35 @@ export function getQueryStore(
       .updateOne({ id: -1 }, { $set: { [lockKey]: 0 } });
   };
 
+  const addRecord: QueryStore['addRecord'] = async ({
+    version,
+    type,
+    title,
+    hash,
+    appliedAt,
+    appliedBy,
+    executionTime,
+    dirty
+  }) => {
+    const nextId = await getNextRecordId(db, collectionName);
+
+    await db.collection(collectionName).insertOne({
+      id: nextId,
+      version,
+      type,
+      title,
+      hash,
+      appliedAt,
+      appliedBy,
+      executionTime: Math.floor(executionTime),
+      dirty
+    });
+  };
+
   return {
     getLock,
-    releaseLock
+    releaseLock,
+
+    addRecord
   };
 }

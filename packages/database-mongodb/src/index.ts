@@ -5,7 +5,6 @@ import { performance } from 'perf_hooks';
 import { getQueryStore } from './queries';
 import { ensureMigrationRecordCollection } from './utils/ensure-migration-record-collection';
 import { getConfig } from './utils/get-config';
-import { getNextRecordId } from './utils/get-next-record-id';
 
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
@@ -87,15 +86,17 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         poolSize: 1
       });
       db = await client.db();
-      await ensureMigrationRecordCollection(
-        db,
-        engineConfig.migrationRecordCollection,
-        baseVersion
-      );
       queryStore = getQueryStore(db, {
         migrationRecordCollection: engineConfig.migrationRecordCollection,
         advisoryLockId
       });
+
+      await ensureMigrationRecordCollection(
+        db,
+        engineConfig.migrationRecordCollection,
+        queryStore,
+        baseVersion
+      );
     },
     async close() {
       debug('in close function');
@@ -149,12 +150,8 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         throw err;
       } finally {
         const endTime = performance.now();
-        const nextId = await getNextRecordId(
-          db,
-          engineConfig.migrationRecordCollection
-        );
-        await db.collection(engineConfig.migrationRecordCollection).insert({
-          id: nextId,
+
+        await queryStore.addRecord({
           version,
           type,
           title,

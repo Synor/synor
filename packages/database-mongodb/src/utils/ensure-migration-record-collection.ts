@@ -1,12 +1,13 @@
 import { performance } from 'perf_hooks';
 import { collectionExists } from './collection-exists';
-import { getNextRecordId } from './get-next-record-id';
 
 type Db = import('mongodb').Db;
+type QueryStore = import('../queries').QueryStore;
 
 export async function ensureMigrationRecordCollection(
   db: Db,
   migrationRecordCollection: string,
+  queryStore: QueryStore,
   baseVersion: string
 ): Promise<void> {
   const exists = await collectionExists(db, migrationRecordCollection);
@@ -27,17 +28,14 @@ export async function ensureMigrationRecordCollection(
 
   const endTime = performance.now();
 
-  const nextId = await getNextRecordId(db, migrationRecordCollection);
-
-  await db.collection(migrationRecordCollection).insertOne({
-    id: nextId,
+  await queryStore.addRecord({
     version: baseVersion,
     type: 'do',
     title: 'Base Entry',
     hash: '',
     appliedAt: new Date(),
     appliedBy: 'Synor',
-    executionTime: Math.floor(endTime - startTime),
+    executionTime: endTime - startTime,
     dirty: false
   });
 }
