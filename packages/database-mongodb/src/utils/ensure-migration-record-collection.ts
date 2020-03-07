@@ -1,30 +1,20 @@
 import { performance } from 'perf_hooks';
-import { collectionExists } from './collection-exists';
 
-type Db = import('mongodb').Db;
 type QueryStore = import('../queries').QueryStore;
 
 export async function ensureMigrationRecordCollection(
-  db: Db,
-  migrationRecordCollection: string,
   queryStore: QueryStore,
   baseVersion: string
 ): Promise<void> {
-  const exists = await collectionExists(db, migrationRecordCollection);
+  const collectionInfo = await queryStore.getMigrationRecordCollectionInfo();
 
-  if (exists) {
+  if (collectionInfo.exists) {
     return;
   }
 
   const startTime = performance.now();
 
-  await db.createCollection(migrationRecordCollection);
-
-  await db.createIndex(migrationRecordCollection, 'id', { unique: true });
-
-  await db
-    .collection(migrationRecordCollection)
-    .insertOne({ id: -1, nextRecordId: 1 });
+  await queryStore.createMigrationRecordCollection();
 
   const endTime = performance.now();
 

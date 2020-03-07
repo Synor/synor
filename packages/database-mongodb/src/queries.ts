@@ -4,6 +4,11 @@ type Db = import('mongodb').Db;
 type MigrationRecord = import('@synor/core').MigrationRecord;
 
 export type QueryStore = {
+  getMigrationRecordCollectionInfo: () => Promise<{
+    exists: boolean;
+  }>;
+  createMigrationRecordCollection: () => Promise<void>;
+
   getLock: () => Promise<void>;
   releaseLock: () => Promise<void>;
 
@@ -26,6 +31,27 @@ export function getQueryStore(
   }: QueryStoreOptions
 ): QueryStore {
   const lockKey = ['lock', advisoryLockId, 'expires'].join(':');
+
+  const getMigrationRecordCollectionInfo: QueryStore['getMigrationRecordCollectionInfo'] = async () => {
+    const result = await db
+      .listCollections(
+        { name: collectionName },
+        { batchSize: 1, nameOnly: true }
+      )
+      .toArray();
+
+    const exists = Boolean(result.length);
+
+    return {
+      exists
+    };
+  };
+
+  const createMigrationRecordCollection: QueryStore['createMigrationRecordCollection'] = async () => {
+    await db.createCollection(collectionName);
+    await db.createIndex(collectionName, 'id', { unique: true });
+    await db.collection(collectionName).insertOne({ id: -1, nextRecordId: 1 });
+  };
 
   const getLock: QueryStore['getLock'] = async () => {
     let isLocked = true;
@@ -80,6 +106,9 @@ export function getQueryStore(
   };
 
   return {
+    getMigrationRecordCollectionInfo,
+    createMigrationRecordCollection,
+
     getLock,
     releaseLock,
 

@@ -91,12 +91,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         advisoryLockId
       });
 
-      await ensureMigrationRecordCollection(
-        db,
-        engineConfig.migrationRecordCollection,
-        queryStore,
-        baseVersion
-      );
+      await ensureMigrationRecordCollection(queryStore, baseVersion);
     },
     async close() {
       debug('in close function');
