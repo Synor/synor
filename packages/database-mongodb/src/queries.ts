@@ -92,6 +92,16 @@ export function getQueryStore(
   };
 
   const releaseLock: QueryStore['releaseLock'] = async () => {
+    const document = await db
+      .collection(collectionName)
+      .findOne({ id: -1 }, { projection: { [lockKey]: 1 } });
+
+    const isLocked = document[lockKey] > Date.now();
+
+    if (!isLocked) {
+      throw new Error('not locked!');
+    }
+
     await db
       .collection(collectionName)
       .updateOne({ id: -1 }, { $set: { [lockKey]: 0 } });

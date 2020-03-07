@@ -160,3 +160,96 @@ describe('methods: {open,close}', () => {
     await expect(engine.close()).resolves.toBeUndefined();
   });
 });
+
+describe('methods: {lock,unlock}', () => {
+  test('can lock & unlock', async () => {
+    const engine = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    await engine.open();
+
+    await expect(engine.lock()).resolves.toBeUndefined();
+
+    await expect(engine.unlock()).resolves.toBeUndefined();
+
+    await engine.close();
+  });
+
+  test('can not get multiple lock at once', async () => {
+    const engineOne = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    const engineTwo = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    const callOrder: Array<'lock-1' | 'unlock-1' | 'lock-2' | 'unlock-2'> = [];
+
+    await Promise.all([engineOne.open(), engineTwo.open()]);
+
+    await engineOne.lock().then(() => {
+      callOrder.push('lock-1');
+    });
+
+    await Promise.all([
+      engineTwo.lock().then(() => {
+        callOrder.push('lock-2');
+      }),
+      engineOne.unlock().then(() => {
+        callOrder.push('unlock-1');
+      })
+    ]);
+
+    await engineTwo.unlock().then(() => {
+      callOrder.push('unlock-2');
+    });
+
+    expect(callOrder).toEqual(['lock-1', 'unlock-1', 'lock-2', 'unlock-2']);
+
+    await Promise.all([engineOne.close(), engineTwo.close()]);
+  });
+
+  test('lock throws if failed to get', async () => {
+    const queries = jest.requireActual('./queries');
+
+    jest.spyOn(queries, 'getQueryStore').mockImplementationOnce((...args) => {
+      const queryStore = queries.getQueryStore(...args);
+      queryStore.getLock = () => Promise.reject(new Error());
+      return queryStore;
+    });
+
+    const engine = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    await engine.open();
+
+    await expect(engine.lock()).rejects.toThrow();
+
+    await engine.close();
+  });
+
+  test('unlock throws if not locked', async () => {
+    const engine = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    await engine.open();
+
+    await expect(engine.unlock()).rejects.toThrow();
+
+    await engine.close();
+  });
+});
