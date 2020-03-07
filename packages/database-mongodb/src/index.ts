@@ -78,6 +78,12 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     }
   };
 
+  const drop: DatabaseEngine['drop'] = async () => {
+    debug('drop');
+    const collectionNames = await queryStore.getCollectionNames();
+    await queryStore.dropCollections(collectionNames);
+  };
+
   const repair: DatabaseEngine['repair'] = async records => {
     debug('repair');
 
@@ -96,27 +102,9 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
   return {
     open,
     close,
-
     lock,
     unlock,
-
-    async drop() {
-      debug('in drop function');
-      const collections = await (
-        await db.listCollections(
-          {},
-          {
-            nameOnly: true
-          }
-        )
-      ).toArray();
-
-      await Promise.all(
-        collections.map(async c => {
-          await db.dropCollection(c);
-        })
-      );
-    },
+    drop,
     async run({ version, type, title, hash, body, run }: MigrationSource) {
       debug('in run function');
       let dirty = false;

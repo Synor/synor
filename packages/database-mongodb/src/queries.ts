@@ -12,6 +12,9 @@ export type QueryStore = {
   getLock: () => Promise<void>;
   releaseLock: () => Promise<void>;
 
+  getCollectionNames: () => Promise<string[]>;
+  dropCollections: (collectionNames: string[]) => Promise<void>;
+
   getRecords: (startId?: number) => Promise<MigrationRecord[]>;
 
   addRecord: (record: Omit<MigrationRecord, 'id'>) => Promise<void>;
@@ -94,6 +97,26 @@ export function getQueryStore(
       .updateOne({ id: -1 }, { $set: { [lockKey]: 0 } });
   };
 
+  const getCollectionNames: QueryStore['getCollectionNames'] = async () => {
+    const systemCollectionNameRegex = /^system\./;
+
+    const collections = await db
+      .listCollections({}, { nameOnly: true })
+      .toArray();
+
+    const collectionNames = collections
+      .map(collection => collection.name)
+      .filter(name => !systemCollectionNameRegex.test(name));
+
+    return collectionNames;
+  };
+
+  const dropCollections: QueryStore['dropCollections'] = async collectionNames => {
+    await Promise.all(
+      collectionNames.map(collectionName => db.dropCollection(collectionName))
+    );
+  };
+
   const getRecords: QueryStore['getRecords'] = async (startId = 0) => {
     if (startId < 0) {
       throw new SynorError('Record ID must can not be negative!');
@@ -151,6 +174,9 @@ export function getQueryStore(
 
     getLock,
     releaseLock,
+
+    getCollectionNames,
+    dropCollections,
 
     getRecords,
 
