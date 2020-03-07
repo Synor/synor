@@ -4,21 +4,11 @@ import MongoDBEngine, { MongoDBDatabaseEngine } from './index';
 type Db = import('mongodb').Db;
 type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId;
 type GetUserInfo = import('@synor/core').GetUserInfo;
+type MigrationSource = import('@synor/core').MigrationSource;
 
 jest.setTimeout(10 * 1000);
 
 jest.mock('perf_hooks');
-
-const baseVersion = '0';
-const getAdvisoryLockId: GetAdvisoryLockId = (databaseName, ...names) => {
-  return [String(databaseName.length), String(names.join().length)];
-};
-const getUserInfo: GetUserInfo = () => Promise.resolve(`Jest`);
-
-const databaseName = 'synor';
-const collectionName = 'test_record';
-const params = `synor_migration_record_collection=${collectionName}`;
-const uri = `mongodb://mongo:mongo@127.0.0.1:27017/${databaseName}?${params}`;
 
 const getCollectionNames = async (db: Db): Promise<string[]> => {
   const systemCollectionNameRegex = /^system\./;
@@ -33,6 +23,55 @@ const getCollectionNames = async (db: Db): Promise<string[]> => {
 
   return collectionNames;
 };
+
+const migrationSource: Record<
+  '01.do' | '01.undo' | '02.do' | '02.undo',
+  MigrationSource
+> = {
+  '01.do': {
+    version: '01',
+    type: 'do',
+    title: 'Test One',
+    body: JSON.stringify({ create: 'one' }),
+    hash: 'hash-01-do'
+  },
+  '01.undo': {
+    version: '01',
+    type: 'undo',
+    title: 'Test One',
+    body: JSON.stringify([{ drop: 'one' }]),
+    hash: 'hash-01-undo'
+  },
+  '02.do': {
+    version: '02',
+    type: 'do',
+    title: 'Test Two',
+    hash: 'hash-02-do',
+    run: (db: Db) => {
+      return db.createCollection(`two`);
+    }
+  },
+  '02.undo': {
+    version: '02',
+    type: 'undo',
+    title: 'Test Two',
+    hash: 'hash-02-undo',
+    run: (_db: Db) => {
+      throw new Error('¯\\_(ツ)_/¯');
+    }
+  }
+};
+
+const baseVersion = '0';
+const getAdvisoryLockId: GetAdvisoryLockId = (databaseName, ...names) => {
+  return [String(databaseName.length), String(names.join().length)];
+};
+const getUserInfo: GetUserInfo = () => Promise.resolve(`Jest`);
+
+const databaseName = 'synor';
+const collectionName = 'test_record';
+const params = `synor_migration_record_collection=${collectionName}`;
+const uri = `mongodb://mongo:mongo@127.0.0.1:27017/${databaseName}?${params}`;
 
 describe('module exports', () => {
   test('default export exists', () => {
@@ -251,5 +290,166 @@ describe('methods: {lock,unlock}', () => {
     await expect(engine.unlock()).rejects.toThrow();
 
     await engine.close();
+  });
+});
+
+describe('methods', () => {
+  let client: MongoClient;
+  let db: Db;
+
+  let engine: ReturnType<typeof MongoDBDatabaseEngine>;
+
+  const OriginalDate = Date;
+
+  beforeAll(async () => {
+    global.Date = class extends OriginalDate {
+      constructor() {
+        super('2020-01-01T00:00:00.000Z');
+      }
+    } as typeof global.Date;
+
+    client = await MongoClient.connect(uri);
+    db = client.db(databaseName);
+
+    const collectionNames = await getCollectionNames(db);
+    await Promise.all(collectionNames.map(name => db.dropCollection(name)));
+  });
+
+  afterAll(async () => {
+    await client.close();
+
+    global.Date = OriginalDate;
+  });
+
+  beforeEach(async () => {
+    engine = MongoDBDatabaseEngine(uri, {
+      baseVersion,
+      getAdvisoryLockId,
+      getUserInfo
+    });
+
+    await engine.open();
+  });
+
+  afterEach(async () => {
+    await engine.close();
+  });
+
+  test('drop', async () => {
+    await expect(
+      db.collection(collectionName).countDocuments()
+    ).resolves.toBeGreaterThan(0);
+
+    await expect(engine.drop()).resolves.toBeUndefined();
+
+    await expect(db.collection(collectionName).countDocuments()).resolves.toBe(
+      0
+    );
+  });
+
+  test('run (with body)', async () => {
+    await expect(engine.run(migrationSource['01.do'])).resolves.toBeUndefined();
+
+    await expect(getCollectionNames(db)).resolves.toMatchInlineSnapshot(`
+      Array [
+        "test_record",
+        "one",
+      ]
+    `);
+
+    await expect(
+      engine.run(migrationSource['01.undo'])
+    ).resolves.toBeUndefined();
+
+    await expect(getCollectionNames(db)).resolves.toMatchInlineSnapshot(`
+      Array [
+        "test_record",
+      ]
+    `);
+
+    await expect(
+      db
+        .collection(collectionName)
+        .find({ id: { $gte: 0 } })
+        .project({ _id: 0 })
+        .toArray()
+    ).resolves.toMatchSnapshot();
+
+    await engine.drop();
+  });
+
+  test('run (with run)', async () => {
+    await expect(engine.run(migrationSource['02.do'])).resolves.toBeUndefined();
+
+    await expect(getCollectionNames(db)).resolves.toMatchInlineSnapshot(`
+      Array [
+        "test_record",
+        "two",
+      ]
+    `);
+
+    await expect(
+      db
+        .collection(collectionName)
+        .find({ id: { $gte: 0 } })
+        .project({ _id: 0 })
+        .toArray()
+    ).resolves.toMatchSnapshot();
+
+    await engine.drop();
+  });
+
+  test('repair', async () => {
+    await expect(engine.run(migrationSource['02.do'])).resolves.toBeUndefined();
+    await expect(engine.run(migrationSource['02.undo'])).rejects.toThrow();
+
+    const records = await db
+      .collection(collectionName)
+      .find({ id: { $gte: 0 } })
+      .project({ _id: 0 })
+      .toArray();
+
+    expect(records).toMatchSnapshot();
+
+    const record = records.find(
+      ({ version, type }) => version === '02' && type === 'do'
+    );
+
+    await expect(
+      engine.repair([
+        { id: record.id, hash: `${migrationSource['02.do'].hash}-repaired` }
+      ])
+    ).resolves.toBeUndefined();
+
+    await expect(
+      db
+        .collection(collectionName)
+        .find({ id: { $gte: 0 } })
+        .project({ _id: 0 })
+        .toArray()
+    ).resolves.toMatchSnapshot();
+
+    await engine.drop();
+  });
+
+  test('records', async () => {
+    await expect(engine.run(migrationSource['01.do'])).resolves.toBeUndefined();
+    await expect(
+      engine.run(migrationSource['01.undo'])
+    ).resolves.toBeUndefined();
+    await expect(engine.run(migrationSource['02.do'])).resolves.toBeUndefined();
+    await expect(engine.run(migrationSource['02.undo'])).rejects.toThrow();
+
+    await expect(engine.records()).resolves.toMatchSnapshot();
+
+    await engine.drop();
+  });
+
+  test('records (throws if startId is negative)', async () => {
+    await expect(engine.records(-1)).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Record ID must can not be negative!"`
+    );
+
+    await engine.drop();
   });
 });
