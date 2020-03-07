@@ -2,6 +2,7 @@ import { MigrationRecord, SynorError } from '@synor/core';
 import Debug from 'debug';
 import { Db, MongoClient } from 'mongodb';
 import { performance } from 'perf_hooks';
+import { getQueryStore } from './queries';
 import { ensureMigrationRecordCollection } from './utils/ensure-migration-record-collection';
 import { getConfig } from './utils/get-config';
 import { getNextRecordId } from './utils/get-next-record-id';
@@ -9,13 +10,9 @@ import { getNextRecordId } from './utils/get-next-record-id';
 type DatabaseEngine = import('@synor/core').DatabaseEngine;
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory;
 type MigrationSource = import('@synor/core').MigrationSource;
+type QueryStore = import('./queries').QueryStore;
 
 const debug = Debug('@synor/database-mongodb');
-
-async function noOp(): Promise<null> {
-  await Promise.resolve(null);
-  return null;
-}
 
 async function deleteDirtyRecords(db: Db, mgCollName: string): Promise<void> {
   await db.collection(mgCollName).deleteMany({
@@ -54,8 +51,33 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
 
   const { databaseConfig, engineConfig } = getConfig(uri);
 
+  const advisoryLockId = getAdvisoryLockId(
+    databaseConfig.database,
+    engineConfig.migrationRecordCollection
+  ).join(':');
+
   let client: MongoClient;
   let db: Db;
+
+  let queryStore: QueryStore;
+
+  const lock: DatabaseEngine['lock'] = async () => {
+    debug('lock');
+    try {
+      await queryStore.getLock();
+    } catch (_) {
+      throw new SynorError(`Failed to Get Lock: ${advisoryLockId}`);
+    }
+  };
+
+  const unlock: DatabaseEngine['unlock'] = async () => {
+    debug('unlock');
+    try {
+      await queryStore.releaseLock();
+    } catch (_) {
+      throw new SynorError(`Failed to Release Lock: ${advisoryLockId}`);
+    }
+  };
 
   return {
     async open() {
@@ -70,6 +92,10 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         engineConfig.migrationRecordCollection,
         baseVersion
       );
+      queryStore = getQueryStore(db, {
+        migrationRecordCollection: engineConfig.migrationRecordCollection,
+        advisoryLockId
+      });
     },
     async close() {
       debug('in close function');
@@ -77,14 +103,10 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
         await client.close();
       }
     },
-    async lock() {
-      debug('in lock function');
-      await noOp();
-    },
-    async unlock() {
-      debug('in unlock function');
-      await noOp();
-    },
+
+    lock,
+    unlock,
+
     async drop() {
       debug('in drop function');
       const collections = await (

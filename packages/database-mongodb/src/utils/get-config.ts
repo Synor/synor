@@ -3,7 +3,9 @@ import { ConnectionString } from 'connection-string';
 
 type MongoClientOptions = import('mongodb').MongoClientOptions;
 
-type MongoDBDatabaseConfig = Required<Pick<MongoClientOptions, 'appname'>>;
+type MongoDBDatabaseConfig = Required<Pick<MongoClientOptions, 'appname'>> & {
+  database: string;
+};
 
 type MongoDBEngineConfig = {
   migrationRecordCollection: string;
@@ -47,7 +49,8 @@ export function getConfig(
     }
 
     const databaseConfig: MongoDBDatabaseConfig = {
-      appname: params!.appname
+      appname: params!.appname,
+      database
     };
 
     const engineConfig: MongoDBEngineConfig = {
