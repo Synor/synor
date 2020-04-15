@@ -6,6 +6,7 @@ module.exports = {
     'prettier/@typescript-eslint'
   ],
   rules: {
-    'new-cap': 'off'
+    'new-cap': 'off',
+    'node/no-missing-import': 'off'
   }
 }

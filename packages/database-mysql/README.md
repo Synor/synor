@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/npm/v/@synor/database-mysql?style=for-the-badge)](https://npmjs.org/package/@synor/database-mysql)
 [![Test](https://img.shields.io/travis/com/Synor/database-mysql/master?label=Test&style=for-the-badge)](https://travis-ci.com/Synor/database-mysql)
 [![Coverage](https://img.shields.io/codecov/c/gh/Synor/database-mysql/master?style=for-the-badge)](https://codecov.io/gh/Synor/database-mysql)
-[![License](https://img.shields.io/github/license/Synor/database-mysql?style=for-the-badge)](https://github.com/Synor/database-mysql/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@synor/database-mysql?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/database-mysql/blob/master/LICENSE)
 
 # Synor Database MySQL
 

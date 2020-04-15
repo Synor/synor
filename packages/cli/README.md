@@ -1,6 +1,6 @@
 [![Synor CLI](https://img.shields.io/badge/synor-cli-blue?style=for-the-badge)](https://github.com/Synor)
 [![Version](https://img.shields.io/npm/v/@synor/cli?style=for-the-badge)](https://npmjs.org/package/@synor/cli)
-[![License](https://img.shields.io/github/license/Synor/cli?style=for-the-badge)](https://github.com/Synor/cli/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@synor/cli?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/cli/blob/master/LICENSE)
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg?style=for-the-badge)](https://oclif.io)
 
 # Synor CLI
@@ -56,7 +56,7 @@ Options in config file is overridden by their available command flag counterpart
 
 **Other Options**:
 
-You can also specify other [configuration options](https://github.com/Synor/core/blob/0.8.2/src/index.ts#L43-L74) that [Synor Core](https://github.com/Synor/core) accepts.
+You can also specify other [configuration options](https://github.com/Synor/synor/blob/@synor/core@0.9.3/packages/core/src/index.ts#L44-L75) that [Synor Core](https://github.com/Synor/synor/tree/master/packages/core) accepts.
 
 **Example**:
 
@@ -119,7 +119,7 @@ EXAMPLES
   $ synor current --no-header --columns version
 ```
 
-_See code: [src/commands/current.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/current.ts)_
+_See code: [src/commands/current.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/current.ts)_
 
 ## `synor drop`
 
@@ -147,7 +147,7 @@ EXAMPLE
   $ synor drop
 ```
 
-_See code: [src/commands/drop.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/drop.ts)_
+_See code: [src/commands/drop.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/drop.ts)_
 
 ## `synor help [COMMAND]`
 
@@ -197,7 +197,7 @@ EXAMPLES
   $ synor info --no-header --columns version --filter state=pending
 ```
 
-_See code: [src/commands/info.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/info.ts)_
 
 ## `synor migrate [TARGETVERSION]`
 
@@ -231,7 +231,7 @@ EXAMPLES
   $ synor migrate 42 --outOfOrder
 ```
 
-_See code: [src/commands/migrate.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/migrate.ts)_
+_See code: [src/commands/migrate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/migrate.ts)_
 
 ## `synor repair`
 
@@ -258,7 +258,7 @@ EXAMPLE
   $ synor repair
 ```
 
-_See code: [src/commands/repair.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/repair.ts)_
+_See code: [src/commands/repair.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/repair.ts)_
 
 ## `synor validate`
 
@@ -285,6 +285,6 @@ EXAMPLE
   $ synor validate
 ```
 
-_See code: [src/commands/validate.ts](https://github.com/Synor/cli/blob/0.7.0/src/commands/validate.ts)_
+_See code: [src/commands/validate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.7.0/packages/cli/src/commands/validate.ts)_
 
 <!-- commandsstop -->

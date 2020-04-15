@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/npm/v/@synor/database-mongodb?style=for-the-badge)](https://npmjs.org/package/@synor/database-mongodb)
 [![Test](https://img.shields.io/travis/com/Synor/database-mongodb/master?label=Test&style=for-the-badge)](https://travis-ci.com/Synor/database-mongodb)
 [![Coverage](https://img.shields.io/codecov/c/gh/Synor/database-mongodb/master?style=for-the-badge)](https://codecov.io/gh/Synor/database-mongodb)
-[![License](https://img.shields.io/github/license/Synor/database-mongodb?style=for-the-badge)](https://github.com/Synor/database-mongodb/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@synor/database-mongodb?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/database-mongodb/blob/master/LICENSE)
 
 # Synor Database MongoDB
 

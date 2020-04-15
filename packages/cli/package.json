@@ -6,7 +6,7 @@
   "bin": {
     "synor": "./bin/run"
   },
-  "bugs": "https://github.com/Synor/cli/issues",
+  "bugs": "https://github.com/Synor/synor/issues",
   "dependencies": {
     "@oclif/color": "^0.1.0",
     "@oclif/command": "^1",
@@ -19,21 +19,15 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
+    "@oclif/parser": "^3.8.4",
     "@synor/core": "^0.9.3",
     "@types/lodash.defaultsdeep": "^4.6.6",
     "@types/node": "^13.9.0",
     "@types/supports-color": "^5.3.0",
-    "eslint": "^6.8.0",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.1",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
     "globby": "^11.0.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1",
-    "ts-node": "^8.6.2",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
@@ -48,7 +42,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/Synor/cli",
+  "homepage": "https://github.com/Synor/synor/tree/master/packages/cli",
   "keywords": [
     "cli",
     "synor",
@@ -65,17 +59,20 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
-    "repositoryPrefix": "<%- repo %>/blob/<%- version %>/<%- commandPath %>"
+    "repositoryPrefix": "<%- repo %>/blob/@synor/cli@<%- version %>/packages/cli/<%- commandPath %>"
   },
-  "repository": "Synor/cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Synor/synor",
+    "directory": "packages/cli"
+  },
   "scripts": {
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && npm run readme",
     "postpack": "rm -f oclif.manifest.json",
     "test": "echo NO TESTS",
     "posttest": "eslint . --ext .ts --config .eslintrc.js",
     "readme": "oclif-dev readme",
-    "postreadme": "pretty-quick --pattern '**/*.md'",
-    "version": "npm run readme && pretty-quick && git add README.md"
+    "preversion": "npm run readme && git add README.md"
   },
   "types": "lib/index.d.ts",
   "publishConfig": {

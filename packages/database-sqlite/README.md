@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/npm/v/@synor/database-sqlite?style=for-the-badge)](https://npmjs.org/package/@synor/database-sqlite)
 [![Test](https://img.shields.io/travis/com/Synor/database-sqlite/master?label=Test&style=for-the-badge)](https://travis-ci.com/Synor/database-sqlite)
 [![Coverage](https://img.shields.io/codecov/c/gh/Synor/database-sqlite/master?style=for-the-badge)](https://codecov.io/gh/Synor/database-sqlite)
-[![License](https://img.shields.io/github/license/Synor/database-sqlite?style=for-the-badge)](https://github.com/Synor/database-sqlite/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@synor/database-sqlite?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/database-sqlite/blob/master/LICENSE)
 
 # Synor Database SQLite
 
