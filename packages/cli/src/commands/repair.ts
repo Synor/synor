@@ -5,13 +5,13 @@ export default class Repair extends Command {
   static description = [
     `repair migration records`,
     `- Updates the mismatched hashes`,
-    `- Deletes the dirty records`
+    `- Deletes the dirty records`,
   ].join('\n')
 
   static examples = [`$ synor repair`]
 
   static flags = {
-    ...Command.flags
+    ...Command.flags,
   }
 
   static args = []

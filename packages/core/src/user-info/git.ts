@@ -8,7 +8,7 @@ import { exec } from 'child_process'
  * @returns value of git config option
  */
 function getGitConfigValue(key: string): Promise<string> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     exec(`git config --get ${key}`, (err, stdout) => {
       if (err) {
         resolve('')
@@ -27,7 +27,7 @@ function getGitConfigValue(key: string): Promise<string> {
 export async function getGitUserInfo(): Promise<string> {
   const [name, email] = await Promise.all([
     getGitConfigValue('user.name'),
-    getGitConfigValue('user.email')
+    getGitConfigValue('user.email'),
   ])
 
   return `${name || 'N/A'}${email ? ` <${email}>` : ''}`

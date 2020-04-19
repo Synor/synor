@@ -37,7 +37,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
   const queryStore = getQueryStore(connection, {
     migrationRecordTable: engineConfig.migrationRecordTable,
     databaseName: databaseConfig.database,
-    advisoryLockId
+    advisoryLockId,
   })
 
   let appliedBy = ''
@@ -77,7 +77,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     title,
     hash,
     body,
-    run
+    run,
   }: MigrationSource) => {
     let dirty = false
 
@@ -104,12 +104,12 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
         appliedAt: new Date(),
         appliedBy,
         executionTime: endTime - startTime,
-        dirty
+        dirty,
       })
     }
   }
 
-  const repair: DatabaseEngine['repair'] = async records => {
+  const repair: DatabaseEngine['repair'] = async (records) => {
     await queryStore.deleteDirtyRecords()
 
     for (const { id, hash } of records) {
@@ -117,7 +117,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     }
   }
 
-  const records: DatabaseEngine['records'] = async startId => {
+  const records: DatabaseEngine['records'] = async (startId) => {
     return queryStore.getRecords(startId)
   }
 
@@ -129,7 +129,7 @@ export const MySQLDatabaseEngine: DatabaseEngineFactory = (
     drop,
     run,
     repair,
-    records
+    records,
   }
 }
 

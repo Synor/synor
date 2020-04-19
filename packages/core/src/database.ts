@@ -73,7 +73,7 @@ export function SynorDatabase({
   databaseUri,
   baseVersion,
   getAdvisoryLockId,
-  getUserInfo
+  getUserInfo,
 }: SynorDatabaseConfig): DatabaseEngine {
   if (typeof DatabaseEngine !== 'function') {
     throw new SynorError('Missing DatabaseEngine')
@@ -82,6 +82,6 @@ export function SynorDatabase({
   return DatabaseEngine(databaseUri, {
     baseVersion,
     getAdvisoryLockId,
-    getUserInfo
+    getUserInfo,
   })
 }

@@ -1,22 +1,22 @@
-import { performance } from 'perf_hooks';
+import { performance } from 'perf_hooks'
 
-type QueryStore = import('../queries').QueryStore;
+type QueryStore = import('../queries').QueryStore
 
 export async function ensureMigrationRecordCollection(
   queryStore: QueryStore,
   baseVersion: string
 ): Promise<void> {
-  const collectionInfo = await queryStore.getMigrationRecordCollectionInfo();
+  const collectionInfo = await queryStore.getMigrationRecordCollectionInfo()
 
   if (collectionInfo.exists) {
-    return;
+    return
   }
 
-  const startTime = performance.now();
+  const startTime = performance.now()
 
-  await queryStore.createMigrationRecordCollection();
+  await queryStore.createMigrationRecordCollection()
 
-  const endTime = performance.now();
+  const endTime = performance.now()
 
   await queryStore.addRecord({
     version: baseVersion,
@@ -26,6 +26,6 @@ export async function ensureMigrationRecordCollection(
     appliedAt: new Date(),
     appliedBy: 'Synor',
     executionTime: endTime - startTime,
-    dirty: false
-  });
+    dirty: false,
+  })
 }

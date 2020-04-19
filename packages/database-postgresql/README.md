@@ -44,7 +44,7 @@ const ssl = {
   key: '<path-to-file>',
   passphrase: '<string>',
   rejectUnauthorized: '<boolean>',
-  secureOptions: '<number>'
+  secureOptions: '<number>',
 }
 
 const uri = `postgresql://postgres:postgres@127.0.0.1:5432/synor?ssl=${encodeURIComponent(

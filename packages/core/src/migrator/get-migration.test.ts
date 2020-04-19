@@ -2,7 +2,7 @@ import { getMigration } from './get-migration'
 
 const source = {
   get: jest.fn(),
-  read: jest.fn()
+  read: jest.fn(),
 }
 
 describe('migrator:getMigration', () => {

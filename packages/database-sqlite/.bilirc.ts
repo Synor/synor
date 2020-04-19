@@ -4,8 +4,8 @@ const config: Config = {
   input: ['src/index.ts'],
   output: {
     dir: 'lib',
-    format: ['cjs', 'esm']
-  }
+    format: ['cjs', 'esm'],
+  },
 }
 
 export default config

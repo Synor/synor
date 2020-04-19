@@ -42,7 +42,7 @@ const ssl = JSON.stringify({
   ciphers: '<string>',
   key: '<path-to-file>',
   passphrase: '<string>',
-  rejectUnauthorized: '<boolean>'
+  rejectUnauthorized: '<boolean>',
 }) // 'Amazon RDS'
 
 const uri = `mysql://root:root@127.0.0.1:3306/synor?ssl=${encodeURIComponent(

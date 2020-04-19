@@ -100,12 +100,12 @@ export function getQueryStore(
       .map<string>(({ table_name }: { table_name: string }) => table_name)
   }
 
-  const dropTables: QueryStore['dropTables'] = async tableNames => {
+  const dropTables: QueryStore['dropTables'] = async (tableNames) => {
     const internalSchemaPattern = /^sqlite_/
 
     const queries = tableNames
-      .filter(tableName => !internalSchemaPattern.test(tableName))
-      .map(tableName => `DROP TABLE IF EXISTS ${schemaName}.${tableName};`)
+      .filter((tableName) => !internalSchemaPattern.test(tableName))
+      .map((tableName) => `DROP TABLE IF EXISTS ${schemaName}.${tableName};`)
       .concat('VACUUM;')
 
     for (const query of queries) {
@@ -131,7 +131,7 @@ export function getQueryStore(
       .map<MigrationRecord>(
         (row: Omit<MigrationRecord, 'dirty'> & { dirty: 0 | 1 }) => ({
           ...row,
-          dirty: Boolean(row.dirty)
+          dirty: Boolean(row.dirty),
         })
       )
   }
@@ -144,7 +144,7 @@ export function getQueryStore(
     appliedAt,
     appliedBy,
     executionTime,
-    dirty
+    dirty,
   }) => {
     return database
       .prepare(
@@ -164,7 +164,7 @@ export function getQueryStore(
         appliedAt: appliedAt.toISOString(),
         appliedBy,
         executionTime,
-        dirty: +dirty
+        dirty: +dirty,
       })
   }
 
@@ -201,6 +201,6 @@ export function getQueryStore(
 
     addRecord,
     deleteDirtyRecords,
-    updateRecord
+    updateRecord,
   }
 }

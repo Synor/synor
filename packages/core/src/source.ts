@@ -80,13 +80,13 @@ type SynorSourceConfig = Pick<
 export function SynorSource({
   SourceEngine,
   sourceUri,
-  migrationInfoParser
+  migrationInfoParser,
 }: SynorSourceConfig): SourceEngine {
   if (typeof SourceEngine !== 'function') {
     throw new SynorError('Missing SourceEngine')
   }
 
   return SourceEngine(sourceUri, {
-    migrationInfoParser
+    migrationInfoParser,
   })
 }

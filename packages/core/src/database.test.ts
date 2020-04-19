@@ -5,7 +5,7 @@ const synorDatabaseParams: Parameters<typeof SynorDatabase>[0] = {
   databaseUri: '',
   baseVersion: '',
   getAdvisoryLockId: () => ['', ''],
-  getUserInfo: () => Promise.resolve('')
+  getUserInfo: () => Promise.resolve(''),
 }
 
 describe('SynorDatabase', () => {
@@ -26,7 +26,7 @@ describe('SynorDatabase', () => {
     expect(engineFactory).toHaveBeenCalledWith(params.databaseUri, {
       baseVersion: params.baseVersion,
       getAdvisoryLockId: params.getAdvisoryLockId,
-      getUserInfo: params.getUserInfo
+      getUserInfo: params.getUserInfo,
     })
     expect(engine).toBeDefined()
   })

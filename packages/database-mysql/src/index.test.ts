@@ -21,7 +21,7 @@ const getTableColumnCount = async (
     connection,
     `SELECT column_name FROM information_schema.columns WHERE table_name = ? AND table_schema = ?;`,
     [tableName, databaseName]
-  ).then(rows => rows.length)
+  ).then((rows) => rows.length)
 
 const migrationSource: Record<
   '01.do' | '01.undo' | '02.do',
@@ -32,14 +32,14 @@ const migrationSource: Record<
     type: 'do',
     title: 'Test One',
     body: 'SELECT 1;',
-    hash: 'hash-01-do'
+    hash: 'hash-01-do',
   },
   '01.undo': {
     version: '01',
     type: 'undo',
     title: 'Test One',
     body: 'SELEC -1;',
-    hash: 'hash-01-undo'
+    hash: 'hash-01-undo',
   },
   '02.do': {
     version: '02',
@@ -48,12 +48,12 @@ const migrationSource: Record<
     hash: 'hash-02-do',
     run: (client: Connection) => {
       return new Promise((resolve, reject) => {
-        client.query(`SELECT 2;`, err => {
+        client.query(`SELECT 2;`, (err) => {
           return err ? reject(err) : resolve()
         })
       })
-    }
-  }
+    },
+  },
 }
 
 const baseVersion = '0'
@@ -86,7 +86,7 @@ describe('initialization', () => {
   const helpers: Parameters<typeof MySQLDatabaseEngine>[1] = {
     baseVersion,
     getAdvisoryLockId,
-    getUserInfo
+    getUserInfo,
   }
 
   beforeEach(() => {
@@ -96,7 +96,7 @@ describe('initialization', () => {
     helpers.getUserInfo = getUserInfo
   })
 
-  test.each([undefined, null, 0])('throws if uri is %s', uri => {
+  test.each([undefined, null, 0])('throws if uri is %s', (uri) => {
     expect(() => MySQLDatabaseEngine(uri as any, helpers)).toThrow()
   })
 
@@ -156,7 +156,7 @@ describe('methods: {open,close}', () => {
     engine = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
   })
 
@@ -204,7 +204,7 @@ describe('methods: {lock,unlock}', () => {
     const engine = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -220,13 +220,13 @@ describe('methods: {lock,unlock}', () => {
     const engineOne = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     const engineTwo = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     const callOrder: Array<'lock-1' | 'unlock-1' | 'lock-2' | 'unlock-2'> = []
@@ -243,7 +243,7 @@ describe('methods: {lock,unlock}', () => {
       }),
       engineOne.unlock().then(() => {
         callOrder.push('unlock-1')
-      })
+      }),
     ])
 
     await engineTwo.unlock().then(() => {
@@ -267,7 +267,7 @@ describe('methods: {lock,unlock}', () => {
     const engine = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -281,7 +281,7 @@ describe('methods: {lock,unlock}', () => {
     const engine = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -321,7 +321,7 @@ describe('methods', () => {
     engine = MySQLDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -372,13 +372,13 @@ describe('methods', () => {
       [
         tableName,
         migrationSource['01.do'].version,
-        migrationSource['01.do'].type
+        migrationSource['01.do'].type,
       ]
     )
 
     await expect(
       engine.repair([
-        { id: record.id, hash: `${migrationSource['01.do'].hash}-repaired` }
+        { id: record.id, hash: `${migrationSource['01.do'].hash}-repaired` },
       ])
     ).resolves.toBeUndefined()
 

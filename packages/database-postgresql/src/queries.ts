@@ -54,7 +54,7 @@ export function getQueryStore(
     migrationRecordTable: tableName,
     schemaName,
     databaseName,
-    advisoryLockIds
+    advisoryLockIds,
   }: QueryStoreOptions
 ): QueryStore {
   const openConnection = async (): Promise<void> => {
@@ -67,11 +67,11 @@ export function getQueryStore(
   const QueryRunner = <RawResult = any, Result = RawResult>(
     query: string,
     values: QueryValue[],
-    formatter: (rows: RawResult[]) => Result = v => (v as unknown) as Result
+    formatter: (rows: RawResult[]) => Result = (v) => (v as unknown) as Result
   ) => (): Promise<Result> => {
     return client
       .query<RawResult>(query.replace(/\s+/, ' ').trim(), values)
-      .then(result => result.rows)
+      .then((result) => result.rows)
       .then(formatter)
   }
 
@@ -87,7 +87,7 @@ export function getQueryStore(
         AND table_name = $3;
     `,
     [databaseName, schemaName, tableName],
-    rows => rows.map(({ column_name }) => column_name)
+    (rows) => rows.map(({ column_name }) => column_name)
   )
 
   const createMigrationTable = QueryRunner(
@@ -157,7 +157,7 @@ export function getQueryStore(
           ADD COLUMN dirty BOOLEAN DEFAULT false;
       `,
       []
-    )
+    ),
   }
 
   const getLock = QueryRunner<{ synor_lock: LockResult }, LockResult>(
@@ -184,13 +184,13 @@ export function getQueryStore(
         AND table_schema = $2;
     `,
     [databaseName, schemaName],
-    rows => rows.map(({ table_name }) => table_name)
+    (rows) => rows.map(({ table_name }) => table_name)
   )
 
-  const dropTables: QueryStore['dropTables'] = tableNames => {
+  const dropTables: QueryStore['dropTables'] = (tableNames) => {
     return QueryRunner(
       tableNames
-        .map(tableName => `DROP TABLE IF EXISTS ${tableName} CASCADE;`)
+        .map((tableName) => `DROP TABLE IF EXISTS ${tableName} CASCADE;`)
         .join('\n'),
       []
     )()
@@ -214,13 +214,13 @@ export function getQueryStore(
         WHERE id >= $1;
       `,
       [startId],
-      rows => {
+      (rows) => {
         return rows.map(
           ({ applied_at, applied_by, execution_time, ...record }) => ({
             ...record,
             appliedAt: applied_at,
             appliedBy: applied_by,
-            executionTime: execution_time
+            executionTime: execution_time,
           })
         )
       }
@@ -235,7 +235,7 @@ export function getQueryStore(
     appliedAt,
     appliedBy,
     executionTime,
-    dirty
+    dirty,
   }) => {
     return QueryRunner(
       `
@@ -284,6 +284,6 @@ export function getQueryStore(
 
     addRecord,
     deleteDirtyRecords,
-    updateRecord
+    updateRecord,
   }
 }

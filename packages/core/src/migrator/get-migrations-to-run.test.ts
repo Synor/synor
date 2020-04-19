@@ -14,44 +14,44 @@ const infoMap: Record<
 > = {
   '02': {
     do: getMigrationInfo({ version: '02', type: 'do' }),
-    undo: getMigrationInfo({ version: '02', type: 'undo' })
+    undo: getMigrationInfo({ version: '02', type: 'undo' }),
   },
   '03': {
     do: getMigrationInfo({ version: '03', type: 'do' }),
-    undo: getMigrationInfo({ version: '03', type: 'undo' })
+    undo: getMigrationInfo({ version: '03', type: 'undo' }),
   },
   '04': {
     do: getMigrationInfo({ version: '04', type: 'do' }),
-    undo: getMigrationInfo({ version: '04', type: 'undo' })
+    undo: getMigrationInfo({ version: '04', type: 'undo' }),
   },
   '05': {
     do: getMigrationInfo({ version: '05', type: 'do' }),
-    undo: undefined
+    undo: undefined,
   },
   '06': {
     do: undefined,
-    undo: getMigrationInfo({ version: '06', type: 'undo' })
+    undo: getMigrationInfo({ version: '06', type: 'undo' }),
   },
   '07': {
     do: getMigrationInfo({ version: '07', type: 'do' }),
-    undo: getMigrationInfo({ version: '07', type: 'undo' })
+    undo: getMigrationInfo({ version: '07', type: 'undo' }),
   },
   '08': {
     do: getMigrationInfo({ version: '08', type: 'do' }),
-    undo: getMigrationInfo({ version: '08', type: 'undo' })
+    undo: getMigrationInfo({ version: '08', type: 'undo' }),
   },
   '09': {
     do: getMigrationInfo({ version: '09', type: 'do' }),
-    undo: getMigrationInfo({ version: '09', type: 'undo' })
+    undo: getMigrationInfo({ version: '09', type: 'undo' }),
   },
   '10': {
     do: getMigrationInfo({ version: '10', type: 'do' }),
-    undo: getMigrationInfo({ version: '10', type: 'undo' })
+    undo: getMigrationInfo({ version: '10', type: 'undo' }),
   },
   '11': {
     do: getMigrationInfo({ version: '11', type: 'do' }),
-    undo: getMigrationInfo({ version: '11', type: 'undo' })
-  }
+    undo: getMigrationInfo({ version: '11', type: 'undo' }),
+  },
 }
 
 const versions = sortVersions(Object.keys(infoMap))
@@ -92,7 +92,7 @@ const getSource = (versions: string[]): SourceEngine => {
       const m = infoMap[version]
       return Promise.resolve(m ? m[type] || null : null)
     },
-    read: () => Promise.resolve({ body: '' })
+    read: () => Promise.resolve({ body: '' }),
   }
 
   return source
@@ -107,7 +107,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '0',
       targetVersion: '01',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`Array []`)
   })
@@ -119,7 +119,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '02',
         targetVersion: '03',
-        outOfOrder: false
+        outOfOrder: false,
       })
     ).rejects.toMatchInlineSnapshot(
       `[SynorError: fromVersion(01) is below baseVersion(02)]`
@@ -133,7 +133,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '02',
         targetVersion: '01',
-        outOfOrder: false
+        outOfOrder: false,
       })
     ).rejects.toMatchInlineSnapshot(
       `[SynorError: toVersion(01) is below baseVersion(02)]`
@@ -147,7 +147,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '05',
-        outOfOrder: false
+        outOfOrder: false,
       })
     } catch (error) {
       expect(error).toBeInstanceOf(SynorError)
@@ -168,7 +168,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '99',
-        outOfOrder: false
+        outOfOrder: false,
       })
     } catch (error) {
       expect(error).toBeInstanceOf(SynorError)
@@ -188,7 +188,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '0',
       targetVersion: '04',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -204,7 +204,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '01',
       targetVersion: '04',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -221,7 +221,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '0',
       targetVersion: '07',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -239,7 +239,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '02',
-        outOfOrder: false
+        outOfOrder: false,
       })
     } catch (error) {
       expect(error).toBeInstanceOf(SynorError)
@@ -261,12 +261,12 @@ describe('migrator:getMigrationsToRun', () => {
           '01.do',
           '02.do',
           '03.do',
-          '04.do'
+          '04.do',
         ]),
         source,
         baseVersion: '0',
         targetVersion: '01',
-        outOfOrder: false
+        outOfOrder: false,
       })
     } catch (error) {
       expect(error).toBeInstanceOf(SynorError)
@@ -286,7 +286,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '0',
       targetVersion: '02',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -303,7 +303,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '03',
         targetVersion: '02',
-        outOfOrder: false
+        outOfOrder: false,
       })
     ).rejects.toMatchInlineSnapshot(
       `[SynorError: toVersion(02) is below baseVersion(03)]`
@@ -316,7 +316,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '01',
       targetVersion: '01',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -337,12 +337,12 @@ describe('migrator:getMigrationsToRun', () => {
         '04.do',
         '05.do',
         '06.do',
-        '07.do'
+        '07.do',
       ]),
       source,
       baseVersion: '0',
       targetVersion: '02',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -358,7 +358,7 @@ describe('migrator:getMigrationsToRun', () => {
       source,
       baseVersion: '03',
       targetVersion: '05',
-      outOfOrder: false
+      outOfOrder: false,
     })
     expect(formatResult(result)).toMatchInlineSnapshot(`
       Array [
@@ -369,7 +369,7 @@ describe('migrator:getMigrationsToRun', () => {
   })
 
   describe('#32 support for out of order migrations', () => {
-    const source = getSource(versions.filter(version => version >= '07'))
+    const source = getSource(versions.filter((version) => version >= '07'))
 
     test('works (from=to)', async () => {
       const result = await getMigrationsToRun({
@@ -377,7 +377,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '10',
-        outOfOrder: true
+        outOfOrder: true,
       })
       expect(formatResult(result)).toMatchInlineSnapshot(`
         Array [
@@ -393,7 +393,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '11',
-        outOfOrder: true
+        outOfOrder: true,
       })
       expect(formatResult(result)).toMatchInlineSnapshot(`
         Array [
@@ -410,7 +410,7 @@ describe('migrator:getMigrationsToRun', () => {
         source,
         baseVersion: '0',
         targetVersion: '07',
-        outOfOrder: true
+        outOfOrder: true,
       })
       expect(formatResult(result)).toMatchInlineSnapshot(`
         Array [

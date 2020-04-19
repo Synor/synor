@@ -13,7 +13,7 @@ export {
   MigrationRecordInfo,
   MigrationSource,
   MigrationSourceContent,
-  MigrationSourceInfo
+  MigrationSourceInfo,
 } from './migration'
 export { SourceEngine, SourceEngineFactory } from './source'
 export { getGitUserInfo, GetUserInfo } from './user-info'
@@ -82,10 +82,10 @@ const defaultConfig: Partial<SynorConfig> = {
     do: 'do',
     undo: 'undo',
     separator: '.',
-    extension: '.+'
+    extension: '.+',
   },
   getAdvisoryLockId,
-  getUserInfo: getGitUserInfo
+  getUserInfo: getGitUserInfo,
 }
 
 export function Synor(synorConfig: Partial<SynorConfig>): Synor {
@@ -100,6 +100,6 @@ export function Synor(synorConfig: Partial<SynorConfig>): Synor {
   const migrator = new SynorMigrator(config)
 
   return {
-    migrator
+    migrator,
   }
 }

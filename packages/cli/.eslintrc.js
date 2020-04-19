@@ -3,10 +3,10 @@ module.exports = {
     'oclif',
     'oclif-typescript',
     'plugin:prettier/recommended',
-    'prettier/@typescript-eslint'
+    'prettier/@typescript-eslint',
   ],
   rules: {
     'new-cap': 'off',
-    'node/no-missing-import': 'off'
-  }
+    'node/no-missing-import': 'off',
+  },
 }

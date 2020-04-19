@@ -25,10 +25,10 @@ async function readConfigFile(
     `.synorrc.js`,
     `.synorrc.ts`,
     `synor.config.js`,
-    `synor.config.ts`
+    `synor.config.ts`,
   ]
-    .map(filename => resolvePath(filename))
-    .find(filePath => {
+    .map((filename) => resolvePath(filename))
+    .find((filePath) => {
       try {
         const stat = statSync(filePath)
         return stat.isFile()

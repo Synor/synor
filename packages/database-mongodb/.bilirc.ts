@@ -1,11 +1,11 @@
-type Config = import('bili').Config;
+type Config = import('bili').Config
 
 const config: Config = {
   input: ['src/index.ts'],
   output: {
     dir: 'lib',
-    format: ['cjs', 'esm']
-  }
-};
+    format: ['cjs', 'esm'],
+  },
+}
 
-export default config;
+export default config

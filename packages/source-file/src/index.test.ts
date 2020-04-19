@@ -18,13 +18,13 @@ const migrationFiles: Record<string, string> = {
   '002--undo--two.sql': 'SELECT -2;',
   '003--do--three.sql': 'SELECT +3;',
   '003--undo--three.js': `module.exports = { run() { return Promise.resolve() } }`,
-  '004--do--four.js': `module.exports = { get body() { return Promise.resolve('SELECT +4;') } }`
+  '004--do--four.js': `module.exports = { get body() { return Promise.resolve('SELECT +4;') } }`,
 }
 
 const firstVersion = '001'
 const lastVersion = '004'
 
-const migrationInfoParser: MigrationInfoParser = filename => {
+const migrationInfoParser: MigrationInfoParser = (filename) => {
   const [version, type, titleWithExtension] = filename.split('--')
   const [title, extension] = titleWithExtension.split('.')
   return {
@@ -32,7 +32,7 @@ const migrationInfoParser: MigrationInfoParser = filename => {
     version,
     type: type as ReturnType<MigrationInfoParser>['type'],
     title,
-    extension
+    extension,
   }
 }
 
@@ -65,10 +65,10 @@ describe('module exports', () => {
 describe('initialization', () => {
   let srcUri: Parameters<typeof FileSourceEngine>[0]
   const helpers: Parameters<typeof FileSourceEngine>[1] = {
-    migrationInfoParser
+    migrationInfoParser,
   }
 
-  test.each([undefined, null, 0])('throws if uri is %s', uri => {
+  test.each([undefined, null, 0])('throws if uri is %s', (uri) => {
     expect(() => FileSourceEngine(uri as any, helpers)).toThrow()
   })
 
@@ -102,7 +102,7 @@ describe('methods', () => {
 
   beforeAll(() => {
     engine = FileSourceEngine(`file://${migrationsPathAbs}`, {
-      migrationInfoParser
+      migrationInfoParser,
     })
   })
 
@@ -211,7 +211,7 @@ describe('methods', () => {
 })
 
 describe('#2 invalid_filename error handling', () => {
-  const patchedMigrationInfoParser: MigrationInfoParser = filename => {
+  const patchedMigrationInfoParser: MigrationInfoParser = (filename) => {
     const info = migrationInfoParser(filename)
 
     if (info.version === '003') {

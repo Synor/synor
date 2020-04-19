@@ -6,7 +6,7 @@ export async function readJavaScriptMigrationFile(
 ): ReturnType<SourceEngine['read']> {
   const migrationSource: MigrationSourceContent = await import(
     migrationFilePath
-  ).then(m => m.default || m)
+  ).then((m) => m.default || m)
 
   if (migrationSource.body) {
     const body = await migrationSource.body

@@ -14,7 +14,7 @@ describe('utils:getConfig', () => {
 
   test.each(['postgres:', 'mysql:'])(
     `throws if uri protocol is not 'postgresql:'`,
-    protocol => {
+    (protocol) => {
       uri = uri.replace('postgresql:', protocol)
       expect(() => getConfig(uri)).toThrow()
     }
@@ -56,7 +56,7 @@ describe('utils:getConfig', () => {
       expect(getConfig(uri)[0].ssl).toBe(false)
     })
 
-    test.each([false, true])('accepts boolean: %s', ssl => {
+    test.each([false, true])('accepts boolean: %s', (ssl) => {
       uri = `${uri}?ssl=${JSON.stringify(ssl)}`
       expect(getConfig(uri)[0].ssl).toBe(ssl)
     })
@@ -70,7 +70,7 @@ describe('utils:getConfig', () => {
     test.each([
       ['ca', 'CA'],
       ['cert', 'CERT'],
-      ['key', 'KEY']
+      ['key', 'KEY'],
     ])(`reads ssl.%s file content`, (key, content) => {
       jest
         .spyOn(fs, 'readFileSync')

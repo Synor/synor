@@ -14,14 +14,14 @@ const dummyMigrationRecordInfo: MigrationRecordInfo = {
   executionTime: 0,
   dirty: false,
   state: 'applied',
-  revertedBy: null
+  revertedBy: null,
 }
 
 export const getMigrationRecordInfo = (
   recordInfo: Partial<MigrationRecordInfo>
 ): MigrationRecordInfo => ({
   ...dummyMigrationRecordInfo,
-  ...recordInfo
+  ...recordInfo,
 })
 
 const dummyMigrationRecord: MigrationRecord = {
@@ -33,14 +33,14 @@ const dummyMigrationRecord: MigrationRecord = {
   appliedAt: new Date('2020-01-01T00:00:00.000Z'),
   appliedBy: 'Jest',
   executionTime: 0,
-  dirty: false
+  dirty: false,
 }
 
 export const getMigrationRecord = (
   record: Partial<MigrationRecord>
 ): MigrationRecord => ({
   ...dummyMigrationRecord,
-  ...record
+  ...record,
 })
 
 const dummyMigrationSource: MigrationSource = {
@@ -48,7 +48,7 @@ const dummyMigrationSource: MigrationSource = {
   type: 'do',
   title: '',
   body: '',
-  hash: ''
+  hash: '',
 }
 
 export const getMigrationSource = (
@@ -56,7 +56,7 @@ export const getMigrationSource = (
 ): MigrationSource => {
   const migrationSource = {
     ...dummyMigrationSource,
-    ...source
+    ...source,
   }
 
   if ('run' in migrationSource) {
@@ -71,12 +71,12 @@ const dummyMigrationInfo: MigrationInfo = {
   type: 'do',
   title: '',
   filename: '',
-  extension: ''
+  extension: '',
 }
 
 export const getMigrationInfo = (
   info: Partial<MigrationInfo>
 ): MigrationInfo => ({
   ...dummyMigrationInfo,
-  ...info
+  ...info,
 })

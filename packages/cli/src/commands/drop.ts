@@ -6,13 +6,13 @@ export default class Drop extends Command {
     `drop database`,
     `This command is DANGEROUS.`,
     `Drops everything in the database.`,
-    `It should only be used for development purposes.`
+    `It should only be used for development purposes.`,
   ].join('\n')
 
   static examples = [`$ synor drop`]
 
   static flags = {
-    ...Command.flags
+    ...Command.flags,
   }
 
   static args = []

@@ -33,7 +33,7 @@ export function getConfig(
       protocol,
       hostname: host = '',
       path,
-      params
+      params,
     } = new ConnectionString(uri, {
       params: {
         schema: 'main',
@@ -41,8 +41,8 @@ export function getConfig(
         file_must_exist: false,
         memory: false,
         readonly: false,
-        timeout: 5000
-      }
+        timeout: 5000,
+      },
     })
 
     if (!protocol) {
@@ -75,17 +75,17 @@ export function getConfig(
       fileMustExist: JSON.parse(params!.file_must_exist),
       memory: JSON.parse(params!.memory),
       readonly: JSON.parse(params!.readonly),
-      timeout: JSON.parse(params!.timeout)
+      timeout: JSON.parse(params!.timeout),
     }
 
     const engineConfig: SQLiteEngineConfig = {
       migrationRecordTable: params!.synor_migration_record_table,
-      schema: params!.schema
+      schema: params!.schema,
     }
 
     return {
       databaseConfig,
-      engineConfig
+      engineConfig,
     }
   } catch (error) {
     throw new SynorError('Invalid DatabaseURI', 'exception', error)

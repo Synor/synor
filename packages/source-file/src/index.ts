@@ -36,8 +36,8 @@ export const FileSourceEngine: SourceEngineFactory = (
   const sortedVersions: Version[] = []
 
   const open: SourceEngine['open'] = async () => {
-    const filenames = await readDir(sourceConfig.pathname).then(filenames =>
-      filenames.filter(filename => {
+    const filenames = await readDir(sourceConfig.pathname).then((filenames) =>
+      filenames.filter((filename) => {
         const filepath = joinPath(sourceConfig.pathname, filename)
         return lstatSync(filepath).isFile()
       })
@@ -49,7 +49,7 @@ export const FileSourceEngine: SourceEngineFactory = (
 
         migrationsByVersion[migrationInfo.version] = {
           ...migrationsByVersion[migrationInfo.version],
-          [migrationInfo.type]: migrationInfo
+          [migrationInfo.type]: migrationInfo,
         }
       } catch (error) {
         if (
@@ -77,7 +77,7 @@ export const FileSourceEngine: SourceEngineFactory = (
     return Promise.resolve(version || null)
   }
 
-  const prev: SourceEngine['prev'] = async version => {
+  const prev: SourceEngine['prev'] = async (version) => {
     const index = sortedVersions.indexOf(version)
     const exists = index !== -1
     const first = index === 0
@@ -91,7 +91,7 @@ export const FileSourceEngine: SourceEngineFactory = (
     return Promise.resolve(prevVersion)
   }
 
-  const next: SourceEngine['next'] = async version => {
+  const next: SourceEngine['next'] = async (version) => {
     const index = sortedVersions.indexOf(version)
     const exists = index !== -1
     const last = index === sortedVersions.length - 1
@@ -147,7 +147,7 @@ export const FileSourceEngine: SourceEngineFactory = (
     next,
     last,
     get,
-    read
+    read,
   }
 }
 

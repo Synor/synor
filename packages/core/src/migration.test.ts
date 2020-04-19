@@ -10,7 +10,7 @@ describe('SynorMigration', () => {
           type: 'do',
           title: 'Test',
           filename: '0.do.Test.sql',
-          extension: 'sql'
+          extension: 'sql',
         },
         { body: 'SELECT 1;' }
       )
@@ -25,7 +25,7 @@ describe('SynorMigration', () => {
           type: 'do',
           title: 'Test',
           filename: '0.do.Test.sql',
-          extension: 'sql'
+          extension: 'sql',
         },
         { run: () => Promise.resolve() }
       )
@@ -40,7 +40,7 @@ describe('SynorMigration', () => {
         do: 'do',
         undo: 'undo',
         separator: '--',
-        extension: 'js|sql'
+        extension: 'js|sql',
       })
     })
 

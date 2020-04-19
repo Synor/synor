@@ -3,7 +3,7 @@ const { execSync } = require('child_process')
 
 const uri = 'postgresql://postgres:postgres@127.0.0.1:5432/synor'
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const pingPostgreSQL = () => {
   execSync(`pg_isready -d ${uri} -q`, { stdio: 'ignore' })

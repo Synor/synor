@@ -11,18 +11,18 @@ describe('migrator:getCurrentRecord', () => {
           version: '02',
           type: 'do',
           state: 'reverted',
-          revertedBy: 5
+          revertedBy: 5,
         }),
         getMigrationRecordInfo({
           id: 3,
           version: '03',
           type: 'do',
           state: 'reverted',
-          revertedBy: 4
+          revertedBy: 4,
         }),
         getMigrationRecordInfo({ id: 4, version: '03', type: 'undo' }),
         getMigrationRecordInfo({ id: 5, version: '02', type: 'undo' }),
-        getMigrationRecordInfo({ id: 6, version: '02', type: 'do' })
+        getMigrationRecordInfo({ id: 6, version: '02', type: 'do' }),
       ]).version
     ).toBe('02')
   })
@@ -36,21 +36,21 @@ describe('migrator:getCurrentRecord', () => {
           version: '02',
           type: 'do',
           state: 'reverted',
-          revertedBy: 5
+          revertedBy: 5,
         }),
         getMigrationRecordInfo({
           id: 3,
           version: '03',
           type: 'do',
           state: 'reverted',
-          revertedBy: 4
+          revertedBy: 4,
         }),
         getMigrationRecordInfo({ id: 4, version: '03', type: 'undo' }),
         getMigrationRecordInfo({ id: 5, version: '02', type: 'undo' }),
         getMigrationRecordInfo({ id: 6, version: '02', type: 'do' }),
         getMigrationRecordInfo({ id: 7, version: '06', type: 'do' }),
         getMigrationRecordInfo({ id: 8, version: '04', type: 'do' }),
-        getMigrationRecordInfo({ id: 9, version: '05', type: 'do' })
+        getMigrationRecordInfo({ id: 9, version: '05', type: 'do' }),
       ]).version
     ).toBe('06')
   })

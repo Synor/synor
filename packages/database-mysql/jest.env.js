@@ -3,12 +3,12 @@ const { createConnection } = require('mysql')
 
 const uri = 'mysql://root:root@127.0.0.1:3306/synor'
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const pingMySQL = async () => {
   return new Promise((resolve, reject) => {
     const connection = createConnection(uri)
-    connection.ping(err => {
+    connection.ping((err) => {
       connection.destroy()
       return err ? reject(err) : resolve()
     })

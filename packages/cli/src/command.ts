@@ -15,38 +15,38 @@ export default abstract class extends Command {
     config: flags.string({
       char: 'c',
       description: 'Configuration file path',
-      env: 'SYNOR_CONFIG'
+      env: 'SYNOR_CONFIG',
     }),
     databaseEngine: flags.string({
       char: 'D',
       description: 'Database Engine',
-      env: 'SYNOR_DATABASE_ENGINE'
+      env: 'SYNOR_DATABASE_ENGINE',
     }),
     databaseUri: flags.string({
       char: 'd',
       description: 'Database URI',
-      env: 'SYNOR_DATABASE_URI'
+      env: 'SYNOR_DATABASE_URI',
     }),
     sourceEngine: flags.string({
       char: 'S',
       description: 'Source Engine',
-      env: 'SYNOR_SOURCE_ENGINE'
+      env: 'SYNOR_SOURCE_ENGINE',
     }),
     sourceUri: flags.string({
       char: 's',
       description: 'Source URI',
-      env: 'SYNOR_SOURCE_URI'
+      env: 'SYNOR_SOURCE_URI',
     }),
     baseVersion: flags.string({
       char: 'b',
       description: 'Version of the Base Migration',
-      env: 'SYNOR_BASE_VERSION'
+      env: 'SYNOR_BASE_VERSION',
     }),
     recordStartId: flags.integer({
       char: 'i',
       description: 'Migration Record Start ID',
-      env: 'SYNOR_RECORD_START_ID'
-    })
+      env: 'SYNOR_RECORD_START_ID',
+    }),
   }
 
   async init() {
@@ -59,7 +59,7 @@ export default abstract class extends Command {
       sourceEngine: flags.sourceEngine,
       sourceUri: flags.sourceUri,
       baseVersion: flags.baseVersion,
-      recordStartId: flags.recordStartId
+      recordStartId: flags.recordStartId,
     })
 
     if (this.config.debug) {
@@ -89,7 +89,7 @@ export default abstract class extends Command {
         [
           error.message,
           `Run validation for more information:`,
-          `$ ${this.config.bin} validate`
+          `$ ${this.config.bin} validate`,
         ].join('\n'),
         { code: error.type, exit: 1 }
       )

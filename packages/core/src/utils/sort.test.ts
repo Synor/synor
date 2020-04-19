@@ -40,7 +40,7 @@ const migrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationRecord({ id: 9, version: '02', type: 'do' }),
   getMigrationSource({ version: '04', type: 'do' }),
   getMigrationSource({ version: '04', type: 'undo' }),
-  getMigrationSource({ version: '05', type: 'do' })
+  getMigrationSource({ version: '05', type: 'do' }),
 ]
 const unsortedMigrations: Array<MigrationRecord | MigrationSource> = [
   migrations[0],
@@ -54,7 +54,7 @@ const unsortedMigrations: Array<MigrationRecord | MigrationSource> = [
   migrations[5],
   migrations[9],
   migrations[8],
-  migrations[7]
+  migrations[7],
 ]
 const ascMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationRecord({ id: 1, version: '01', type: 'do' }),
@@ -68,7 +68,7 @@ const ascMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationRecord({ id: 8, version: '03', type: 'do' }),
   getMigrationSource({ version: '04', type: 'do' }),
   getMigrationSource({ version: '04', type: 'undo' }),
-  getMigrationSource({ version: '05', type: 'do' })
+  getMigrationSource({ version: '05', type: 'do' }),
 ]
 const descMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationSource({ version: '05', type: 'do' }),
@@ -82,7 +82,7 @@ const descMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationRecord({ id: 4, version: '02', type: 'do' }),
   getMigrationRecord({ id: 3, version: '01', type: 'do' }),
   getMigrationRecord({ id: 2, version: '01', type: 'undo' }),
-  getMigrationRecord({ id: 1, version: '01', type: 'do' })
+  getMigrationRecord({ id: 1, version: '01', type: 'do' }),
 ]
 
 describe('utils:sortMigrations', () => {

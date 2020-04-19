@@ -75,8 +75,8 @@ module.exports = {
     do: 'do',
     undo: 'undo',
     separator: '.',
-    extension: 'sql'
-  }
+    extension: 'sql',
+  },
 }
 ```
 

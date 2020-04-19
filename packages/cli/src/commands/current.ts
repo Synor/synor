@@ -5,18 +5,18 @@ import { getFormattedDate } from '../utils/get-formatted-date'
 export default class Current extends Command {
   static description = [
     `show current migration record`,
-    `This record indicates the current migration version for the database.`
+    `This record indicates the current migration version for the database.`,
   ].join('\n')
 
   static examples = [
     `$ synor current`,
-    `$ synor current --no-header --columns version`
+    `$ synor current --no-header --columns version`,
   ]
 
   static flags = {
     columns: cli.table.Flags.columns,
     'no-header': cli.table.Flags['no-header'],
-    ...Command.flags
+    ...Command.flags,
   }
 
   static args = []
@@ -26,46 +26,46 @@ export default class Current extends Command {
 
     const { migrator } = this.synor
 
-    migrator.on('current', record => {
+    migrator.on('current', (record) => {
       cli.table(
         [record],
         {
           id: {
-            header: 'ID'
+            header: 'ID',
           },
           version: {
-            header: 'Version'
+            header: 'Version',
           },
           type: {
-            header: 'Type'
+            header: 'Type',
           },
           title: {
-            header: 'Title'
+            header: 'Title',
           },
           hash: {
             header: 'Hash',
-            get: record => record.hash || 'N/A'
+            get: (record) => record.hash || 'N/A',
           },
           appliedAt: {
             header: 'AppliedAt',
-            get: row => getFormattedDate(row.appliedAt)
+            get: (row) => getFormattedDate(row.appliedAt),
           },
           appliedBy: {
             header: 'AppliedBy',
-            get: record => record.appliedBy || 'N/A'
+            get: (record) => record.appliedBy || 'N/A',
           },
           executionTime: {
             header: 'ExecutionTime',
-            get: row => `${Number(row.executionTime / 1000).toFixed(2)}s`
+            get: (row) => `${Number(row.executionTime / 1000).toFixed(2)}s`,
           },
           state: {
             header: 'State',
-            get: row => (row.dirty ? 'dirty' : row.state)
-          }
+            get: (row) => (row.dirty ? 'dirty' : row.state),
+          },
         },
         {
           columns: flags.columns,
-          'no-header': flags['no-header']
+          'no-header': flags['no-header'],
         }
       )
     })

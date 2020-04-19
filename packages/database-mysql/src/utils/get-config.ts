@@ -44,11 +44,11 @@ export function getConfig(
       user,
       password,
       path,
-      params
+      params,
     } = new ConnectionString(uri, {
       params: {
-        synor_migration_record_table: 'synor_migration_record'
-      }
+        synor_migration_record_table: 'synor_migration_record',
+      },
     })
 
     if (!protocol) {
@@ -76,7 +76,7 @@ export function getConfig(
         ssl = {
           ciphers: sslParams.ciphers,
           passphrase: sslParams.passphrase,
-          rejectUnauthorized: sslParams.rejectUnauthorized
+          rejectUnauthorized: sslParams.rejectUnauthorized,
         }
 
         if (sslParams.ca) {
@@ -100,16 +100,16 @@ export function getConfig(
       user,
       password,
       multipleStatements: true,
-      ssl
+      ssl,
     }
 
     const engineConfig: MySQLEngineConfig = {
-      migrationRecordTable: params!.synor_migration_record_table
+      migrationRecordTable: params!.synor_migration_record_table,
     }
 
     return {
       databaseConfig,
-      engineConfig
+      engineConfig,
     }
   } catch (error) {
     throw new SynorError('Invalid DatabaseURI', 'exception', error)

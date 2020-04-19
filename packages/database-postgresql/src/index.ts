@@ -37,7 +37,7 @@ export const PostgreSQLDatabaseEngine: DatabaseEngineFactory = (
     migrationRecordTable: engineConfig.migrationRecordTable,
     schemaName: engineConfig.schema,
     databaseName: databaseConfig.database,
-    advisoryLockIds
+    advisoryLockIds,
   })
 
   let appliedBy = ''
@@ -80,7 +80,7 @@ export const PostgreSQLDatabaseEngine: DatabaseEngineFactory = (
     title,
     hash,
     body,
-    run
+    run,
   }: MigrationSource) => {
     let dirty = false
 
@@ -107,12 +107,12 @@ export const PostgreSQLDatabaseEngine: DatabaseEngineFactory = (
         appliedAt: new Date(),
         appliedBy,
         executionTime: endTime - startTime,
-        dirty
+        dirty,
       })
     }
   }
 
-  const repair: DatabaseEngine['repair'] = async records => {
+  const repair: DatabaseEngine['repair'] = async (records) => {
     await queryStore.deleteDirtyRecords()
 
     for (const { id, hash } of records) {
@@ -120,7 +120,7 @@ export const PostgreSQLDatabaseEngine: DatabaseEngineFactory = (
     }
   }
 
-  const records: DatabaseEngine['records'] = async startId => {
+  const records: DatabaseEngine['records'] = async (startId) => {
     return queryStore.getRecords(startId)
   }
 
@@ -132,7 +132,7 @@ export const PostgreSQLDatabaseEngine: DatabaseEngineFactory = (
     drop,
     run,
     repair,
-    records
+    records,
   }
 }
 

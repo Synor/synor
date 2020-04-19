@@ -62,7 +62,7 @@ describe('utils:getMySQLConfig', () => {
     test.each([
       ['ca', 'CA'],
       ['cert', 'CERT'],
-      ['key', 'KEY']
+      ['key', 'KEY'],
     ])(`reads ssl.%s file content`, (key, content) => {
       jest
         .spyOn(fs, 'readFileSync')

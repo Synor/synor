@@ -29,7 +29,7 @@ describe('UserInfo', () => {
     test('resolves git user info', async () => {
       mockGitConfig({
         'git config --get user.name': [null, 'Synor'],
-        'git config --get user.email': [null, 'synor@example.com']
+        'git config --get user.email': [null, 'synor@example.com'],
       })
 
       await expect(getGitUserInfo()).resolves.toMatchInlineSnapshot(
@@ -40,7 +40,7 @@ describe('UserInfo', () => {
     test('resolves git user info (no username)', async () => {
       mockGitConfig({
         'git config --get user.name': [Error()],
-        'git config --get user.email': [null, 'synor@example.com']
+        'git config --get user.email': [null, 'synor@example.com'],
       })
 
       await expect(getGitUserInfo()).resolves.toMatchInlineSnapshot(
@@ -51,7 +51,7 @@ describe('UserInfo', () => {
     test('resolves git user info (no email)', async () => {
       mockGitConfig({
         'git config --get user.name': [null, 'Synor'],
-        'git config --get user.email': [new Error()]
+        'git config --get user.email': [new Error()],
       })
 
       await expect(getGitUserInfo()).resolves.toMatchInlineSnapshot(`"Synor"`)
@@ -60,7 +60,7 @@ describe('UserInfo', () => {
     test('resolves git user info (no username/email)', async () => {
       mockGitConfig({
         'git config --get user.name': [new Error()],
-        'git config --get user.email': [new Error()]
+        'git config --get user.email': [new Error()],
       })
 
       await expect(getGitUserInfo()).resolves.toMatchInlineSnapshot(`"N/A"`)

@@ -20,7 +20,7 @@ export async function getMigrationsToRun({
   source,
   baseVersion,
   targetVersion: toVersion,
-  outOfOrder
+  outOfOrder,
 }: GetMigrationsToRunParams): Promise<MigrationSourceInfo[]> {
   const appliedMigrationVersions = recordInfos
     .filter(({ state, type }) => state === 'applied' && type === 'do')

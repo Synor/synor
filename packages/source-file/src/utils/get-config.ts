@@ -21,11 +21,11 @@ export function getConfig(
       protocol,
       hostname: host = '',
       path,
-      params
+      params,
     } = new ConnectionString(uri, {
       params: {
-        ignore_invalid_filename: true
-      }
+        ignore_invalid_filename: true,
+      },
     })
 
     if (!protocol) {
@@ -53,16 +53,16 @@ export function getConfig(
     }
 
     const engineConfig: FileEngineConfig = {
-      ignoreInvalidFilename: JSON.parse(params!.ignore_invalid_filename)
+      ignoreInvalidFilename: JSON.parse(params!.ignore_invalid_filename),
     }
 
     const sourceConfig: FileSourceConfig = {
-      pathname
+      pathname,
     }
 
     return {
       engineConfig,
-      sourceConfig
+      sourceConfig,
     }
   } catch (error) {
     throw new SynorError('Invalid SourceURI', 'exception', error)

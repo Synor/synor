@@ -17,45 +17,45 @@ const database = {
   unlock: jest.fn(),
   drop: jest.fn(),
   run: jest.fn(),
-  repair: jest.fn()
+  repair: jest.fn(),
 }
 
 jest.mock('../database', () => ({
-  SynorDatabase: jest.fn(() => database)
+  SynorDatabase: jest.fn(() => database),
 }))
 
 const source = {
   open: jest.fn(),
   close: jest.fn(),
-  last: jest.fn()
+  last: jest.fn(),
 }
 
 jest.mock('../source', () => ({
-  SynorSource: jest.fn(() => source)
+  SynorSource: jest.fn(() => source),
 }))
 
 jest.mock('./get-migration-record-infos', () => ({
-  getMigrationRecordInfos: jest.fn()
+  getMigrationRecordInfos: jest.fn(),
 }))
 
 jest.mock('./get-current-record', () => ({
-  getCurrentRecord: jest.fn()
+  getCurrentRecord: jest.fn(),
 }))
 
 jest.mock('./get-migration', () => ({
-  getMigration: jest.fn()
+  getMigration: jest.fn(),
 }))
 
 jest.mock('./get-migrations-to-run', () => ({
-  getMigrationsToRun: jest.fn()
+  getMigrationsToRun: jest.fn(),
 }))
 
 jest.mock('./get-records-to-repair', () => ({
-  getRecordsToRepair: jest.fn()
+  getRecordsToRepair: jest.fn(),
 }))
 
 jest.mock('./validate-migration', () => ({
-  validateMigration: jest.fn()
+  validateMigration: jest.fn(),
 }))
 
 describe('SynorMigrator', () => {
@@ -81,7 +81,7 @@ describe('SynorMigrator', () => {
     })
 
     test('lock throws if already locked', async () => {
-      migrator.on('error', error => {
+      migrator.on('error', (error) => {
         throw error
       })
 
@@ -92,7 +92,7 @@ describe('SynorMigrator', () => {
     })
 
     test('unlock throws if not locked first', async () => {
-      migrator.on('error', error => {
+      migrator.on('error', (error) => {
         throw error
       })
 
@@ -267,17 +267,14 @@ describe('SynorMigrator', () => {
         .spyOn(getMigrationRecordInfosModule, 'getMigrationRecordInfos')
         .mockResolvedValue([{ recordInfo: 42 }] as any)
       jest.spyOn(getCurrentRecordModule, 'getCurrentRecord').mockReturnValue({
-        version: '99'
+        version: '99',
       } as any)
       source.last.mockResolvedValue('01')
       jest
         .spyOn(getMigrationsToRunModule, 'getMigrationsToRun')
         .mockResolvedValue([{ migration: 42 }] as any)
 
-      migrator
-        .on('info:start', onSpy)
-        .on('info', onSpy)
-        .on('info:end', onSpy)
+      migrator.on('info:start', onSpy).on('info', onSpy).on('info:end', onSpy)
 
       await expect(
         migrator.info({ outOfOrder: false })
@@ -322,10 +319,7 @@ describe('SynorMigrator', () => {
         .spyOn(getMigrationsToRunModule, 'getMigrationsToRun')
         .mockResolvedValue([{ migration: 42 }] as any)
 
-      migrator
-        .on('info:start', onSpy)
-        .on('info', onSpy)
-        .on('info:end', onSpy)
+      migrator.on('info:start', onSpy).on('info', onSpy).on('info:end', onSpy)
 
       await expect(
         migrator.info({ outOfOrder: false })
@@ -376,7 +370,7 @@ describe('SynorMigrator', () => {
         .on('validate:error', onSpy)
         .on('validate:run:end', onSpy)
         .on('validate:end', onSpy)
-        .on('error', error => {
+        .on('error', (error) => {
           throw error
         })
 

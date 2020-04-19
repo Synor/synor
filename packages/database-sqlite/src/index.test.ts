@@ -36,14 +36,14 @@ const migrationSource: Record<
     type: 'do',
     title: 'Test One',
     body: 'SELECT 1;',
-    hash: 'hash-01-do'
+    hash: 'hash-01-do',
   },
   '01.undo': {
     version: '01',
     type: 'undo',
     title: 'Test One',
     body: 'SELEC -1;',
-    hash: 'hash-01-undo'
+    hash: 'hash-01-undo',
   },
   '02.do': {
     version: '02',
@@ -52,8 +52,8 @@ const migrationSource: Record<
     hash: 'hash-02-do',
     run: async (client: Database) => {
       client.exec('SELECT 2;')
-    }
-  }
+    },
+  },
 }
 
 const baseVersion = '0'
@@ -88,7 +88,7 @@ describe('initialization', () => {
   const helpers: Parameters<typeof SQLiteDatabaseEngine>[1] = {
     baseVersion,
     getAdvisoryLockId,
-    getUserInfo
+    getUserInfo,
   }
 
   beforeEach(() => {
@@ -98,7 +98,7 @@ describe('initialization', () => {
     helpers.getUserInfo = getUserInfo
   })
 
-  test.each([undefined, null, 0])('throws if uri is %s', uri => {
+  test.each([undefined, null, 0])('throws if uri is %s', (uri) => {
     expect(() => SQLiteDatabaseEngine(uri as any, helpers)).toThrow()
   })
 
@@ -150,7 +150,7 @@ describe('methods: {open,close}', () => {
     engine = SQLiteDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
   })
 
@@ -192,7 +192,7 @@ describe('methods: {lock,unlock}', () => {
     const engine = SQLiteDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -238,7 +238,7 @@ describe('methods', () => {
     engine = SQLiteDatabaseEngine(uri, {
       baseVersion,
       getAdvisoryLockId,
-      getUserInfo
+      getUserInfo,
     })
 
     await engine.open()
@@ -301,12 +301,12 @@ describe('methods', () => {
       )
       .get({
         version: migrationSource['01.do'].version,
-        type: migrationSource['01.do'].type
+        type: migrationSource['01.do'].type,
       })
 
     await expect(
       engine.repair([
-        { id: record.id, hash: `${migrationSource['01.do'].hash}-repaired` }
+        { id: record.id, hash: `${migrationSource['01.do'].hash}-repaired` },
       ])
     ).resolves.toBeUndefined()
 

@@ -15,7 +15,7 @@ describe('utils:getHash', () => {
     const [hashOne, hashTwo, hashThree] = [
       getHash(`SELECT 0;\nSELECT 1;`),
       getHash(`\n  SELECT 0;\n  SELECT 1;\n`),
-      getHash(`\n\t  SELECT 0;\n  \tSELECT 1;`)
+      getHash(`\n\t  SELECT 0;\n  \tSELECT 1;`),
     ]
 
     expect(hashOne).toBe(hashTwo)

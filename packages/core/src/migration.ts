@@ -98,7 +98,7 @@ function getMigrationInfoRegex({
   do: DO,
   undo: UNDO,
   separator: SEPARATOR,
-  extension: EXTENSION
+  extension: EXTENSION,
 }: SynorConfig['migrationInfoNotation']): RegExp {
   const version = `[0-9]+`
   const type = [DO, UNDO].join('|')
@@ -116,10 +116,10 @@ export const getMigrationInfoParser = (
 
   const typeMap: Record<string, MigrationType> = {
     [notation.do]: 'do',
-    [notation.undo]: 'undo'
+    [notation.undo]: 'undo',
   }
 
-  return migrationFilename => {
+  return (migrationFilename) => {
     const infoMatches = migrationFilename.match(migrationInfoRegex)
 
     if (infoMatches === null) {
@@ -137,7 +137,7 @@ export const getMigrationInfoParser = (
       type: typeMap[type],
       title,
       filename,
-      extension
+      extension,
     }
   }
 }
@@ -158,7 +158,7 @@ export function SynorMigration(
       }
 
       return getHash(sourceContent.body)
-    }
+    },
   }
 
   return migration

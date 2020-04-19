@@ -5,6 +5,6 @@ export function sanitizeContent(content: string): string {
     .replace(/[\r\n]+/gm, NEWLINE)
     .trim()
     .split(NEWLINE)
-    .map(line => line.trim())
+    .map((line) => line.trim())
     .join(NEWLINE)
 }

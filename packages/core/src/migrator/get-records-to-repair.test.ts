@@ -4,7 +4,7 @@ import * as getMigrationModule from './get-migration'
 import { getRecordsToRepair } from './get-records-to-repair'
 
 jest.mock('./get-migration', () => ({
-  getMigration: jest.fn()
+  getMigration: jest.fn(),
 }))
 
 describe('migrator:getRecordsToRepair', () => {
@@ -17,7 +17,7 @@ describe('migrator:getRecordsToRepair', () => {
       .mockImplementationOnce(() => Promise.resolve(null))
 
     const recordInfos = [
-      getMigrationRecordInfo({ id: 1, version: '01', type: 'do' })
+      getMigrationRecordInfo({ id: 1, version: '01', type: 'do' }),
     ]
 
     try {
@@ -35,7 +35,7 @@ describe('migrator:getRecordsToRepair', () => {
       .mockImplementationOnce(() => Promise.resolve(null))
 
     const recordInfos = [
-      getMigrationRecordInfo({ id: 1, version: '01', type: 'do', dirty: true })
+      getMigrationRecordInfo({ id: 1, version: '01', type: 'do', dirty: true }),
     ]
 
     await expect(
@@ -50,7 +50,7 @@ describe('migrator:getRecordsToRepair', () => {
       .mockImplementationOnce(() => Promise.resolve(null))
 
     const recordInfos = [
-      getMigrationRecordInfo({ id: 1, version: '01', type: 'do' })
+      getMigrationRecordInfo({ id: 1, version: '01', type: 'do' }),
     ]
 
     await expect(
@@ -76,7 +76,7 @@ describe('migrator:getRecordsToRepair', () => {
         type: 'do',
         hash: '2',
         state: 'reverted',
-        revertedBy: 4
+        revertedBy: 4,
       }),
       getMigrationRecordInfo({
         id: 3,
@@ -84,10 +84,10 @@ describe('migrator:getRecordsToRepair', () => {
         type: 'do',
         hash: '3',
         state: 'reverted',
-        revertedBy: 4
+        revertedBy: 4,
       }),
       getMigrationRecordInfo({ id: 4, version: '02', type: 'undo' }),
-      getMigrationRecordInfo({ id: 5, version: '02', type: 'do', hash: '2' })
+      getMigrationRecordInfo({ id: 5, version: '02', type: 'do', hash: '2' }),
     ]
 
     await expect(

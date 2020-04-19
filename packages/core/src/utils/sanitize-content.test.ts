@@ -11,7 +11,7 @@ describe('utils:sanitizeContent', () => {
     const [contentOne, contentTwo, contentThree] = [
       sanitizeContent(`SELECT 0;\nSELECT 1;`),
       sanitizeContent(`\n  SELECT 0;\n  SELECT 1;\n`),
-      sanitizeContent(`\n\t  SELECT 0;\n \tSELECT 1;`)
+      sanitizeContent(`\n\t  SELECT 0;\n \tSELECT 1;`),
     ]
 
     expect(contentOne).toBe(contentTwo)

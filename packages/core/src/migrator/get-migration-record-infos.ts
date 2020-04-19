@@ -13,10 +13,10 @@ export async function getMigrationRecordInfos(
 
   const lastIndexByVersion: Record<string, number> = {}
 
-  const recordInfos: MigrationRecordInfo[] = records.map(record => ({
+  const recordInfos: MigrationRecordInfo[] = records.map((record) => ({
     ...record,
     state: 'applied',
-    revertedBy: null
+    revertedBy: null,
   }))
 
   recordInfos.forEach(({ id, version }, index) => {

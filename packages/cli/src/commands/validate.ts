@@ -9,14 +9,14 @@ type MigrationRecord = import('@synor/core').MigrationRecord
 export default class Validate extends Command {
   static description = [
     `validate migration records`,
-    `Validates the records for migrations that are currently applied.`
+    `Validates the records for migrations that are currently applied.`,
   ].join('\n')
 
   static examples = [`$ synor validate`]
 
   static flags = {
     extended: cli.table.Flags.extended,
-    ...Command.flags
+    ...Command.flags,
   }
 
   static args = []
@@ -36,10 +36,10 @@ export default class Validate extends Command {
     let isInvalid = true
 
     migrator
-      .on('validate:run:start', async record => {
+      .on('validate:run:start', async (record) => {
         recordById[record.id] = { ...record, status: '...' }
       })
-      .on('validate:run:end', async record => {
+      .on('validate:run:end', async (record) => {
         recordById[record.id].status = 'valid'
       })
       .on('validate:error', (error, record) => {
@@ -60,58 +60,58 @@ export default class Validate extends Command {
           {
             id: {
               header: 'ID',
-              extended: true
+              extended: true,
             },
             version: {
               header: 'Version',
-              get: row =>
+              get: (row) =>
                 row.status === 'valid'
                   ? color.green(row.version)
-                  : color.red(row.version)
+                  : color.red(row.version),
             },
             type: {
-              header: 'Type'
+              header: 'Type',
             },
             title: {
-              header: 'Title'
+              header: 'Title',
             },
             hash: {
               header: 'Hash',
-              get: row =>
+              get: (row) =>
                 row.status === 'hash_mismatch'
                   ? color.red(row.hash)
-                  : color.green(row.hash)
+                  : color.green(row.hash),
             },
             appliedAt: {
               header: 'AppliedAt',
-              get: row => color.reset(getFormattedDate(row.appliedAt)),
-              extended: true
+              get: (row) => color.reset(getFormattedDate(row.appliedAt)),
+              extended: true,
             },
             appliedBy: {
               header: 'AppliedBy',
-              get: record => color.reset(record.appliedBy || 'N/A'),
-              extended: true
+              get: (record) => color.reset(record.appliedBy || 'N/A'),
+              extended: true,
             },
             executionTime: {
               header: 'ExecutionTime',
-              get: row =>
+              get: (row) =>
                 color.reset(`${Number(row.executionTime / 1000).toFixed(2)}s`),
-              extended: true
+              extended: true,
             },
             status: {
               header: 'Status',
-              get: row =>
+              get: (row) =>
                 row.status === 'valid'
                   ? color.green(row.status)
-                  : color.red(row.status)
-            }
+                  : color.red(row.status),
+            },
           },
           {
-            extended: flags.extended
+            extended: flags.extended,
           }
         )
 
-        isInvalid = records.some(record => record.status !== 'valid')
+        isInvalid = records.some((record) => record.status !== 'valid')
       })
 
     await migrator.validate()

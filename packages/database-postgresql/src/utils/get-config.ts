@@ -41,13 +41,13 @@ export function getConfig(
       user,
       password,
       path,
-      params
+      params,
     } = new ConnectionString(uri, {
       params: {
         application_name: '@synor/database-postgresql',
         schema: 'public',
-        synor_migration_record_table: 'synor_migration_record'
-      }
+        synor_migration_record_table: 'synor_migration_record',
+      },
     })
 
     if (!protocol) {
@@ -74,7 +74,7 @@ export function getConfig(
       ssl = {
         passphrase: sslParams.passphrase,
         rejectUnauthorized: sslParams.rejectUnauthorized,
-        secureOptions: sslParams.secureOptions
+        secureOptions: sslParams.secureOptions,
       }
 
       if (sslParams.ca) {
@@ -95,12 +95,12 @@ export function getConfig(
       user,
       password,
       ssl,
-      application_name: params!.application_name
+      application_name: params!.application_name,
     }
 
     const engineConfig: PostgreSQLEngineConfig = {
       migrationRecordTable: params!.synor_migration_record_table,
-      schema: params!.schema
+      schema: params!.schema,
     }
 
     return [databaseConfig, engineConfig]

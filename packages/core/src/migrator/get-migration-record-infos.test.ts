@@ -2,7 +2,7 @@ import { getMigrationRecord } from '../__utils__.test'
 import { getMigrationRecordInfos } from './get-migration-record-infos'
 
 const database = {
-  records: jest.fn()
+  records: jest.fn(),
 }
 
 describe('migrator:getMigrationRecordInfos', () => {
@@ -13,7 +13,7 @@ describe('migrator:getMigrationRecordInfos', () => {
         getMigrationRecord({ id: 2, version: '02', type: 'do' }),
         getMigrationRecord({ id: 3, version: '03', type: 'do' }),
         getMigrationRecord({ id: 4, version: '03', type: 'undo' }),
-        getMigrationRecord({ id: 5, version: '02', type: 'undo' })
+        getMigrationRecord({ id: 5, version: '02', type: 'undo' }),
       ])
     )
 

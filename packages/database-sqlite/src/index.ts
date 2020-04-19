@@ -26,12 +26,12 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
     fileMustExist: databaseConfig.fileMustExist,
     memory: databaseConfig.memory,
     readonly: databaseConfig.readonly,
-    timeout: databaseConfig.timeout
+    timeout: databaseConfig.timeout,
   })
 
   const queryStore = getQueryStore(database, {
     migrationRecordTable: engineConfig.migrationRecordTable,
-    schemaName: engineConfig.schema
+    schemaName: engineConfig.schema,
   })
 
   let appliedBy = ''
@@ -64,7 +64,7 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
     title,
     hash,
     body,
-    run
+    run,
   }: MigrationSource) => {
     let dirty = false
 
@@ -91,12 +91,12 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
         appliedAt: new Date(),
         appliedBy,
         executionTime: endTime - startTime,
-        dirty
+        dirty,
       })
     }
   }
 
-  const repair: DatabaseEngine['repair'] = async records => {
+  const repair: DatabaseEngine['repair'] = async (records) => {
     await queryStore.deleteDirtyRecords()
 
     for (const { id, hash } of records) {
@@ -104,7 +104,7 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
     }
   }
 
-  const records: DatabaseEngine['records'] = async startId => {
+  const records: DatabaseEngine['records'] = async (startId) => {
     return queryStore.getRecords(startId)
   }
 
@@ -116,7 +116,7 @@ export const SQLiteDatabaseEngine: DatabaseEngineFactory = (
     drop,
     run,
     repair,
-    records
+    records,
   }
 }
 

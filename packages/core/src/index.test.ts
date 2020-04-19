@@ -3,14 +3,14 @@ import { getMigrationInfoParser } from './migration'
 
 jest.mock('./migrator', () => {
   return {
-    SynorMigrator: function() {
+    SynorMigrator: function () {
       return 'migrator'
-    }
+    },
   }
 })
 
 jest.mock('./migration', () => ({
-  getMigrationInfoParser: jest.fn()
+  getMigrationInfoParser: jest.fn(),
 }))
 
 const migrationInfoNotation = {}

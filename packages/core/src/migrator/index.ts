@@ -251,7 +251,7 @@ export class SynorMigrator extends EventEmitter {
       source: this.source,
       baseVersion,
       targetVersion,
-      outOfOrder
+      outOfOrder,
     })
     items.push(...migrations)
     this.emit('info', sortMigrations(items))
@@ -266,7 +266,7 @@ export class SynorMigrator extends EventEmitter {
       this.database,
       baseVersion,
       recordStartId
-    ).then(recordInfos =>
+    ).then((recordInfos) =>
       recordInfos.filter(
         ({ version, state }) => version !== baseVersion && state === 'applied'
       )
@@ -314,7 +314,7 @@ export class SynorMigrator extends EventEmitter {
       source: this.source,
       baseVersion,
       targetVersion,
-      outOfOrder
+      outOfOrder,
     })
     for (const migration of migrations) {
       this.emit('migrate:run:start', migration)

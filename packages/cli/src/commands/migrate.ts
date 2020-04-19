@@ -5,13 +5,13 @@ import Command from '../command'
 export default class Migrate extends Command {
   static description = [
     `migrate database to specific version`,
-    `Runs necessary migrations to reach the target migration version.`
+    `Runs necessary migrations to reach the target migration version.`,
   ].join('\n')
 
   static examples = [
     `$ synor migrate 42`,
     `$ synor migrate --from=00 --to=42`,
-    `$ synor migrate 42 --outOfOrder`
+    `$ synor migrate 42 --outOfOrder`,
   ]
 
   static flags = {
@@ -19,26 +19,26 @@ export default class Migrate extends Command {
     from: flags.string({
       char: 'f',
       description: 'from migration version',
-      dependsOn: ['to']
+      dependsOn: ['to'],
     }),
     to: flags.string({
       char: 't',
       description: 'to migration version',
-      dependsOn: ['from']
+      dependsOn: ['from'],
     }),
     outOfOrder: flags.boolean({
       char: 'z',
       description: 'include out of order pending migrations',
       default: false,
-      env: 'SYNOR_OUT_OF_ORDER'
-    })
+      env: 'SYNOR_OUT_OF_ORDER',
+    }),
   }
 
   static args: typeof Command.args = [
     {
       name: 'targetVersion',
-      description: 'target migration version'
-    }
+      description: 'target migration version',
+    },
   ]
 
   async run() {
@@ -55,7 +55,7 @@ export default class Migrate extends Command {
     let currentVersion: string
 
     migrator
-      .on('current', record => {
+      .on('current', (record) => {
         currentVersion = record.version
       })
       .on('migrate:start', () => {
@@ -64,7 +64,7 @@ export default class Migrate extends Command {
       .on('migrate:end', () => {
         this.debug('Finished migration!')
       })
-      .on('migrate:run:start', source => {
+      .on('migrate:run:start', (source) => {
         cli.action.start(
           `Running ${source.version} [${source.type}] ${source.title}`
         )
@@ -90,7 +90,7 @@ export default class Migrate extends Command {
         [
           `Current Version: ${currentVersion!}`,
           `Target Version: ${targetVersion}`,
-          `Continue? (y/n)`
+          `Continue? (y/n)`,
         ].join('\n')
       )
     }
