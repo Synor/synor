@@ -29,7 +29,9 @@
     "build": "bili",
     "clean": "rimraf lib/*",
     "prepack": "npm run build",
+    "pretest": "docker-compose -f docker-compose.test.yml up -d",
     "test": "jest",
+    "posttest": "docker-compose -f docker-compose.test.yml down",
     "watch": "bili --format cjs --watch"
   },
   "dependencies": {
