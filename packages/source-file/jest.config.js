@@ -1,5 +1,10 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: './jest.env.js',
-  coveragePathIgnorePatterns: ['/node_modules/', '__fs__'],
+  coveragePathIgnorePatterns: ['__fs__'],
+  globals: {
+    'ts-jest': {
+      tsConfig: '../../tsconfig.test.json',
+    },
+  },
 }
