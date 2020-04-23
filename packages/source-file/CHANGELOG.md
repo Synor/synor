@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **source-file:** add support for TS file ([799306b](https://github.com/Synor/synor/commit/799306b8f24644031b1c06e9743d9c3b759db1ee))
+* **source-file:** add support for TS file ([3968485](https://github.com/Synor/synor/commit/3968485c2f6317227d85ea7e6c2876cae63c6aaf))
 
 
 
@@ -25,7 +25,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **source-file:** close: [#1](https://github.com/Synor/synor/issues/1) ([b1bdeff](https://github.com/Synor/synor/commit/b1bdeff49e81e268b1e0f35fc380f38912ba249e))
+* **source-file:** close Synor/source-file[#1](https://github.com/Synor/source-file/issues/1) ([5e5333b](https://github.com/Synor/synor/commit/5e5333bca02eea50d8f9e52ce82839e75b179875))
 
 
 
@@ -34,7 +34,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **source-file:** add option to ignore `SynorError` of type `invalid_filename` ([4ebcbce](https://github.com/Synor/synor/commit/4ebcbce7164024a0fd01f74855ecf8c02bd02f39))
+* **source-file:** add option to ignore `SynorError` of type `invalid_filename` ([49961d4](https://github.com/Synor/synor/commit/49961d4392a0561573f0e828ec7a9c4f13a4c047))
 
 
 
@@ -74,4 +74,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **source-file:** add src/\* ([f6866d7](https://github.com/Synor/synor/commit/f6866d7c190008c53e0649700fa23f945b9a776d))
+* **source-file:** add src/* ([f6866d7](https://github.com/Synor/synor/commit/f6866d7c190008c53e0649700fa23f945b9a776d))

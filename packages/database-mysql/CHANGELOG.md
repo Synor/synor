@@ -64,4 +64,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **database-mysql:** add src/\* ([b83e7e4](https://github.com/Synor/synor/commit/b83e7e48a8cf0220ed0b477c71c98e077e60f266))
+* **database-mysql:** add src/* ([b83e7e4](https://github.com/Synor/synor/commit/b83e7e48a8cf0220ed0b477c71c98e077e60f266))

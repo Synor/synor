@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **database-postgresql:** fix queries:getRecords ([5ee0be0](https://github.com/Synor/synor/commit/5ee0be0981e76422f3cd0f39657fe71e913d3b41))
+* **database-postgresql:** fix queries:getRecords ([de77107](https://github.com/Synor/synor/commit/de77107c64495271fd1a8a8f51463ee0a6d5d2ea))
 
 
 
@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **database-postgresql:** fix queries:addRecord ([9d93be3](https://github.com/Synor/synor/commit/9d93be3f6232710fd0ac99a2de5ed382a539076e))
+* **database-postgresql:** fix queries:addRecord ([7c2f38c](https://github.com/Synor/synor/commit/7c2f38cff12d87cc69aba08b1f969e0186216982))
 
 
 
@@ -42,4 +42,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **database-postgresql:** add src/\* ([6854a13](https://github.com/Synor/synor/commit/6854a13917a853b1f696447b00b33e416ffdf76e))
+* **database-postgresql:** add src/* ([6854a13](https://github.com/Synor/synor/commit/6854a13917a853b1f696447b00b33e416ffdf76e))

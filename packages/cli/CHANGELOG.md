@@ -16,8 +16,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **cli:** export type: SynorCLIConfig ([6f408fe](https://github.com/Synor/synor/commit/6f408fe86afbb5c4ee37a3728686217b72e03c74))
-* **cli:** support loading config from .ts file ([97c4a48](https://github.com/Synor/synor/commit/97c4a48199b14e5bbac4b7eea325474a07a468f2)), closes [#3](https://github.com/Synor/synor/issues/3)
+* **cli:** export type: SynorCLIConfig ([911ce40](https://github.com/Synor/synor/commit/911ce400e1dfd52848765f57f2a55085c05d251c))
+* **cli:** support loading config from .ts file ([eaa4699](https://github.com/Synor/synor/commit/eaa469911027382ed697da27073f1ce4cb8f4032)), closes [#3](https://github.com/Synor/cli/issues/3)
 
 
 
@@ -26,8 +26,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **cli:** add --columns flag for command: current ([eba822e](https://github.com/Synor/synor/commit/eba822ef2b78a0a340aa5700f799c3dafdfc8087))
-* **cli:** add --columns, --filter flags for command: info ([0cc8fd2](https://github.com/Synor/synor/commit/0cc8fd2b839182a361b57731f8e8dd2a34661992))
+* **cli:** add --columns flag for command: current ([daab93f](https://github.com/Synor/synor/commit/daab93fa027b55414943b8ebcb259ae7d702e126))
+* **cli:** add --columns, --filter flags for command: info ([cee3e33](https://github.com/Synor/synor/commit/cee3e33c33e1ffdc6267d889033501dbc2211d31))
 
 
 
@@ -36,9 +36,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **cli:** add --no-header flag for commands: current, pending ([c9f60ad](https://github.com/Synor/synor/commit/c9f60adcda3d88f80a563494b0309fd480f1660e))
-* **cli:** display date in 'YYYY-MM-DD hh:mm:ss' format ([f718c74](https://github.com/Synor/synor/commit/f718c74b4b0c892548d4861912d24773429b52c2))
-* **cli:** tweak commands: migrate, validate ([c362ba8](https://github.com/Synor/synor/commit/c362ba8ac3b75f3d20c1873a5e06fd1033dcc9f0))
+* **cli:** add --no-header flag for commands: current, pending ([7635583](https://github.com/Synor/synor/commit/76355833ddd00cb0e31c05766c0bf6d06ab5618b))
+* **cli:** display date in 'YYYY-MM-DD hh:mm:ss' format ([a75b8dc](https://github.com/Synor/synor/commit/a75b8dc58c25100677c5b86415256c2716e52641))
+* **cli:** tweak commands: migrate, validate ([9bbfc1a](https://github.com/Synor/synor/commit/9bbfc1a51e6958f6bcc09cd23449552c5d8834a2))
 
 
 
@@ -47,7 +47,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **cli:** close: [#1](https://github.com/Synor/synor/issues/1) ([d7dbe17](https://github.com/Synor/synor/commit/d7dbe1736610544bc7380fc38a458127187dc81a))
+* **cli:** close Synor/cli[#1](https://github.com/Synor/cli/issues/1) ([32b7a87](https://github.com/Synor/synor/commit/32b7a87e13f74b7561e65f33ea64a9a8fae6aa74))
 
 
 

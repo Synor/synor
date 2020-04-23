@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** fix unlock handling ([a2b5020](https://github.com/Synor/synor/commit/a2b5020be0fec2c37710e71242bd17f8f42a6149))
+* **core:** fix unlock handling ([6f3383f](https://github.com/Synor/synor/commit/6f3383f577dc149502022cfca4d622ee888e25d5))
 
 
 
@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** resolve: [#36](https://github.com/Synor/synor/issues/36) ([3d01046](https://github.com/Synor/synor/commit/3d01046462bc231a2db49976eb7829e49bc2e93a))
+* **core:** resolve Synor/core[#36](https://github.com/Synor/core/issues/36) ([63c28c3](https://github.com/Synor/synor/commit/63c28c39242ae9028d788367015d97b7a35227e5))
 
 
 
@@ -26,7 +26,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** fix hash generation in SynorMigration function ([4004221](https://github.com/Synor/synor/commit/4004221d9f979e83105ebb83014938f40fd9e3e5))
+* **core:** fix hash generation in SynorMigration function ([1cbc2b5](https://github.com/Synor/synor/commit/1cbc2b5986f2fd7051325cf66130bed3a14cb7a3))
 
 
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** resolve: [#34](https://github.com/Synor/synor/issues/34) ([4bd77f8](https://github.com/Synor/synor/commit/4bd77f8ba3563224890a6c5a9e70e4ecd85c2bdd))
+* **core:** resolve Synor/core[#34](https://github.com/Synor/core/issues/34) ([cc81ec8](https://github.com/Synor/synor/commit/cc81ec800ac7762e35890c5f3f80edb2e8b9d97a))
 
 
 
@@ -44,7 +44,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** fix src/migrator:getCurrentRecord ([7ab0e46](https://github.com/Synor/synor/commit/7ab0e468d39ff506d8f32621d72244bdbdeb8ec4))
+* **core:** fix src/migrator:getCurrentRecord ([2dd499e](https://github.com/Synor/synor/commit/2dd499e9f1ca68d8da5c27a3bf62c47acd80cfca))
 
 
 
@@ -53,7 +53,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** fix SynorMigrator.info ([3799d7a](https://github.com/Synor/synor/commit/3799d7a7f6024f3342500f7d03129e2ebc262627))
+* **core:** fix SynorMigrator.info ([c0a2953](https://github.com/Synor/synor/commit/c0a295331f9c225e3e8ec5e6e0b18dfeefa53ea8))
 
 
 
@@ -62,11 +62,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **core:** add `extension` property in `MigrationInfo` ([7486597](https://github.com/Synor/synor/commit/7486597dae942cf16c32301f3e3228737a7cd624))
-* **core:** add src/utils/sort:sortMigrations ([a066b2b](https://github.com/Synor/synor/commit/a066b2b2e9653884bebdeb9ee4b65af448fb2652))
-* **core:** add support for outOfOrder option ([6e6f53d](https://github.com/Synor/synor/commit/6e6f53d9ec900ed78f7cba3ffcd7617cc11c7b85))
-* **core:** changes related to renaming types & function names ([794549f](https://github.com/Synor/synor/commit/794549f36256b2c5cd38d4310fe63a84189e7511))
-* **core:** merge SynorMigrator.{history,pending} into SynorMigrator.info ([b6a0d89](https://github.com/Synor/synor/commit/b6a0d896242c97d88f332319a4ccac11ec47ae92))
+* **core:** add `extension` property in `MigrationInfo` ([95166d5](https://github.com/Synor/synor/commit/95166d5fd5aaee18f3ebed4f138cf498a5a8dbcf))
+* **core:** add src/utils/sort:sortMigrations ([82e35a1](https://github.com/Synor/synor/commit/82e35a189dfc03eea81436168b145d5fb98596d2))
+* **core:** add support for outOfOrder option ([9c80d0e](https://github.com/Synor/synor/commit/9c80d0e5fb532a27dda7b1727f3de27540e33639))
+* **core:** changes related to renaming types & function names ([cfccecc](https://github.com/Synor/synor/commit/cfccecc9e891eec87186ccb9270ff0746826f0f1))
+* **core:** merge SynorMigrator.{history,pending} into SynorMigrator.info ([1b815b9](https://github.com/Synor/synor/commit/1b815b910fcb6444b5fd7afcf178f0d14ac6d9e3))
 
 
 
@@ -75,7 +75,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** close: [#31](https://github.com/Synor/synor/issues/31) ([01a57dd](https://github.com/Synor/synor/commit/01a57dd0148638a93e84574f1488c511f1508286))
+* **core:** close Synor/core[#31](https://github.com/Synor/core/issues/31) ([f236401](https://github.com/Synor/synor/commit/f236401f2b11a13abecc98ff56cfcf85a7e11b65))
 
 
 
@@ -84,7 +84,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **core:** improve TypeScript support for SynorError ([3be5236](https://github.com/Synor/synor/commit/3be5236e75f1c5bb0da9ba914c55a08555142297))
+* **core:** improve TypeScript support for SynorError ([5426702](https://github.com/Synor/synor/commit/54267026e00b829e429efb286578b8ea9f29045c))
 
 
 
@@ -93,8 +93,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** close: [#26](https://github.com/Synor/synor/issues/26) ([0028bcc](https://github.com/Synor/synor/commit/0028bcc4200638e5ee20982723130e180658f0d2))
-* **core:** close: [#28](https://github.com/Synor/synor/issues/28) ([08334ab](https://github.com/Synor/synor/commit/08334ab69ad22d4b2e221a6bbd6ab93b460fc21d))
+* **core:** close Synor/core[#26](https://github.com/Synor/core/issues/26) ([6cd83f4](https://github.com/Synor/synor/commit/6cd83f4a833b513ecb8d3c8bd6591859eb5602a4))
+* **core:** close Synor/core[#28](https://github.com/Synor/core/issues/28) ([454d79e](https://github.com/Synor/synor/commit/454d79ecf40eb6621f2d54d8cff26d89ed0e871e))
 
 
 
@@ -103,8 +103,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **core:** fix: [#22](https://github.com/Synor/synor/issues/22) ([c7f030e](https://github.com/Synor/synor/commit/c7f030e177260ad99998e7574596587ef72cb392))
-* **core:** fix: [#23](https://github.com/Synor/synor/issues/23) ([a925f22](https://github.com/Synor/synor/commit/a925f22b92b43ef13568b7cd07a3be1330451d95))
+* **core:** fix Synor/core[#22](https://github.com/Synor/core/issues/22) ([b9d68ab](https://github.com/Synor/synor/commit/b9d68ab08145655919ff8dd89835aaaa1f265efa))
+* **core:** fix Synor/core[#23](https://github.com/Synor/core/issues/23) ([2f9fffe](https://github.com/Synor/synor/commit/2f9fffef54d67ed572b0bbdbf3993536e1eeceef))
 
 
 
@@ -137,7 +137,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **core:** refactor Error handling ([4627718](https://github.com/Synor/synor/commit/4627718dccaf2170e5cc724fcf4e5296a0a0d5e0)), closes [#19](https://github.com/Synor/synor/issues/19)
+* **core:** refactor Error handling ([4627718](https://github.com/Synor/synor/commit/4627718dccaf2170e5cc724fcf4e5296a0a0d5e0)), closes [#19](https://github.com/Synor/core/issues/19)
 
 
 
@@ -146,7 +146,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **core:** replace src/migrator:version with src/migrator:current ([aa600e8](https://github.com/Synor/synor/commit/aa600e8316b5b491d335b7405df6eef8fa49c3f5)), closes [#18](https://github.com/Synor/synor/issues/18)
+* **core:** replace src/migrator:version with src/migrator:current ([aa600e8](https://github.com/Synor/synor/commit/aa600e8316b5b491d335b7405df6eef8fa49c3f5)), closes [#18](https://github.com/Synor/core/issues/18)
 
 ### Bug Fixes
 
@@ -167,7 +167,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **core:** add src/database ([7b1494f](https://github.com/Synor/synor/commit/7b1494fe7802de009ebc973a8f7d69242ebfd010))
 * **core:** add src/error ([ba7eae3](https://github.com/Synor/synor/commit/ba7eae3c37af36274f39726934bfdcbbbccbf240))
 * **core:** add src/migration ([79c78eb](https://github.com/Synor/synor/commit/79c78eb86cf615f6eaee5adde457718523bd3ba6))
-* **core:** add src/migrator/\* ([979da92](https://github.com/Synor/synor/commit/979da92d5cd1fd3b1ab8146e5e5fde956c66f2d9))
+* **core:** add src/migrator/* ([979da92](https://github.com/Synor/synor/commit/979da92d5cd1fd3b1ab8146e5e5fde956c66f2d9))
 * **core:** add src/source ([1e5927b](https://github.com/Synor/synor/commit/1e5927b6a2d9629e24f0a5a7d025f482c3c0abe7))
-* **core:** add src/user-info/\* ([beb0b0e](https://github.com/Synor/synor/commit/beb0b0edf5d25ab6b3abd10333e31d4021e350d5))
-* **core:** add src/utils/\* ([aa60aee](https://github.com/Synor/synor/commit/aa60aee86a1fd260c12b9455f742a19873e6e409))
+* **core:** add src/user-info/* ([beb0b0e](https://github.com/Synor/synor/commit/beb0b0edf5d25ab6b3abd10333e31d4021e350d5))
+* **core:** add src/utils/* ([aa60aee](https://github.com/Synor/synor/commit/aa60aee86a1fd260c12b9455f742a19873e6e409))
