@@ -88,7 +88,7 @@ export default class Info extends Command {
           },
           revertedBy: {
             header: 'RevertedBy',
-            get: (item) => ('revertedBy' in item ? item.revertedBy || '' : ''),
+            get: (item) => ('revertedBy' in item ? item.revertedBy ?? '' : ''),
             extended: true,
           },
         },

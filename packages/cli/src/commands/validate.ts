@@ -36,10 +36,10 @@ export default class Validate extends Command {
     let isInvalid = true
 
     migrator
-      .on('validate:run:start', async (record) => {
+      .on('validate:run:start', (record) => {
         recordById[record.id] = { ...record, status: '...' }
       })
-      .on('validate:run:end', async (record) => {
+      .on('validate:run:end', (record) => {
         recordById[record.id].status = 'valid'
       })
       .on('validate:error', (error, record) => {
@@ -52,7 +52,7 @@ export default class Validate extends Command {
           throw error
         }
       })
-      .on('validate:end', async () => {
+      .on('validate:end', () => {
         const records = Object.values(recordById)
 
         cli.table(

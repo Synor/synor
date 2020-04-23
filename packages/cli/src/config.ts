@@ -21,7 +21,7 @@ async function readConfigFile(
   configFile?: string
 ): Promise<Partial<SynorCLIConfig>> {
   const filePath = [
-    configFile || '',
+    configFile ?? '',
     `.synorrc.js`,
     `.synorrc.ts`,
     `synor.config.js`,

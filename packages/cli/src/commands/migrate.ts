@@ -46,7 +46,7 @@ export default class Migrate extends Command {
 
     const { migrator } = this.synor
 
-    const targetVersion: string = flags.to || args.targetVersion
+    const targetVersion: string = flags.to ?? args.targetVersion
 
     if (!targetVersion) {
       this.error('Must provide either --to= or TARGETVERSION')
@@ -79,9 +79,7 @@ export default class Migrate extends Command {
 
     if (confirmed && flags.from !== currentVersion!) {
       this.error(
-        `Provided --from=${
-          flags.from
-        } but Current Version is ${currentVersion!}`
+        `Provided --from=${flags.from!} but Current Version is ${currentVersion!}`
       )
     }
 
