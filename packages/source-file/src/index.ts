@@ -126,7 +126,9 @@ export const FileSourceEngine: SourceEngineFactory = (
     return Promise.resolve(migrationInfo)
   }
 
-  const read: SourceEngine['read'] = async ({ filename, extension }) => {
+  const read: SourceEngine['read'] = async (migrationInfo) => {
+    const { filename, extension } = migrationInfo
+
     const migrationFilePath = joinPath(sourceConfig.pathname, filename)
 
     // for TS files, synor configuration file needs to be written in TypeScript

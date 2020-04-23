@@ -243,7 +243,9 @@ describe('#2 invalid_filename error handling', () => {
     try {
       await engine.open()
     } catch (error) {
+      // eslint-disable-next-line jest/no-try-expect
       expect(error).toBeInstanceOf(SynorError)
+      // eslint-disable-next-line jest/no-try-expect
       expect(error.type).toMatchInlineSnapshot(`"invalid_filename"`)
     }
   })
