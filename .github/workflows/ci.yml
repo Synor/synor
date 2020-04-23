@@ -1,0 +1,36 @@
+name: Synor CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ci:
+    runs-on: ubuntu-18.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Checkout
+        run: ./scripts/ci/checkout.sh
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Bootstrap
+        run: |
+          yarn
+          yarn lerna bootstrap
+      - name: Detect Changes
+        run: ./scripts/ci/changed.sh
+      - name: Build
+        if: env.CHANGED_PROJECT_COUNT > 0
+        run: yarn --silent lerna run build --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
+      - name: Test
+        if: env.CHANGED_PROJECT_COUNT > 0
+        run: yarn --silent lerna run test --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
