@@ -1,6 +1,5 @@
 [![Synor Database](https://img.shields.io/badge/synor-database-blue?style=for-the-badge)](https://github.com/Synor)
 [![Version](https://img.shields.io/npm/v/@synor/database-postgresql?style=for-the-badge)](https://npmjs.org/package/@synor/database-postgresql)
-[![Test](https://img.shields.io/travis/com/Synor/database-postgresql/master?label=Test&style=for-the-badge)](https://travis-ci.com/Synor/database-postgresql)
 [![Coverage](https://img.shields.io/codecov/c/gh/Synor/database-postgresql/master?style=for-the-badge)](https://codecov.io/gh/Synor/database-postgresql)
 [![License](https://img.shields.io/npm/l/@synor/database-postgresql?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/database-postgresql/blob/master/LICENSE)
 
