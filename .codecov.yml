@@ -1,0 +1,25 @@
+flags:
+  core:
+    paths:
+      - packages/core
+    carryforward: true
+  database_mongodb:
+    paths:
+      - packages/database-mongodb
+    carryforward: true
+  database_mysql:
+    paths:
+      - packages/database-mysql
+    carryforward: true
+  database_postgresql:
+    paths:
+      - packages/database-postgresql
+    carryforward: true
+  database_sqlite:
+    paths:
+      - packages/database-sqlite
+    carryforward: true
+  source_file:
+    paths:
+      - packages/source-file
+    carryforward: true

@@ -30,7 +30,14 @@ jobs:
         run: ./scripts/ci/changed.sh
       - name: Build
         if: env.CHANGED_PROJECT_COUNT > 0
-        run: yarn --silent lerna run build --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
+        run: yarn --silent run -- lerna run build --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
       - name: Test
         if: env.CHANGED_PROJECT_COUNT > 0
-        run: yarn --silent lerna run test --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
+        run: yarn --silent run -- lerna run test --loglevel=warn --since ${LAST_SUCCESSFUL_SHA} --parallel -- --ci --coverage
+      - name: Upload coverage to Codecov
+        continue-on-error: true
+        if: env.CHANGED_PROJECT_COUNT > 0
+        run: |
+          curl --silent --location "https://codecov.io/bash" --output "/tmp/codecov.sh"
+          chmod u+x "/tmp/codecov.sh"
+          yarn --silent run -- lerna exec --loglevel=warn --parallel -- '${LERNA_ROOT_PATH}/scripts/lerna/codecov-for-package.sh'
