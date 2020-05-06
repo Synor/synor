@@ -1,6 +1,6 @@
 [![Synor Source](https://img.shields.io/badge/synor-source-blue?style=for-the-badge)](https://github.com/Synor)
 [![Version](https://img.shields.io/npm/v/@synor/source-file?style=for-the-badge)](https://npmjs.org/package/@synor/source-file)
-[![Coverage](https://img.shields.io/codecov/c/gh/Synor/source-file/master?style=for-the-badge)](https://codecov.io/gh/Synor/source-file)
+[![Coverage](https://img.shields.io/codecov/c/gh/Synor/synor/master?flag=source_file&style=for-the-badge)](https://codecov.io/gh/Synor/synor/tree/master/packages/source-file)
 [![License](https://img.shields.io/npm/l/@synor/source-file?style=for-the-badge)](https://github.com/Synor/synor/blob/master/packages/source-file/blob/master/LICENSE)
 
 # Synor Source File
