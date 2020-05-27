@@ -69,10 +69,10 @@
     "directory": "packages/cli"
   },
   "scripts": {
+    "lint": "eslint . --ext .ts --config .eslintrc.js",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && npm run readme",
     "postpack": "rm -f oclif.manifest.json",
     "test": "echo NO TESTS",
-    "posttest": "eslint . --ext .ts --config .eslintrc.js",
     "readme": "oclif-dev readme",
     "preversion": "npm run readme && git add README.md"
   },
