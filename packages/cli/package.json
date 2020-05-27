@@ -15,6 +15,7 @@
     "@oclif/plugin-help": "^2",
     "cli-ux": "^5.4.5",
     "lodash.defaultsdeep": "^4.6.1",
+    "oclif-plugin-completion": "^0.1.0",
     "tslib": "^1.11.1"
   },
   "devDependencies": {
@@ -57,6 +58,7 @@
     "commands": "./lib/commands",
     "bin": "synor",
     "plugins": [
+      "oclif-plugin-completion",
       "@oclif/plugin-help"
     ],
     "repositoryPrefix": "<%- repo %>/blob/@synor/cli@<%- version %>/packages/cli/<%- commandPath %>"

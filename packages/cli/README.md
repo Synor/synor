@@ -13,7 +13,7 @@ CLI for Synor - Database Schema Migration Tool
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Commands](#commands)
-  <!-- tocstop -->
+<!-- tocstop -->
 
 # Installation
 
@@ -84,6 +84,8 @@ module.exports = {
 
 <!-- commands -->
 
+- [`synor completion`](#synor-completion)
+- [`synor completion:generate`](#synor-completiongenerate)
 - [`synor current`](#synor-current)
 - [`synor drop`](#synor-drop)
 - [`synor help [COMMAND]`](#synor-help-command)
@@ -91,6 +93,40 @@ module.exports = {
 - [`synor migrate [TARGETVERSION]`](#synor-migrate-targetversion)
 - [`synor repair`](#synor-repair)
 - [`synor validate`](#synor-validate)
+
+## `synor completion`
+
+completion plugin
+
+```
+USAGE
+  $ synor completion
+
+OPTIONS
+  -s, --shell=zsh  (required) Name of shell
+
+EXAMPLE
+  $ synor completion --shell zsh
+```
+
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.1.0/src/commands/completion/index.ts)_
+
+## `synor completion:generate`
+
+generates completion script
+
+```
+USAGE
+  $ synor completion:generate
+
+OPTIONS
+  -s, --shell=zsh  (required) Name of shell
+
+EXAMPLE
+  $ synor completion:generate --shell zsh
+```
+
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.1.0/src/commands/completion/generate.ts)_
 
 ## `synor current`
 
