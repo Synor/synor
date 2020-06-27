@@ -103,13 +103,13 @@ USAGE
   $ synor completion
 
 OPTIONS
-  -s, --shell=zsh  (required) Name of shell
+  -s, --shell=bash|fish|zsh  (required) Name of shell
 
 EXAMPLE
   $ synor completion --shell zsh
 ```
 
-_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.1.0/src/commands/completion/index.ts)_
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.0/src/commands/completion/index.ts)_
 
 ## `synor completion:generate`
 
@@ -120,13 +120,13 @@ USAGE
   $ synor completion:generate
 
 OPTIONS
-  -s, --shell=zsh  (required) Name of shell
+  -s, --shell=bash|fish|zsh  (required) Name of shell
 
 EXAMPLE
   $ synor completion:generate --shell zsh
 ```
 
-_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.1.0/src/commands/completion/generate.ts)_
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.0/src/commands/completion/generate.ts)_
 
 ## `synor current`
 

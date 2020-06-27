@@ -8903,10 +8903,10 @@ object.values@^1.1.0:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-oclif-plugin-completion@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/oclif-plugin-completion/-/oclif-plugin-completion-0.1.0.tgz#dc73f335472b39286e95cf461b4ce616ac6abbc5"
-  integrity sha512-yPp78+EhBb7M0YKQPYjbAy3JP6VGA35kj3280PW5Am+n5qvypQTUV8RUbGZ8cBJWHV77020XJzukU35hbbr5hw==
+oclif-plugin-completion@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/oclif-plugin-completion/-/oclif-plugin-completion-0.3.0.tgz#c30f47b50ca60b66fe0a42539ba677507ba2eace"
+  integrity sha512-ED2mzZ82+kvdtGoZCD7kduq2zpIwG1z/6+7vWB2hYn0IQcE5u4TlR0dW0muzIUI/97CcjmK/C0UooReCuZvr/A==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
