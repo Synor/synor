@@ -1,6 +1,6 @@
 {
   "name": "@synor/database-mongodb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Synor Database Engine - MongoDB",
   "keywords": [
     "synor",
@@ -40,7 +40,7 @@
     "mongodb": "^3.5.4"
   },
   "devDependencies": {
-    "@synor/core": "^0.9.3",
+    "@synor/core": "^0.9.4",
     "@types/mongodb": "^3.5.2"
   },
   "peerDependencies": {

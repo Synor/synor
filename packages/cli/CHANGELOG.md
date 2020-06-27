@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.0](https://github.com/Synor/synor/compare/@synor/cli@0.7.0...@synor/cli@0.8.0) (2020-06-27)
+
+
+### Features
+
+* **cli:** add shell completion support for bash & fish ([8b5d03a](https://github.com/Synor/synor/commit/8b5d03a2bc08a6f189e73b51587ca724e9a0d53c))
+* **cli:** add shell completion support for zsh ([9d9a0a0](https://github.com/Synor/synor/commit/9d9a0a034f77e61b3bc2966e425ee73fe1d4d7a1))
+
+
+### Bug Fixes
+
+* **cli:** fix return type for function: readConfigFile ([82cc9bb](https://github.com/Synor/synor/commit/82cc9bb6444365b12c8526ca620d79971f730a7a))
+
+
+
 ## [0.7.0](https://github.com/Synor/synor/compare/@synor/cli@0.6.0...@synor/cli@0.7.0) (2020-03-07)
 
 **Note:** Version bump only for package @synor/cli

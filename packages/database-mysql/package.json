@@ -1,6 +1,6 @@
 {
   "name": "@synor/database-mysql",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Synor Database Engine - MySQL",
   "keywords": [
     "synor",
@@ -37,7 +37,7 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "@synor/core": "^0.9.0",
+    "@synor/core": "^0.9.4",
     "@types/mysql": "^2.15.8"
   },
   "peerDependencies": {
