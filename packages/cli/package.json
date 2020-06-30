@@ -74,7 +74,8 @@
     "postpack": "rm -f oclif.manifest.json",
     "test": "echo NO TESTS",
     "readme": "oclif-dev readme",
-    "preversion": "npm run readme && git add README.md"
+    "postreadme": "git add README.md",
+    "version": "npm run readme"
   },
   "types": "lib/index.d.ts",
   "publishConfig": {
