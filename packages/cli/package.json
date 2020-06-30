@@ -8,14 +8,14 @@
   },
   "bugs": "https://github.com/Synor/synor/issues",
   "dependencies": {
-    "@oclif/color": "^0.1.0",
+    "@oclif/color": "^0.1.2",
     "@oclif/command": "^1",
     "@oclif/config": "^1.14.0",
     "@oclif/errors": "^1.2.2",
     "@oclif/plugin-help": "^2",
     "cli-ux": "^5.4.5",
     "lodash.defaultsdeep": "^4.6.1",
-    "oclif-plugin-completion": "^0.3.0",
+    "oclif-plugin-completion": "^0.3.1",
     "tslib": "^1.11.1"
   },
   "devDependencies": {
