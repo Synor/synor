@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.1.1...@synor/database-mongodb@0.2.0) (2020-11-17)
+
+
+### Features
+
+* **database-mongodb:** move 'mongodb' to peerDependencies ([b054c45](https://github.com/Synor/synor/commit/b054c45b7e3613296cefa45afbbbb9294ed3a741))
+
+
+### Bug Fixes
+
+* **database-mongodb:** useUnifiedTopology with MongoClient.connect ([9cba8c7](https://github.com/Synor/synor/commit/9cba8c7747bd6bf882731082d6772336ee568879))
+
+
+
 ### [0.1.1](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.1.0...@synor/database-mongodb@0.1.1) (2020-06-27)
 
 **Note:** Version bump only for package @synor/database-mongodb

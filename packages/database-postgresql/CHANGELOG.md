@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.0](https://github.com/Synor/synor/compare/@synor/database-postgresql@0.4.2...@synor/database-postgresql@0.5.0) (2020-11-17)
+
+
+### Features
+
+* **database-postgresql:** move 'pg' to peerDependencies ([763dcbd](https://github.com/Synor/synor/commit/763dcbd8cf3bd303c4f3cdf4e7c22eec56ee75ec))
+
+
+
 ### [0.4.2](https://github.com/Synor/synor/compare/@synor/database-postgresql@0.4.1...@synor/database-postgresql@0.4.2) (2020-06-27)
 
 **Note:** Version bump only for package @synor/database-postgresql

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/Synor/synor/compare/@synor/database-sqlite@0.2.1...@synor/database-sqlite@0.3.0) (2020-11-17)
+
+
+### Features
+
+* **database-sqlite:** move 'better-sqlite3' to peerDependencies ([537a37f](https://github.com/Synor/synor/commit/537a37f41ccdd161a00429f4c0e99e2cb3438d27))
+
+
+
 ### [0.2.1](https://github.com/Synor/synor/compare/@synor/database-sqlite@0.2.0...@synor/database-sqlite@0.2.1) (2020-06-27)
 
 **Note:** Version bump only for package @synor/database-sqlite

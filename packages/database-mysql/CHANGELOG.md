@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.0](https://github.com/Synor/synor/compare/@synor/database-mysql@0.5.1...@synor/database-mysql@0.6.0) (2020-11-17)
+
+
+### Features
+
+* **database-mysql:** move 'mysql' to peerDependencies ([a776eb2](https://github.com/Synor/synor/commit/a776eb227ab1a7e9fbdc1e1576a7ad344e0303c8))
+
+
+
 ### [0.5.1](https://github.com/Synor/synor/compare/@synor/database-mysql@0.5.0...@synor/database-mysql@0.5.1) (2020-06-27)
 
 **Note:** Version bump only for package @synor/database-mysql
