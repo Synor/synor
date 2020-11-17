@@ -151,7 +151,7 @@ function set_env {
   require_not_null "name is missing" "${name}"
   require_not_null "value is missing" "${value}"
   export "${name}"="${value}"
-  echo "::set-env name=${name}::${value}"
+  echo "${name}=${value}" >> "${GITHUB_ENV}"
 }
 ##
 # Main
