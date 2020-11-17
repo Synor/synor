@@ -11,10 +11,10 @@ Synor Database Engine - SQLite
 
 ```sh
 # using yarn:
-yarn add @synor/database-sqlite
+yarn add @synor/database-sqlite better-sqlite3
 
 # using npm:
-npm install --save @synor/database-sqlite
+npm install --save @synor/database-sqlite better-sqlite3
 ```
 
 ## URI

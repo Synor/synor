@@ -2628,10 +2628,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/better-sqlite3@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-5.4.0.tgz#ab7336ccc2e31bd88247016c675cfcb01df99787"
-  integrity sha512-nzm7lJ7l3jBmGUbtkL8cdOMhPkN6Pw2IM+b0V7iIKba+YKiLrjkIy7vVLsBIVnd7+lgzBzrHsXZxCaFTcmw5Ow==
+"@types/better-sqlite3@^5":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-5.4.1.tgz#d45600bc19f8f41397263d037ca9b0d05df85e58"
+  integrity sha512-8hje3Rhsg/9veTkALfCwiWn7VMrP1QDwHhBSgerttYPABEvrHsMQnU9dlqoM6QX3x4uw3Y06dDVz8uDQo1J4Ng==
   dependencies:
     "@types/integer" "*"
 
@@ -3381,7 +3381,7 @@ before-after-hook@^2.0.0:
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-2.1.0.tgz#b6c03487f44e24200dd30ca5e6a1979c5d2fb635"
   integrity sha512-IWIbu7pMqyw3EAJHzzHbWa85b6oud/yfKYg5rqB5hNE8CeMi3nX+2C2sj0HswfblST86hpVEOAb9x34NZd6P7A==
 
-better-sqlite3@^6.0.1:
+better-sqlite3@^6:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/better-sqlite3/-/better-sqlite3-6.0.1.tgz#391f827c119fbc4e92b1d4969c558f07c17c5c15"
   integrity sha512-4aV1zEknM9g1a6B0mVBx1oIlmYioEJ8gSS3J6EpN1b1bKYEE+N5lmpmXHKNKTi0qjHziSd7XrXwHl1kpqvEcHQ==
