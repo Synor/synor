@@ -66,14 +66,14 @@ const ascMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationRecord({ id: 6, version: '03', type: 'do' }),
   getMigrationRecord({ id: 7, version: '03', type: 'undo' }),
   getMigrationRecord({ id: 8, version: '03', type: 'do' }),
-  getMigrationSource({ version: '04', type: 'do' }),
   getMigrationSource({ version: '04', type: 'undo' }),
+  getMigrationSource({ version: '04', type: 'do' }),
   getMigrationSource({ version: '05', type: 'do' }),
 ]
 const descMigrations: Array<MigrationRecord | MigrationSource> = [
   getMigrationSource({ version: '05', type: 'do' }),
-  getMigrationSource({ version: '04', type: 'do' }),
   getMigrationSource({ version: '04', type: 'undo' }),
+  getMigrationSource({ version: '04', type: 'do' }),
   getMigrationRecord({ id: 8, version: '03', type: 'do' }),
   getMigrationRecord({ id: 7, version: '03', type: 'undo' }),
   getMigrationRecord({ id: 6, version: '03', type: 'do' }),
