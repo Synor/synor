@@ -30,7 +30,7 @@ jobs:
         run: ./scripts/ci/changed.sh
       - name: Build
         if: env.CHANGED_PROJECT_COUNT > 0
-        run: yarn --silent run -- lerna run build --loglevel=warn --since ${LAST_SUCCESSFUL_SHA}
+        run: yarn --silent run -- lerna run build --loglevel=warn --since ${LAST_SUCCESSFUL_SHA} --include-dependencies
       - name: Test
         if: env.CHANGED_PROJECT_COUNT > 0
         run: yarn --silent run -- lerna run test --loglevel=warn --since ${LAST_SUCCESSFUL_SHA} --parallel -- --ci --coverage
