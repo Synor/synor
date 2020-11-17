@@ -11,10 +11,10 @@ Synor Database Engine - MongoDB
 
 ```sh
 # using yarn:
-yarn add @synor/database-mongodb
+yarn add @synor/database-mongodb mongodb
 
 # using npm:
-npm install --save @synor/database-mongodb
+npm install --save @synor/database-mongodb mongodb
 ```
 
 ## URI
