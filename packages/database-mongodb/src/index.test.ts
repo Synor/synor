@@ -148,7 +148,10 @@ describe('methods: {open,close}', () => {
   let engine: ReturnType<typeof MongoDBDatabaseEngine>
 
   beforeAll(async () => {
-    client = await MongoClient.connect(uri)
+    client = await MongoClient.connect(uri, {
+      poolSize: 1,
+      useUnifiedTopology: true,
+    })
     db = client.db(databaseName)
 
     const collectionNames = await getCollectionNames(db)
@@ -306,7 +309,10 @@ describe('methods', () => {
       }
     } as typeof global.Date
 
-    client = await MongoClient.connect(uri)
+    client = await MongoClient.connect(uri, {
+      poolSize: 1,
+      useUnifiedTopology: true,
+    })
     db = client.db(databaseName)
 
     const collectionNames = await getCollectionNames(db)

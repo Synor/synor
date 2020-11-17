@@ -48,6 +48,7 @@ export const MongoDBDatabaseEngine: DatabaseEngineFactory = (
     client = await MongoClient.connect(uri, {
       appname: databaseConfig.appname,
       poolSize: 1,
+      useUnifiedTopology: true,
     })
     db = client.db(databaseConfig.database)
 
