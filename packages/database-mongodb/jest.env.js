@@ -9,7 +9,10 @@ const uri = `mongodb://${user}:${password}@127.0.0.1:27017`
 const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const connectToMongoDB = async () => {
-  const client = await MongoClient.connect(uri, { poolSize: 1 })
+  const client = await MongoClient.connect(uri, {
+    poolSize: 1,
+    useUnifiedTopology: true,
+  })
   const db = client.db(database)
   return { client, db }
 }
