@@ -11,10 +11,10 @@ Synor Database Engine - PostgreSQL
 
 ```sh
 # using yarn:
-yarn add @synor/database-postgresql
+yarn add @synor/database-postgresql pg
 
 # using npm:
-npm install --save @synor/database-postgresql
+npm install --save @synor/database-postgresql pg
 ```
 
 ## URI
