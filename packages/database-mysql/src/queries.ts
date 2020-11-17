@@ -62,7 +62,7 @@ export function getQueryStore(
   )
 
   const closeConnection = promisify<void>((callback) =>
-    connection.end(callback)
+    connection.end((err) => callback(err))
   )
 
   const QueryRunner = <RawResult = any, Result = RawResult>(
