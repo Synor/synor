@@ -20,24 +20,19 @@ export function getConfig(
   engineConfig: MongoDBEngineConfig
 } {
   try {
-    const {
-      protocol: parsedProtocol,
-      hostname: host,
-      path,
-      params,
-    } = new ConnectionString(uri, {
-      params: {
-        appname: '@synor/database-mongodb',
-        synor_migration_record_collection: 'synor_migration_record',
-      },
-    })
+    const { protocol, hostname: host, path, params } = new ConnectionString(
+      uri,
+      {
+        params: {
+          appname: '@synor/database-mongodb',
+          synor_migration_record_collection: 'synor_migration_record',
+        },
+      }
+    )
 
-    if (!parsedProtocol) {
+    if (!protocol) {
       throw new Error(`[URI] missing: protocol!`)
     }
-
-    // `ConnectionString` replaces `+` in protocol with ` `
-    const protocol = parsedProtocol.replace(' ', '+')
 
     if (!validProtocol.includes(protocol)) {
       throw new Error(`[URI] unsupported: protocol(${protocol})!`)
