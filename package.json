@@ -2,8 +2,7 @@
   "private": true,
   "homepage": "https://github.com/Synor/synor",
   "scripts": {
-    "cz": "npx git-cz",
-    "postinstall": "patch-package"
+    "cz": "npx git-cz"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
@@ -33,7 +32,6 @@
     "jest": "^26.1.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
-    "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.0",
