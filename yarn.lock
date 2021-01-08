@@ -4151,10 +4151,15 @@ config-chain@^1.1.11:
     ini "^1.3.4"
     proto-list "~1.2.1"
 
-connection-string@^3.1.1, connection-string@^3.1.3:
+connection-string@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/connection-string/-/connection-string-3.2.0.tgz#e8c49ee12a38157d6c731b6a7867a86130155820"
   integrity sha512-7dV1nTLdhemVGL5vR/9CGzOtwPbpejmfHtj8bl2+hOE3cICjOhZRv+UCOkA3p+mjgtrjp4aQqQ74ZmjzGuqI9Q==
+
+connection-string@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/connection-string/-/connection-string-4.3.2.tgz#e8d26d3f44e5e61ee2f9ce912125eae8abcaa630"
+  integrity sha512-t5prDovbYDHeYbdpwRLrEXkFQwqcL04YnfH9Fzisv2yRovPvHE80jMlIybpwKhUlz+MRuOSD2q3+DEaMlNIg9g==
 
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
