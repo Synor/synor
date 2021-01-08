@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.2.0...@synor/database-mongodb@0.3.0) (2021-01-08)
+
+
+### Features
+
+* **database-mongodb:** update utils/get-config ([6228d2f](https://github.com/Synor/synor/commit/6228d2f7185271fc603f695fc7c9c4def71c6886)), closes [#9](https://github.com/Synor/synor/issues/9)
+
+
+
 ## [0.2.0](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.1.1...@synor/database-mongodb@0.2.0) (2020-11-17)
 
 
