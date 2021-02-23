@@ -47,6 +47,12 @@ export default abstract class extends Command {
       description: 'Migration Record Start ID',
       env: 'SYNOR_RECORD_START_ID',
     }),
+    ignoreLocalMissing: flags.boolean({
+      char: 'L',
+      description:
+        'If provided, will not throw error for migration records with missing files.',
+      env: 'SYNOR_IGNORE_LOCAL_MISSING',
+    }),
   }
 
   async init() {
@@ -60,6 +66,7 @@ export default abstract class extends Command {
       sourceUri: flags.sourceUri,
       baseVersion: flags.baseVersion,
       recordStartId: flags.recordStartId,
+      ignoreLocalMissing: Boolean(flags.ignoreLocalMissing),
     })
 
     if (this.config.debug) {
