@@ -261,7 +261,7 @@ export class SynorMigrator extends EventEmitter {
    * Validates the records for migrations that are currently applied.
    */
   validate = async (): Promise<void> => {
-    const { baseVersion, recordStartId } = this.config
+    const { baseVersion, recordStartId, ignoreLocalMissing } = this.config
     const recordInfos = await getMigrationRecordInfos(
       this.database,
       baseVersion,
@@ -278,7 +278,7 @@ export class SynorMigrator extends EventEmitter {
         record.version,
         record.type
       )
-      if (!migration) {
+      if (!migration && !ignoreLocalMissing) {
         throw new SynorError(
           `Missing Migration Source => Version(${record.version}) Type(${record.type}) Title(${record.title})`,
           'not_found',

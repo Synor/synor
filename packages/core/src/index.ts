@@ -73,6 +73,13 @@ export type SynorConfig = {
   migrationInfoParser: MigrationInfoParser
   getAdvisoryLockId: GetAdvisoryLockId
   getUserInfo: GetUserInfo
+
+  /**
+   * If this is true, then synor will not throw an error if there is a missing migration file
+   * (If the migration record exists in db but not in local filesystem)
+   * By default false
+   */
+  ignoreLocalMissing: boolean
 }
 
 const defaultConfig: Partial<SynorConfig> = {
@@ -86,6 +93,7 @@ const defaultConfig: Partial<SynorConfig> = {
   },
   getAdvisoryLockId,
   getUserInfo: getGitUserInfo,
+  ignoreLocalMissing: false,
 }
 
 export function Synor(synorConfig: Partial<SynorConfig>): Synor {
