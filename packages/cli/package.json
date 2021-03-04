@@ -69,12 +69,15 @@
     "directory": "packages/cli"
   },
   "scripts": {
+    "prebuild": "npm run clean",
+    "build": "tsc -b",
+    "clean": "rimraf lib/*",
     "lint": "eslint . --ext .ts --config .eslintrc.js",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && npm run readme",
+    "prepack": "npm run build && oclif-dev manifest && npm run readme",
     "postpack": "rm -f oclif.manifest.json",
     "test": "echo NO TESTS",
     "readme": "oclif-dev readme",
-    "postreadme": "git add README.md",
+    "postreadme": "prettier --write README.md && git add README.md",
     "version": "npm run readme"
   },
   "types": "lib/index.d.ts",
