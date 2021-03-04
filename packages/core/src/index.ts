@@ -31,6 +31,7 @@ type SourceEngine = import('./source').SourceEngine
 type SourceEngineFactory = import('./source').SourceEngineFactory
 
 type Synor = {
+  config: SynorConfig
   database: DatabaseEngine
   migrator: SynorMigrator
   source: SourceEngine
@@ -109,6 +110,7 @@ export function Synor(synorConfig: Partial<SynorConfig>): Synor {
   const migrator = new SynorMigrator(config, { database, source })
 
   return {
+    config,
     database,
     migrator,
     source,
