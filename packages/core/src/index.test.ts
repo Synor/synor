@@ -1,16 +1,21 @@
-import { Synor, SynorError, getGitUserInfo, sortVersions } from './index'
+import { SynorDatabase } from './database'
+import { getGitUserInfo, sortVersions, Synor, SynorError } from './index'
 import { getMigrationInfoParser } from './migration'
+import { SynorMigrator } from './migrator'
+import { SynorSource } from './source'
 
-jest.mock('./migrator', () => {
-  return {
-    SynorMigrator: function () {
-      return 'migrator'
-    },
-  }
-})
+const database = jest.fn()
+jest.mock('./database', () => ({
+  SynorDatabase: jest.fn(() => database),
+}))
 
 jest.mock('./migration', () => ({
   getMigrationInfoParser: jest.fn(),
+}))
+
+const source = jest.fn()
+jest.mock('./source', () => ({
+  SynorSource: jest.fn(() => source),
 }))
 
 const migrationInfoNotation = {}
@@ -29,12 +34,17 @@ describe('Synor', () => {
   })
 
   test('can be initialized', () => {
-    const synor = Synor({ migrationInfoParser } as any)
-    expect(synor).toMatchInlineSnapshot(`
-      Object {
-        "migrator": SynorMigrator {},
-      }
-    `)
+    const config = { migrationInfoParser } as any
+
+    const synor = Synor(config)
+
+    expect(SynorDatabase).toBeCalledWith(config)
+    expect(synor.database).toBe(database)
+
+    expect(synor.migrator).toBeInstanceOf(SynorMigrator)
+
+    expect(SynorSource).toBeCalledWith(config)
+    expect(synor.source).toBe(source)
   })
 
   test('sets migrationInfoParser if not provided', () => {
