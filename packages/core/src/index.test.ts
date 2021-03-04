@@ -38,6 +38,22 @@ describe('Synor', () => {
 
     const synor = Synor(config)
 
+    expect(synor.config).toMatchInlineSnapshot(`
+      Object {
+        "baseVersion": "0",
+        "getAdvisoryLockId": [Function],
+        "getUserInfo": [Function],
+        "migrationInfoNotation": Object {
+          "do": "do",
+          "extension": ".+",
+          "separator": ".",
+          "undo": "undo",
+        },
+        "migrationInfoParser": [MockFunction],
+        "recordStartId": 0,
+      }
+    `)
+
     expect(SynorDatabase).toBeCalledWith(config)
     expect(synor.database).toBe(database)
 
