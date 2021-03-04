@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.3.1](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.3.0...@synor/database-mongodb@0.3.1) (2021-03-04)
+
+**Note:** Version bump only for package @synor/database-mongodb
+
+
+
+
+
 ## [0.3.0](https://github.com/Synor/synor/compare/@synor/database-mongodb@0.2.0...@synor/database-mongodb@0.3.0) (2021-01-08)
 
 

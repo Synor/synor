@@ -109,7 +109,7 @@ EXAMPLE
   $ synor completion --shell zsh
 ```
 
-_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.1/src/commands/completion/index.ts)_
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.2/src/commands/completion/index.ts)_
 
 ## `synor completion:generate`
 
@@ -126,7 +126,7 @@ EXAMPLE
   $ synor completion:generate --shell zsh
 ```
 
-_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.1/src/commands/completion/generate.ts)_
+_See code: [oclif-plugin-completion](https://github.com/MunifTanjim/oclif-plugin-completion/blob/0.3.2/src/commands/completion/generate.ts)_
 
 ## `synor current`
 
@@ -155,7 +155,7 @@ EXAMPLES
   $ synor current --no-header --columns version
 ```
 
-_See code: [src/commands/current.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/current.ts)_
+_See code: [src/commands/current.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/current.ts)_
 
 ## `synor drop`
 
@@ -183,7 +183,7 @@ EXAMPLE
   $ synor drop
 ```
 
-_See code: [src/commands/drop.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/drop.ts)_
+_See code: [src/commands/drop.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/drop.ts)_
 
 ## `synor help [COMMAND]`
 
@@ -233,7 +233,7 @@ EXAMPLES
   $ synor info --no-header --columns version --filter state=pending
 ```
 
-_See code: [src/commands/info.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/info.ts)_
 
 ## `synor migrate [TARGETVERSION]`
 
@@ -267,7 +267,7 @@ EXAMPLES
   $ synor migrate 42 --outOfOrder
 ```
 
-_See code: [src/commands/migrate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/migrate.ts)_
+_See code: [src/commands/migrate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/migrate.ts)_
 
 ## `synor repair`
 
@@ -294,7 +294,7 @@ EXAMPLE
   $ synor repair
 ```
 
-_See code: [src/commands/repair.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/repair.ts)_
+_See code: [src/commands/repair.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/repair.ts)_
 
 ## `synor validate`
 
@@ -321,6 +321,6 @@ EXAMPLE
   $ synor validate
 ```
 
-_See code: [src/commands/validate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.8.1/packages/cli/src/commands/validate.ts)_
+_See code: [src/commands/validate.ts](https://github.com/Synor/synor/blob/@synor/cli@0.9.0/packages/cli/src/commands/validate.ts)_
 
 <!-- commandsstop -->

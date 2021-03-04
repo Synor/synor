@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.0](https://github.com/Synor/synor/compare/@synor/core@0.9.4...@synor/core@0.10.0) (2021-03-04)
+
+
+### Features
+
+* **core:** expose config ([9b184d6](https://github.com/Synor/synor/commit/9b184d6e3613b34ec57326103b447524d09490ed))
+* **core:** expose DatabaseEngine and SourceEngine ([9e96a61](https://github.com/Synor/synor/commit/9e96a618790504652c42efcf44c971d6f0652701))
+
+
+
 ### [0.9.4](https://github.com/Synor/synor/compare/@synor/core@0.9.3...@synor/core@0.9.4) (2020-06-27)
 
 **Note:** Version bump only for package @synor/core

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.0](https://github.com/Synor/synor/compare/@synor/cli@0.8.1...@synor/cli@0.9.0) (2021-03-04)
+
+
+### Features
+
+* **cli:** expose initSynor function ([2f3c141](https://github.com/Synor/synor/commit/2f3c141031fae3388920f27035e70a451ad6bab6))
+
+
+
 ### [0.8.1](https://github.com/Synor/synor/compare/@synor/cli@0.8.0...@synor/cli@0.8.1) (2020-06-30)
 
 **Note:** Version bump only for package @synor/cli

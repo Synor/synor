@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.6.1](https://github.com/Synor/synor/compare/@synor/database-mysql@0.6.0...@synor/database-mysql@0.6.1) (2021-03-04)
+
+**Note:** Version bump only for package @synor/database-mysql
+
+
+
+
+
 ## [0.6.0](https://github.com/Synor/synor/compare/@synor/database-mysql@0.5.1...@synor/database-mysql@0.6.0) (2020-11-17)
 
 
