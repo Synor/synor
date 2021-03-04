@@ -1,7 +1,5 @@
 import { EventEmitter } from 'events'
-import { SynorDatabase } from '../database'
 import { SynorError } from '../error'
-import { SynorSource } from '../source'
 import * as getCurrentRecordModule from './get-current-record'
 import * as getMigrationModule from './get-migration'
 import * as getMigrationRecordInfosModule from './get-migration-record-infos'
@@ -18,21 +16,19 @@ const database = {
   drop: jest.fn(),
   run: jest.fn(),
   repair: jest.fn(),
+  records: jest.fn(),
 }
-
-jest.mock('../database', () => ({
-  SynorDatabase: jest.fn(() => database),
-}))
 
 const source = {
   open: jest.fn(),
   close: jest.fn(),
+  first: jest.fn(),
+  prev: jest.fn(),
+  next: jest.fn(),
   last: jest.fn(),
+  get: jest.fn(),
+  read: jest.fn(),
 }
-
-jest.mock('../source', () => ({
-  SynorSource: jest.fn(() => source),
-}))
 
 jest.mock('./get-migration-record-infos', () => ({
   getMigrationRecordInfos: jest.fn(),
@@ -58,14 +54,17 @@ jest.mock('./validate-migration', () => ({
   validateMigration: jest.fn(),
 }))
 
+const getNewMigrator = (config: any): SynorMigrator => {
+  const migrator = new SynorMigrator(config, { database, source })
+  return migrator
+}
+
 describe('SynorMigrator', () => {
   test('can be initialized', () => {
     const config = {}
 
-    const migrator = new SynorMigrator(config as any)
+    const migrator = getNewMigrator(config)
 
-    expect(SynorDatabase).toBeCalledWith(config)
-    expect(SynorSource).toBeCalledWith(config)
     expect(migrator).toBeInstanceOf(EventEmitter)
   })
 
@@ -73,7 +72,7 @@ describe('SynorMigrator', () => {
     let migrator: SynorMigrator
 
     beforeAll(() => {
-      migrator = new SynorMigrator({ baseVersion: '01' } as any)
+      migrator = getNewMigrator({ baseVersion: '01' })
     })
 
     beforeEach(() => {
@@ -120,7 +119,7 @@ describe('SynorMigrator', () => {
     beforeEach(() => {
       jest.clearAllMocks()
 
-      migrator = new SynorMigrator({} as any)
+      migrator = getNewMigrator({})
     })
 
     test('open', async () => {
@@ -185,7 +184,7 @@ describe('SynorMigrator', () => {
     let migrator: SynorMigrator
 
     beforeAll(() => {
-      migrator = new SynorMigrator({ baseVersion: '01' } as any)
+      migrator = getNewMigrator({ baseVersion: '01' })
     })
 
     beforeEach(async () => {

@@ -1,6 +1,8 @@
 import defaultsDeep from 'lodash.defaultsdeep'
+import { SynorDatabase } from './database'
 import { getMigrationInfoParser } from './migration'
 import { SynorMigrator } from './migrator'
+import { SynorSource } from './source'
 import { getGitUserInfo } from './user-info'
 import { getAdvisoryLockId } from './utils/get-advisory-lock-id'
 
@@ -20,14 +22,18 @@ export { getGitUserInfo, GetUserInfo } from './user-info'
 export { GetAdvisoryLockId } from './utils/get-advisory-lock-id'
 export { sortVersions } from './utils/sort'
 
+type DatabaseEngine = import('./database').DatabaseEngine
 type DatabaseEngineFactory = import('./database').DatabaseEngineFactory
 type GetAdvisoryLockId = import('./utils/get-advisory-lock-id').GetAdvisoryLockId
 type GetUserInfo = import('./user-info').GetUserInfo
 type MigrationInfoParser = import('./migration').MigrationInfoParser
+type SourceEngine = import('./source').SourceEngine
 type SourceEngineFactory = import('./source').SourceEngineFactory
 
 type Synor = {
+  database: DatabaseEngine
   migrator: SynorMigrator
+  source: SourceEngine
 }
 
 export type SynorConfig = {
@@ -97,9 +103,14 @@ export function Synor(synorConfig: Partial<SynorConfig>): Synor {
     )
   }
 
-  const migrator = new SynorMigrator(config)
+  const database = SynorDatabase(config)
+  const source = SynorSource(config)
+
+  const migrator = new SynorMigrator(config, { database, source })
 
   return {
+    database,
     migrator,
+    source,
   }
 }

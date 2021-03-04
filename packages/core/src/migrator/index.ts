@@ -1,7 +1,5 @@
 import { EventEmitter } from 'events'
-import { SynorDatabase } from '../database'
 import { SynorError, toSynorError } from '../error'
-import { SynorSource } from '../source'
 import { sortMigrations } from '../utils/sort'
 import { getCurrentRecord } from './get-current-record'
 import { getMigration } from './get-migration'
@@ -86,14 +84,17 @@ export class SynorMigrator extends EventEmitter {
 
   private locked: boolean
 
-  constructor(config: SynorConfig) {
+  constructor(
+    config: SynorConfig,
+    { database, source }: { database: DatabaseEngine; source: SourceEngine }
+  ) {
     super()
 
     this.setMaxListeners(1)
 
     this.config = config
-    this.database = SynorDatabase(config)
-    this.source = SynorSource(config)
+    this.database = database
+    this.source = source
 
     this.locked = false
 
