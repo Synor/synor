@@ -16,6 +16,7 @@ export {
   MigrationSource,
   MigrationSourceContent,
   MigrationSourceInfo,
+  SynorMigration,
 } from './migration'
 export { SourceEngine, SourceEngineFactory } from './source'
 export { getGitUserInfo, GetUserInfo } from './user-info'
