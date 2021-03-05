@@ -1,6 +1,6 @@
 {
   "name": "@synor/database-postgresql",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Synor Database Engine - PostgreSQL",
   "keywords": [
     "synor",
@@ -38,7 +38,7 @@
     "debug": "^4.1.1"
   },
   "devDependencies": {
-    "@synor/core": "^0.10.0",
+    "@synor/core": "^0.10.1",
     "@types/pg": "^7",
     "pg": "^7"
   },

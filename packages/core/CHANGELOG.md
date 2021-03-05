@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.10.1](https://github.com/Synor/synor/compare/@synor/core@0.10.0...@synor/core@0.10.1) (2021-03-05)
+
+
+### Features
+
+* **core:** export SynorMigration ([b3b987b](https://github.com/Synor/synor/commit/b3b987b0f7174554301e799865f5a12ae68f4cec))
+
+
+
 ## [0.10.0](https://github.com/Synor/synor/compare/@synor/core@0.9.4...@synor/core@0.10.0) (2021-03-04)
 
 
