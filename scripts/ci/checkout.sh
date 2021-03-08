@@ -20,7 +20,7 @@ if [[ $GITHUB_EVENT_NAME == "push" ]]; then
     if [[ ${LAST_SUCCESSFUL_SHA} == "null" ]]; then
       git fetch --unshallow
     else
-      DEPTH=1
+      DEPTH=5
       until git show "${LAST_SUCCESSFUL_SHA}" > /dev/null 2>&1
       do
         DEPTH=$((DEPTH+10))
