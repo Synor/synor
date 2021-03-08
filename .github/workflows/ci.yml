@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 5
       - name: Checkout
         run: ./scripts/ci/checkout.sh
       - name: Setup Node
