@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.9.2](https://github.com/Synor/synor/compare/@synor/cli@0.9.1...@synor/cli@0.9.2) (2021-03-09)
+
+
+### Performance Improvements
+
+* **cli:** improve .ts config file reading performance ([17c5e37](https://github.com/Synor/synor/commit/17c5e37f76749ed47f531352dafa6669c3595595))
+
+
+
 ### [0.9.1](https://github.com/Synor/synor/compare/@synor/cli@0.9.0...@synor/cli@0.9.1) (2021-03-05)
 
 **Note:** Version bump only for package @synor/cli
