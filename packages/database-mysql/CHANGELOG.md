@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.6.3](https://github.com/Synor/synor/compare/@synor/database-mysql@0.6.2...@synor/database-mysql@0.6.3) (2021-04-02)
+
+
+### Bug Fixes
+
+* **database-mysql:** queryStore.getMigrationTableColumnNames for MySQL8 ([3aba2c6](https://github.com/Synor/synor/commit/3aba2c604d1eca184aa678467a2c8ec1ea98e737))
+
+
+
 ### [0.6.2](https://github.com/Synor/synor/compare/@synor/database-mysql@0.6.1...@synor/database-mysql@0.6.2) (2021-03-05)
 
 **Note:** Version bump only for package @synor/database-mysql
