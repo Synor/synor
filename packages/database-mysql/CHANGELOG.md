@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.0](https://github.com/Synor/synor/compare/@synor/database-mysql@0.6.3...@synor/database-mysql@0.7.0) (2022-11-02)
+
+
+### Bug Fixes
+
+* **database-mysql:** mysql8 auth, use driver 'mysql2' ([eed8488](https://github.com/Synor/synor/commit/eed8488c41e604e4ebe5add3b9836886e8b10c86))
+* **database-mysql:** queryStore.getTableNames for MySQL8 ([ec2a050](https://github.com/Synor/synor/commit/ec2a050cdf6d2ff1b8f7bc595606f46887660504))
+
+
+
 ### [0.6.3](https://github.com/Synor/synor/compare/@synor/database-mysql@0.6.2...@synor/database-mysql@0.6.3) (2021-04-02)
 
 
