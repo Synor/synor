@@ -66,7 +66,7 @@ describe('utils:getMySQLConfig', () => {
     ])(`reads ssl.%s file content`, (key, content) => {
       jest
         .spyOn(fs, 'readFileSync')
-        .mockImplementationOnce((v: any) => Buffer.from(`CONTENT:${v}`))
+        .mockImplementationOnce((v) => Buffer.from(`CONTENT:${String(v)}`))
 
       const ssl = { [key]: content }
       uri = `${uri}?ssl=${encodeURIComponent(JSON.stringify(ssl))}`

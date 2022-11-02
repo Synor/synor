@@ -11,10 +11,10 @@ Synor Database Engine - MySQL
 
 ```sh
 # using yarn:
-yarn add @synor/database-mysql mysql
+yarn add @synor/database-mysql mysql2
 
 # using npm:
-npm install --save @synor/database-mysql mysql
+npm install --save @synor/database-mysql mysql2
 ```
 
 ## URI

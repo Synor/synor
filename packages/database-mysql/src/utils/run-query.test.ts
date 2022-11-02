@@ -1,7 +1,7 @@
-import { createConnection } from 'mysql'
+import { createConnection } from 'mysql2'
 import { runQuery } from './run-query'
 
-type Connection = import('mysql').Connection
+type Connection = import('mysql2').Connection
 
 const uri = 'mysql://root:root@127.0.0.1:3306/synor'
 

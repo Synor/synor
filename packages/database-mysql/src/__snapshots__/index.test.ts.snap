@@ -40,7 +40,7 @@ Array [
 
 exports[`methods repair 1`] = `
 Array [
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Synor",
     "dirty": 0,
@@ -51,7 +51,7 @@ Array [
     "type": "do",
     "version": "0",
   },
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Jest",
     "dirty": 0,
@@ -67,7 +67,7 @@ Array [
 
 exports[`methods run (with body) 1`] = `
 Array [
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Synor",
     "dirty": 0,
@@ -78,7 +78,7 @@ Array [
     "type": "do",
     "version": "0",
   },
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Jest",
     "dirty": 0,
@@ -89,7 +89,7 @@ Array [
     "type": "do",
     "version": "01",
   },
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Jest",
     "dirty": 1,
@@ -105,7 +105,7 @@ Array [
 
 exports[`methods run (with run) 1`] = `
 Array [
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Synor",
     "dirty": 0,
@@ -116,7 +116,7 @@ Array [
     "type": "do",
     "version": "0",
   },
-  RowDataPacket {
+  Object {
     "applied_at": 2020-01-01T00:00:00.000Z,
     "applied_by": "Jest",
     "dirty": 0,

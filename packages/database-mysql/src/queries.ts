@@ -3,7 +3,7 @@
 import { promisify } from 'util'
 import { runQuery } from './utils/run-query'
 
-type Connection = import('mysql').Connection
+type Connection = import('mysql2').Connection
 type MigrationRecord = import('@synor/core').MigrationRecord
 type QueryValue = import('./utils/run-query').QueryValue
 
@@ -57,9 +57,7 @@ export function getQueryStore(
     advisoryLockId,
   }: QueryStoreOptions
 ): QueryStore {
-  const openConnection = promisify<void>((callback) =>
-    connection.connect(callback)
-  )
+  const openConnection = async (): Promise<void> => {}
 
   const closeConnection = promisify<void>((callback) =>
     connection.end((err) => callback(err))
