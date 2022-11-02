@@ -1,11 +1,14 @@
 const NodeEnvironment = require('jest-environment-node')
 const { createConnection } = require('mysql2')
 
-const uri = 'mysql://root:root@127.0.0.1:3306/synor'
+const uris = {
+  mysql5: 'mysql://root:root@127.0.0.1:33065/synor',
+  mysql8: 'mysql://root:root@127.0.0.1:33068/synor',
+}
 
 const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const pingMySQL = async () => {
+const pingMySQL = async (uri) => {
   return new Promise((resolve, reject) => {
     const connection = createConnection(uri)
     connection.ping((err) => {
@@ -15,12 +18,12 @@ const pingMySQL = async () => {
   })
 }
 
-async function waitForMySQL() {
+async function waitForMySQL(uri) {
   try {
-    await pingMySQL()
+    await pingMySQL(uri)
   } catch (_) {
     await sleep(1000)
-    return waitForMySQL()
+    return waitForMySQL(uri)
   }
 }
 
@@ -32,7 +35,10 @@ class SynorSourceMySQLTestEnvironment extends NodeEnvironment {
 
   async setup() {
     await super.setup()
-    await waitForMySQL()
+    for (const [name, uri] of Object.entries(uris)) {
+      console.log(`Waiting for ${name}...`)
+      await waitForMySQL(uri)
+    }
   }
 
   async teardown() {
