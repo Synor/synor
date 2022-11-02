@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`utils:runQuery can execute query 1`] = `
+exports[`for mysql5 utils:runQuery can execute query 1`] = `
 Array [
   Object {
     "1": 1,
@@ -8,7 +8,23 @@ Array [
 ]
 `;
 
-exports[`utils:runQuery can substitute values in query 1`] = `
+exports[`for mysql5 utils:runQuery can substitute values in query 1`] = `
+Array [
+  Object {
+    "1": 1,
+  },
+]
+`;
+
+exports[`for mysql8 utils:runQuery can execute query 1`] = `
+Array [
+  Object {
+    "1": 1,
+  },
+]
+`;
+
+exports[`for mysql8 utils:runQuery can substitute values in query 1`] = `
 Array [
   Object {
     "1": 1,

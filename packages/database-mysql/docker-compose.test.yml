@@ -9,4 +9,12 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: synor
     ports:
-      - 3306:3306
+      - 33065:3306
+  mysql8:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: synor
+    ports:
+      - 33068:3306
