@@ -176,7 +176,7 @@ export function getQueryStore(
 
   const getTableNames = QueryRunner<Array<{ table_name: string }>, string[]>(
     `
-      SELECT table_name
+      SELECT table_name as table_name
       FROM information_schema.tables
       WHERE table_schema = ?
     `,
