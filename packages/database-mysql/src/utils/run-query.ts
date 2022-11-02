@@ -1,4 +1,4 @@
-type Connection = import('mysql').Connection
+type Connection = import('mysql2').Connection
 
 export type QueryValue = boolean | number | string | Date
 
@@ -14,7 +14,7 @@ export async function runQuery<T = any>(
         return
       }
 
-      resolve(results)
+      resolve((results as unknown) as T)
     })
   })
 }

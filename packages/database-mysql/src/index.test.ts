@@ -1,8 +1,9 @@
-import { createConnection } from 'mysql'
+import { createConnection } from 'mysql2'
 import MySQLEngine, { MySQLDatabaseEngine } from './index'
+import { getConfig } from './utils/get-config'
 import { runQuery } from './utils/run-query'
 
-type Connection = import('mysql').Connection
+type Connection = import('mysql2').Connection
 
 type GetAdvisoryLockId = import('@synor/core').GetAdvisoryLockId
 type GetUserInfo = import('@synor/core').GetUserInfo
@@ -143,7 +144,9 @@ describe('methods: {open,close}', () => {
   let engine: ReturnType<typeof MySQLDatabaseEngine>
 
   beforeAll(async () => {
-    connection = createConnection(uri)
+    const { databaseConfig } = getConfig(uri)
+
+    connection = createConnection(databaseConfig)
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })
@@ -306,7 +309,9 @@ describe('methods', () => {
       }
     } as typeof global.Date
 
-    connection = createConnection(uri)
+    const { databaseConfig } = getConfig(uri)
+
+    connection = createConnection(databaseConfig)
 
     await runQuery(connection, 'DROP TABLE IF EXISTS ??;', [tableName])
   })

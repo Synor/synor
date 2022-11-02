@@ -2,7 +2,7 @@
 
 exports[`utils:runQuery can execute query 1`] = `
 Array [
-  RowDataPacket {
+  Object {
     "1": 1,
   },
 ]
@@ -10,7 +10,7 @@ Array [
 
 exports[`utils:runQuery can substitute values in query 1`] = `
 Array [
-  RowDataPacket {
+  Object {
     "1": 1,
   },
 ]

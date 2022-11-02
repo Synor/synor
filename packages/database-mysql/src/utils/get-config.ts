@@ -3,13 +3,15 @@ import { ConnectionString } from 'connection-string'
 import { readFileSync } from 'fs'
 import { resolve as resolvePath } from 'path'
 
-type ConnectionConfig = import('mysql').ConnectionConfig
+type ConnectionOptions = import('mysql2').ConnectionOptions
 type TLSConnectionOptions = import('tls').ConnectionOptions
 
 type SSLConfig = Pick<
   TLSConnectionOptions,
-  'ca' | 'cert' | 'ciphers' | 'key' | 'passphrase' | 'rejectUnauthorized'
->
+  'ca' | 'cert' | 'ciphers' | 'passphrase' | 'rejectUnauthorized'
+> & {
+  key?: string
+}
 
 type SSLParams = Pick<
   SSLConfig,
@@ -20,9 +22,9 @@ type SSLParams = Pick<
   cert?: string
 }
 
-type MySQLDatabaseConfig = Required<Pick<ConnectionConfig, 'database'>> &
+type MySQLDatabaseConfig = Required<Pick<ConnectionOptions, 'database'>> &
   Pick<
-    ConnectionConfig,
+    ConnectionOptions,
     'host' | 'port' | 'user' | 'password' | 'multipleStatements' | 'ssl'
   >
 
@@ -59,7 +61,7 @@ export function getConfig(
       throw new Error(`[URI] unsupported: protocol(${protocol})!`)
     }
 
-    const database = path && path[0]
+    const database = path?.[0]
 
     if (!database) {
       throw new Error('[URI] missing: database!')
@@ -86,7 +88,7 @@ export function getConfig(
           ssl.cert = readFileSync(resolvePath(sslParams.cert))
         }
         if (sslParams.key) {
-          ssl.key = readFileSync(resolvePath(sslParams.key))
+          ssl.key = readFileSync(resolvePath(sslParams.key)).toString()
         }
       } catch (_) {
         ssl = sslRaw

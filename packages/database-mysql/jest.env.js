@@ -1,5 +1,5 @@
 const NodeEnvironment = require('jest-environment-node')
-const { createConnection } = require('mysql')
+const { createConnection } = require('mysql2')
 
 const uri = 'mysql://root:root@127.0.0.1:3306/synor'
 

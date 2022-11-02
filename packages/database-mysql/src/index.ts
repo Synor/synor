@@ -1,12 +1,12 @@
 import { SynorError } from '@synor/core'
-import { createConnection } from 'mysql'
+import { createConnection } from 'mysql2'
 import { performance } from 'perf_hooks'
 import { getQueryStore } from './queries'
 import { ensureMigrationRecordTable } from './utils/ensure-migration-record-table'
 import { getConfig } from './utils/get-config'
 import { runQuery } from './utils/run-query'
 
-type Connection = import('mysql').Connection
+type Connection = import('mysql2').Connection
 type DatabaseEngine = import('@synor/core').DatabaseEngine
 type DatabaseEngineFactory = import('@synor/core').DatabaseEngineFactory
 type MigrationSource = import('@synor/core').MigrationSource
